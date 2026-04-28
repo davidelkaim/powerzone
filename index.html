@@ -3,64 +3,59 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>פאוורזון | יבואן ומפיץ משקאות אנרגיה</title>
+<title>AMG Sport & Health | יבואן ומפיץ מוצרי ספורט ובריאות</title>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&display=swap" rel="stylesheet">
 <style>
   :root {
-    --blue:    #00C8FF;
-    --blue-d:  #0084CC;
-    --green:   #00FF88;
-    --green-d: #00CC6A;
-    --pink:    #FF3FA4;
-    --yellow:  #FFE500;
-    --black:   #060608;
-    --dark:    #0e0e12;
-    --dark2:   #141418;
-    --white:   #F0F4FF;
-    --gray:    #6A6A80;
+    --blue:   #00C8FF;
+    --green:  #00FF88;
+    --pink:   #FF3FA4;
+    --yellow: #FFE500;
+    --black:  #060608;
+    --dark:   #0e0e12;
+    --dark2:  #141418;
+    --white:  #F0F4FF;
+    --gray:   #6A6A80;
+    --bt-blue: #0066CC; /* Bluetens brand blue */
   }
 
   * { margin:0; padding:0; box-sizing:border-box; }
   html { scroll-behavior:smooth; }
+  body { font-family:'Heebo',sans-serif; background:var(--black); color:var(--white); overflow-x:hidden; }
 
-  body {
-    font-family:'Heebo', sans-serif;
-    background: var(--black);
-    color: var(--white);
-    overflow-x: hidden;
-  }
+  /* PAGE SYSTEM */
+  .page { display:none; }
+  .page.active { display:block; }
 
-  body::after {
-    content:'';
-    position:fixed; inset:0;
-    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-    pointer-events:none; z-index:9999; opacity:.5;
-  }
-
+  /* NAV */
   nav {
     position:fixed; top:0; left:0; right:0; z-index:200;
     display:flex; justify-content:space-between; align-items:center;
-    padding:18px 60px;
-    transition: background 0.4s;
+    padding:16px 60px;
+    transition:background .4s;
   }
   nav.scrolled {
-    background:rgba(6,6,8,0.96);
+    background:rgba(6,6,8,.96);
     backdrop-filter:blur(16px);
-    border-bottom:1px solid rgba(0,200,255,0.08);
+    border-bottom:1px solid rgba(0,200,255,.08);
   }
 
   .nav-logo {
-    font-size:1.9rem; font-weight:900; letter-spacing:-1px;
-    background: linear-gradient(90deg, var(--blue), var(--green));
-    -webkit-background-clip: text; -webkit-text-fill-color:transparent;
-    filter: drop-shadow(0 0 14px rgba(0,200,255,0.5));
+    display:flex; align-items:center; gap:12px; cursor:pointer;
   }
+  .nav-logo-text {
+    font-size:1.5rem; font-weight:900; letter-spacing:-0.5px;
+    background:linear-gradient(90deg, var(--blue), var(--green));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 0 10px rgba(0,200,255,.4));
+  }
+  .nav-logo-sub { font-size:.65rem; color:var(--gray); letter-spacing:2px; display:block; margin-top:-4px; }
 
-  .nav-links { display:flex; gap:36px; list-style:none; }
+  .nav-links { display:flex; gap:28px; list-style:none; align-items:center; }
   .nav-links a {
     color:var(--gray); text-decoration:none;
-    font-size:0.9rem; letter-spacing:1px; transition:color .3s;
-    position:relative;
+    font-size:.88rem; letter-spacing:1px; transition:color .3s;
+    position:relative; cursor:pointer;
   }
   .nav-links a::after {
     content:''; position:absolute; bottom:-4px; right:0;
@@ -71,717 +66,990 @@
   .nav-links a:hover { color:var(--blue); }
   .nav-links a:hover::after { width:100%; }
 
+  .nav-bt-btn {
+    background:var(--bt-blue);
+    color:#fff !important; padding:8px 20px;
+    font-size:.8rem !important; font-weight:700; letter-spacing:1px;
+    border-radius:2px; transition:all .3s !important;
+    box-shadow:0 0 16px rgba(0,102,204,.3);
+  }
+  .nav-bt-btn::after { display:none !important; }
+  .nav-bt-btn:hover { background:#0052a3 !important; box-shadow:0 4px 20px rgba(0,102,204,.5) !important; transform:translateY(-1px); }
+
+  /* ═══════════════════════════════════
+     PAGE ACCUEIL
+  ═══════════════════════════════════ */
+
   /* HERO */
   .hero {
     min-height:100vh;
     display:grid; grid-template-columns:1fr 1fr;
-    align-items:center;
-    padding:120px 60px 60px;
+    align-items:center; padding:120px 60px 60px;
     position:relative; overflow:hidden;
   }
-
   .hero-bg {
     position:absolute; inset:0;
     background:
-      radial-gradient(ellipse 55% 70% at 0% 60%, rgba(0,200,255,0.09) 0%, transparent 65%),
-      radial-gradient(ellipse 40% 50% at 100% 10%, rgba(0,255,136,0.07) 0%, transparent 60%),
-      radial-gradient(ellipse 30% 40% at 60% 80%, rgba(255,63,164,0.05) 0%, transparent 60%),
+      radial-gradient(ellipse 55% 70% at 0% 60%, rgba(0,200,255,.09) 0%, transparent 65%),
+      radial-gradient(ellipse 40% 50% at 100% 10%, rgba(0,255,136,.07) 0%, transparent 60%),
+      radial-gradient(ellipse 30% 40% at 60% 80%, rgba(255,63,164,.05) 0%, transparent 60%),
       var(--black);
   }
-
   .hero-grid {
     position:absolute; inset:0;
     background-image:
-      linear-gradient(rgba(0,200,255,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,200,255,0.04) 1px, transparent 1px);
+      linear-gradient(rgba(0,200,255,.04) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(0,200,255,.04) 1px,transparent 1px);
     background-size:70px 70px;
     mask-image:radial-gradient(ellipse 80% 90% at 30% 50%, black 20%, transparent 80%);
   }
-
   .hero-content { position:relative; z-index:2; }
 
   .hero-badge {
     display:inline-flex; align-items:center; gap:10px;
-    border:1px solid rgba(0,200,255,0.3);
-    background:rgba(0,200,255,0.06);
+    border:1px solid rgba(0,200,255,.3); background:rgba(0,200,255,.06);
     padding:6px 18px; border-radius:2px;
-    font-size:0.75rem; letter-spacing:3px; color:var(--blue);
-    margin-bottom:28px;
+    font-size:.72rem; letter-spacing:3px; color:var(--blue); margin-bottom:28px;
     animation:fadeDown .8s ease both;
   }
-  .hero-badge .dot {
-    width:6px; height:6px; background:var(--green); border-radius:50%;
-    animation:pulse 1.6s infinite;
-  }
-  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.3;transform:scale(.6)} }
+  .dot { width:6px; height:6px; background:var(--green); border-radius:50%; animation:pulse 1.6s infinite; }
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
 
   .hero h1 {
-    font-size:clamp(3.2rem,7vw,6.5rem);
-    font-weight:900; line-height:.95; letter-spacing:-3px;
-    margin-bottom:24px;
+    font-size:clamp(3rem,6.5vw,6rem); font-weight:900;
+    line-height:.95; letter-spacing:-3px; margin-bottom:20px;
     animation:fadeDown .8s ease .1s both;
   }
-  .c-blue  { color:var(--blue);  text-shadow:0 0 30px rgba(0,200,255,.4); }
-  .c-green { color:var(--green); text-shadow:0 0 30px rgba(0,255,136,.4); }
-  .c-pink  { color:var(--pink);  text-shadow:0 0 30px rgba(255,63,164,.4); }
-  .c-yellow{ color:var(--yellow);text-shadow:0 0 30px rgba(255,229,0,.4); }
+  .c-blue   { color:var(--blue);   text-shadow:0 0 28px rgba(0,200,255,.4); }
+  .c-green  { color:var(--green);  text-shadow:0 0 28px rgba(0,255,136,.4); }
+  .c-pink   { color:var(--pink);   text-shadow:0 0 28px rgba(255,63,164,.4); }
+  .c-yellow { color:var(--yellow); text-shadow:0 0 28px rgba(255,229,0,.4); }
 
-  .hero-sub {
-    font-size:1rem; letter-spacing:4px; font-weight:300;
-    color:var(--gray); margin-bottom:20px;
-    animation:fadeDown .8s ease .2s both;
-  }
-  .hero-desc {
-    font-size:1.05rem; line-height:1.85; color:#8888AA;
-    max-width:480px; margin-bottom:44px;
-    animation:fadeDown .8s ease .3s both;
-  }
-  .hero-ctas { display:flex; gap:18px; animation:fadeDown .8s ease .4s both; }
+  .hero-sub { font-size:.95rem; letter-spacing:4px; color:var(--gray); margin-bottom:16px; animation:fadeDown .8s ease .2s both; }
+  .hero-desc { font-size:1rem; line-height:1.85; color:#8888AA; max-width:460px; margin-bottom:40px; animation:fadeDown .8s ease .3s both; }
+  .hero-ctas { display:flex; gap:16px; flex-wrap:wrap; animation:fadeDown .8s ease .4s both; }
 
   .btn-blue {
-    background:linear-gradient(135deg, var(--blue), var(--blue-d));
-    color:#000; padding:15px 38px;
-    font-size:.95rem; font-weight:900; letter-spacing:1px;
+    background:linear-gradient(135deg,var(--blue),#0084CC);
+    color:#000; padding:14px 34px; font-size:.92rem; font-weight:900;
+    letter-spacing:1px; font-family:'Heebo',sans-serif;
     border:none; cursor:pointer; text-decoration:none; display:inline-block;
-    clip-path:polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+    clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
     transition:all .3s; box-shadow:0 0 20px rgba(0,200,255,.25);
   }
-  .btn-blue:hover { transform:translateY(-3px); box-shadow:0 6px 30px rgba(0,200,255,.45); }
+  .btn-blue:hover { transform:translateY(-3px); box-shadow:0 6px 28px rgba(0,200,255,.45); }
 
   .btn-outline {
     border:1px solid rgba(0,255,136,.35); color:var(--green);
-    padding:15px 38px; font-size:.95rem; letter-spacing:1px;
-    text-decoration:none; display:inline-block; background:transparent;
-    transition:all .3s;
+    padding:14px 34px; font-size:.92rem; letter-spacing:1px; font-family:'Heebo',sans-serif;
+    text-decoration:none; display:inline-block; background:transparent; transition:all .3s; cursor:pointer;
   }
   .btn-outline:hover { background:rgba(0,255,136,.07); border-color:var(--green); }
 
-  .hero-images {
-    position:relative; z-index:2; height:560px;
+  .btn-bt {
+    background:var(--bt-blue); color:#fff;
+    padding:14px 34px; font-size:.92rem; font-weight:700;
+    letter-spacing:1px; font-family:'Heebo',sans-serif;
+    border:none; cursor:pointer; text-decoration:none; display:inline-block;
+    transition:all .3s; box-shadow:0 0 20px rgba(0,102,204,.3);
   }
+  .btn-bt:hover { transform:translateY(-3px); box-shadow:0 6px 28px rgba(0,102,204,.5); background:#0052a3; }
+
+  .hero-images { position:relative; z-index:2; height:540px; }
   .hero-img-main {
     position:absolute; top:0; left:30px; right:0; bottom:60px;
     border-radius:4px; overflow:hidden;
     border:1px solid rgba(0,200,255,.15);
     box-shadow:0 0 40px rgba(0,200,255,.12);
   }
-  .hero-img-main img {
-    width:100%; height:100%; object-fit:cover;
-    transition:transform .8s ease;
-  }
+  .hero-img-main img { width:100%; height:100%; object-fit:cover; transition:transform .8s; }
   .hero-img-main:hover img { transform:scale(1.04); }
   .hero-img-main::after {
     content:''; position:absolute; inset:0;
-    background:linear-gradient(135deg, rgba(0,200,255,.12) 0%, transparent 60%);
+    background:linear-gradient(135deg,rgba(0,200,255,.12),transparent 60%);
   }
   .hero-img-small {
-    position:absolute; bottom:0; left:0;
-    width:160px; height:180px;
-    border-radius:4px; overflow:hidden;
-    border:2px solid var(--green);
-    box-shadow:0 0 24px rgba(0,255,136,.25);
+    position:absolute; bottom:0; left:0; width:155px; height:170px;
+    border-radius:4px; overflow:hidden; border:2px solid var(--green);
+    box-shadow:0 0 22px rgba(0,255,136,.25);
   }
   .hero-img-small img { width:100%; height:100%; object-fit:cover; }
   .hero-stat-badge {
-    position:absolute; top:30px; left:0;
-    background:rgba(6,6,8,.85);
-    border:1px solid rgba(255,229,0,.3);
-    backdrop-filter:blur(10px);
-    padding:14px 20px;
-    min-width:140px; text-align:center;
+    position:absolute; top:24px; left:0;
+    background:rgba(6,6,8,.88); border:1px solid rgba(255,229,0,.3);
+    backdrop-filter:blur(10px); padding:12px 18px; min-width:130px; text-align:center;
   }
-  .hero-stat-badge .n {
-    font-size:2rem; font-weight:900; color:var(--yellow);
-    text-shadow:0 0 16px rgba(255,229,0,.5); display:block;
-  }
-  .hero-stat-badge .l { font-size:.7rem; color:rgba(255,255,255,.4); letter-spacing:1px; }
+  .hero-stat-badge .n { font-size:1.8rem; font-weight:900; color:var(--yellow); text-shadow:0 0 14px rgba(255,229,0,.5); display:block; }
+  .hero-stat-badge .l { font-size:.65rem; color:rgba(255,255,255,.4); letter-spacing:1px; }
 
-  @keyframes fadeDown { from{opacity:0;transform:translateY(-18px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeDown{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:translateY(0)}}
+
+  /* BLUETENS TEASER BANNER */
+  .bt-banner {
+    margin:0 60px 0;
+    background:linear-gradient(135deg, rgba(0,102,204,.15) 0%, rgba(0,200,255,.08) 100%);
+    border:1px solid rgba(0,102,204,.4);
+    padding:28px 40px;
+    display:flex; align-items:center; justify-content:space-between; gap:30px;
+    position:relative; overflow:hidden;
+  }
+  .bt-banner::before {
+    content:''; position:absolute; top:0; right:0;
+    width:4px; height:100%; background:var(--bt-blue);
+  }
+  .bt-banner-left { display:flex; align-items:center; gap:20px; }
+  .bt-badge-5y {
+    background:var(--bt-blue); color:#fff;
+    font-size:.65rem; font-weight:900; letter-spacing:2px;
+    padding:6px 14px; white-space:nowrap;
+  }
+  .bt-banner-text h3 { font-size:1.1rem; font-weight:900; color:var(--white); margin-bottom:4px; }
+  .bt-banner-text p { font-size:.85rem; color:var(--gray); }
+  .bt-banner-text span { color:var(--bt-blue); font-weight:700; }
 
   /* TICKER */
   .ticker-wrap {
-    overflow:hidden; padding:14px 0;
+    overflow:hidden; padding:13px 0; margin-top:0;
     border-top:1px solid rgba(0,200,255,.1);
     border-bottom:1px solid rgba(0,200,255,.1);
     background:rgba(0,200,255,.03);
   }
-  .ticker-track { display:inline-block; animation:ticker 22s linear infinite; white-space:nowrap; }
-  .ticker-item { display:inline-block; padding:0 36px; font-size:.75rem; letter-spacing:3px; font-weight:700; }
+  .ticker-track { display:inline-block; animation:ticker 24s linear infinite; white-space:nowrap; }
+  .ticker-item { display:inline-block; padding:0 34px; font-size:.72rem; letter-spacing:3px; font-weight:700; }
   .ticker-item.blue   { color:var(--blue); }
   .ticker-item.green  { color:var(--green); }
   .ticker-item.pink   { color:var(--pink); }
   .ticker-item.yellow { color:var(--yellow); }
-  .ticker-sep { color:rgba(255,255,255,.1); padding:0 10px; }
-  @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .ticker-item.btblue { color:#4DA6FF; }
+  .ticker-sep { color:rgba(255,255,255,.1); padding:0 8px; }
+  @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
   /* STATS */
   .stats-bar {
-    display:flex; justify-content:space-around;
-    padding:30px 60px;
-    background:var(--dark);
-    border-bottom:1px solid rgba(255,255,255,.04);
+    display:flex; justify-content:space-around; padding:26px 60px;
+    background:var(--dark); border-bottom:1px solid rgba(255,255,255,.04);
   }
   .stat-item { text-align:center; }
-  .stat-num { font-size:2.2rem; font-weight:900; line-height:1; letter-spacing:-1px; }
-  .stat-num.blue   { color:var(--blue);   text-shadow:0 0 20px rgba(0,200,255,.4); }
-  .stat-num.green  { color:var(--green);  text-shadow:0 0 20px rgba(0,255,136,.4); }
-  .stat-num.pink   { color:var(--pink);   text-shadow:0 0 20px rgba(255,63,164,.4); }
-  .stat-num.yellow { color:var(--yellow); text-shadow:0 0 20px rgba(255,229,0,.4); }
-  .stat-label { font-size:.75rem; color:var(--gray); letter-spacing:1px; margin-top:6px; }
+  .stat-num { font-size:2.1rem; font-weight:900; line-height:1; letter-spacing:-1px; }
+  .stat-num.blue   { color:var(--blue);   text-shadow:0 0 18px rgba(0,200,255,.4); }
+  .stat-num.green  { color:var(--green);  text-shadow:0 0 18px rgba(0,255,136,.4); }
+  .stat-num.pink   { color:var(--pink);   text-shadow:0 0 18px rgba(255,63,164,.4); }
+  .stat-num.yellow { color:var(--yellow); text-shadow:0 0 18px rgba(255,229,0,.4); }
+  .stat-num.btblue { color:#4DA6FF;       text-shadow:0 0 18px rgba(0,102,204,.5); }
+  .stat-label { font-size:.72rem; color:var(--gray); letter-spacing:1px; margin-top:5px; }
 
   /* SECTION */
-  section { padding:100px 60px; }
-  .section-tag { display:block; font-size:.72rem; letter-spacing:4px; font-weight:700; margin-bottom:14px; }
+  section { padding:90px 60px; }
+  .section-tag { display:block; font-size:.7rem; letter-spacing:4px; font-weight:700; margin-bottom:12px; }
   .section-tag.blue   { color:var(--blue); }
   .section-tag.green  { color:var(--green); }
   .section-tag.pink   { color:var(--pink); }
   .section-tag.yellow { color:var(--yellow); }
-  .section-title { font-size:clamp(2rem,4vw,3.5rem); font-weight:900; letter-spacing:-2px; line-height:1.05; margin-bottom:16px; }
+  .section-tag.btblue { color:#4DA6FF; }
+  .section-title { font-size:clamp(1.8rem,3.5vw,3.2rem); font-weight:900; letter-spacing:-2px; line-height:1.05; margin-bottom:14px; }
 
   /* PHOTO STRIP */
-  .photo-strip {
-    padding:0 0 0;
-    display:grid; grid-template-columns:1.6fr 1fr 1fr; gap:3px;
-    height:380px;
-  }
+  .photo-strip { display:grid; grid-template-columns:1.6fr 1fr 1fr; gap:3px; height:360px; }
   .photo-strip-item { overflow:hidden; position:relative; cursor:pointer; }
-  .photo-strip-item img {
-    width:100%; height:100%; object-fit:cover;
-    transition:transform .7s ease; filter:saturate(.75);
-  }
+  .photo-strip-item img { width:100%; height:100%; object-fit:cover; transition:transform .7s; filter:saturate(.75); }
   .photo-strip-item:hover img { transform:scale(1.06); filter:saturate(1.1); }
-  .photo-strip-item::before {
-    content:''; position:absolute; inset:0; z-index:1; mix-blend-mode:screen; transition:opacity .4s;
-  }
-  .photo-strip-item.tint-blue::before   { background:rgba(0,200,255,.2); }
-  .photo-strip-item.tint-green::before  { background:rgba(0,255,136,.18); }
-  .photo-strip-item.tint-pink::before   { background:rgba(255,63,164,.18); }
+  .photo-strip-item::before { content:''; position:absolute; inset:0; z-index:1; mix-blend-mode:screen; }
+  .tint-blue::before  { background:rgba(0,200,255,.2); }
+  .tint-green::before { background:rgba(0,255,136,.18); }
+  .tint-pink::before  { background:rgba(255,63,164,.18); }
   .photo-strip-item::after {
     content:''; position:absolute; inset:0; z-index:2;
-    background:linear-gradient(to top, rgba(6,6,8,.65) 0%, transparent 50%);
+    background:linear-gradient(to top,rgba(6,6,8,.65) 0%,transparent 50%);
   }
   .strip-label {
-    position:absolute; bottom:20px; right:20px; z-index:3;
-    font-size:.7rem; letter-spacing:3px; font-weight:700; padding:5px 12px; border:1px solid;
+    position:absolute; bottom:18px; right:18px; z-index:3;
+    font-size:.65rem; letter-spacing:3px; font-weight:700; padding:4px 10px; border:1px solid;
   }
   .tint-blue  .strip-label { color:var(--blue);  border-color:rgba(0,200,255,.4); }
   .tint-green .strip-label { color:var(--green); border-color:rgba(0,255,136,.4); }
   .tint-pink  .strip-label { color:var(--pink);  border-color:rgba(255,63,164,.4); }
 
   /* ABOUT */
-  .about { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+  .about { display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center; }
   .about-img {
     position:relative; border-radius:4px; overflow:hidden;
-    border:1px solid rgba(0,255,136,.12);
-    box-shadow:0 0 50px rgba(0,255,136,.1);
-    height:480px;
+    border:1px solid rgba(0,255,136,.12); box-shadow:0 0 50px rgba(0,255,136,.1); height:460px;
   }
   .about-img img { width:100%; height:100%; object-fit:cover; filter:saturate(.85); }
   .about-img::before {
     content:''; position:absolute; inset:0; z-index:1;
-    background:linear-gradient(135deg, rgba(0,255,136,.1), rgba(0,200,255,.05));
-    mix-blend-mode:screen;
+    background:linear-gradient(135deg,rgba(0,255,136,.1),rgba(0,200,255,.05)); mix-blend-mode:screen;
   }
   .about-img-badge {
-    position:absolute; bottom:24px; left:24px; z-index:2;
+    position:absolute; bottom:22px; left:22px; z-index:2;
     background:rgba(6,6,8,.9); border:1px solid rgba(0,200,255,.3);
-    backdrop-filter:blur(10px); padding:18px 24px;
+    backdrop-filter:blur(10px); padding:16px 22px;
   }
-  .about-img-badge .bn {
-    font-size:2.5rem; font-weight:900; color:var(--blue);
-    text-shadow:0 0 20px rgba(0,200,255,.5); line-height:1;
-  }
-  .about-img-badge .bl { font-size:.72rem; color:rgba(255,255,255,.4); letter-spacing:2px; margin-top:4px; }
-  .about-text p { color:#8888AA; line-height:1.9; font-size:1.05rem; margin-bottom:18px; }
-  .features-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:32px; }
-  .feature-box {
-    padding:22px; border:1px solid rgba(255,255,255,.05);
-    transition:all .4s; position:relative; overflow:hidden;
-  }
-  .feature-box::before {
-    content:''; position:absolute; top:0; right:0;
-    width:3px; height:0; transition:height .4s;
-  }
+  .about-img-badge .bn { font-size:2.3rem; font-weight:900; color:var(--blue); text-shadow:0 0 18px rgba(0,200,255,.5); line-height:1; }
+  .about-img-badge .bl { font-size:.68rem; color:rgba(255,255,255,.4); letter-spacing:2px; margin-top:4px; }
+  .about-text p { color:#8888AA; line-height:1.9; font-size:1rem; margin-bottom:16px; }
+  .features-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:28px; }
+  .feature-box { padding:20px; border:1px solid rgba(255,255,255,.05); transition:all .4s; position:relative; overflow:hidden; }
+  .feature-box::before { content:''; position:absolute; top:0; right:0; width:3px; height:0; transition:height .4s; }
   .feature-box:hover { background:rgba(255,255,255,.02); }
   .feature-box:hover::before { height:100%; }
-  .feature-box.fb-blue::before   { background:var(--blue); }
-  .feature-box.fb-green::before  { background:var(--green); }
-  .feature-box.fb-pink::before   { background:var(--pink); }
-  .feature-box.fb-yellow::before { background:var(--yellow); }
-  .feature-icon { font-size:1.5rem; margin-bottom:10px; }
-  .feature-title { font-size:.9rem; font-weight:700; margin-bottom:6px; }
-  .feature-desc  { font-size:.8rem; color:var(--gray); line-height:1.6; }
+  .fb-blue::before   { background:var(--blue); }
+  .fb-green::before  { background:var(--green); }
+  .fb-pink::before   { background:var(--pink); }
+  .fb-yellow::before { background:var(--yellow); }
+  .fb-btblue::before { background:var(--bt-blue); }
+  .feature-icon { font-size:1.4rem; margin-bottom:8px; }
+  .feature-title { font-size:.88rem; font-weight:700; margin-bottom:4px; }
+  .feature-desc  { font-size:.78rem; color:var(--gray); line-height:1.6; }
 
-  /* BRANDS */
+  /* BRANDS GRID */
   .brands-section { background:var(--dark); }
-  .brands-header  { margin-bottom:60px; }
-  .brands-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
+  .brands-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:50px; }
   .brand-card {
-    background:var(--dark2); padding:46px 36px;
-    text-align:center; position:relative; overflow:hidden;
-    cursor:pointer; transition:all .4s;
+    background:var(--dark2); padding:40px 32px; text-align:center;
+    position:relative; overflow:hidden; cursor:pointer; transition:all .4s;
     border:1px solid rgba(255,255,255,.03);
   }
-  .brand-card::before {
-    content:''; position:absolute; inset:0; opacity:0; transition:opacity .4s; mix-blend-mode:screen;
-  }
-  .brand-card.bc-blue::before   { background:radial-gradient(circle at 50% 50%, rgba(0,200,255,.12), transparent 70%); }
-  .brand-card.bc-green::before  { background:radial-gradient(circle at 50% 50%, rgba(0,255,136,.12), transparent 70%); }
-  .brand-card.bc-pink::before   { background:radial-gradient(circle at 50% 50%, rgba(255,63,164,.1), transparent 70%); }
-  .brand-card.bc-yellow::before { background:radial-gradient(circle at 50% 50%, rgba(255,229,0,.1), transparent 70%); }
+  .brand-card::before { content:''; position:absolute; inset:0; opacity:0; transition:opacity .4s; mix-blend-mode:screen; }
+  .bc-blue::before   { background:radial-gradient(circle at 50% 50%,rgba(0,200,255,.12),transparent 70%); }
+  .bc-green::before  { background:radial-gradient(circle at 50% 50%,rgba(0,255,136,.12),transparent 70%); }
+  .bc-pink::before   { background:radial-gradient(circle at 50% 50%,rgba(255,63,164,.1),transparent 70%); }
+  .bc-yellow::before { background:radial-gradient(circle at 50% 50%,rgba(255,229,0,.1),transparent 70%); }
+  .bc-btblue::before { background:radial-gradient(circle at 50% 50%,rgba(0,102,204,.15),transparent 70%); }
   .brand-card::after {
     content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
     transform:scaleX(0); transition:transform .4s;
   }
-  .brand-card.bc-blue::after   { background:var(--blue); }
-  .brand-card.bc-green::after  { background:var(--green); }
-  .brand-card.bc-pink::after   { background:var(--pink); }
-  .brand-card.bc-yellow::after { background:var(--yellow); }
+  .bc-blue::after   { background:var(--blue); }
+  .bc-green::after  { background:var(--green); }
+  .bc-pink::after   { background:var(--pink); }
+  .bc-yellow::after { background:var(--yellow); }
+  .bc-btblue::after { background:var(--bt-blue); }
   .brand-card:hover { transform:translateY(-4px); }
   .brand-card:hover::before { opacity:1; }
   .brand-card:hover::after  { transform:scaleX(1); }
-  .brand-icon { font-size:3rem; margin-bottom:18px; display:block; transition:transform .4s; }
+  .brand-icon { font-size:2.8rem; margin-bottom:16px; display:block; transition:transform .4s; }
   .brand-card:hover .brand-icon { transform:scale(1.15); }
-  .brand-name { font-size:1.3rem; font-weight:900; margin-bottom:8px; }
-  .brand-name.blue   { color:var(--blue);   text-shadow:0 0 12px rgba(0,200,255,.3); }
-  .brand-name.green  { color:var(--green);  text-shadow:0 0 12px rgba(0,255,136,.3); }
-  .brand-name.pink   { color:var(--pink);   text-shadow:0 0 12px rgba(255,63,164,.3); }
-  .brand-name.yellow { color:var(--yellow); text-shadow:0 0 12px rgba(255,229,0,.3); }
-  .brand-desc { font-size:.83rem; color:var(--gray); line-height:1.7; }
-  .brand-tag {
-    display:inline-block; margin-top:14px;
-    font-size:.65rem; letter-spacing:2px; padding:4px 12px; border-radius:1px;
-  }
+  .brand-name { font-size:1.2rem; font-weight:900; margin-bottom:8px; }
+  .brand-name.blue   { color:var(--blue);   text-shadow:0 0 10px rgba(0,200,255,.3); }
+  .brand-name.green  { color:var(--green);  text-shadow:0 0 10px rgba(0,255,136,.3); }
+  .brand-name.pink   { color:var(--pink);   text-shadow:0 0 10px rgba(255,63,164,.3); }
+  .brand-name.yellow { color:var(--yellow); text-shadow:0 0 10px rgba(255,229,0,.3); }
+  .brand-name.btblue { color:#4DA6FF;       text-shadow:0 0 10px rgba(0,102,204,.4); }
+  .brand-desc { font-size:.8rem; color:var(--gray); line-height:1.7; }
+  .brand-tag { display:inline-block; margin-top:12px; font-size:.62rem; letter-spacing:2px; padding:3px 10px; }
   .brand-tag.blue   { color:var(--blue);   border:1px solid rgba(0,200,255,.3); }
   .brand-tag.green  { color:var(--green);  border:1px solid rgba(0,255,136,.3); }
   .brand-tag.pink   { color:var(--pink);   border:1px solid rgba(255,63,164,.3); }
   .brand-tag.yellow { color:var(--yellow); border:1px solid rgba(255,229,0,.3); }
+  .brand-tag.btblue { color:#4DA6FF;       border:1px solid rgba(0,102,204,.4); }
 
-  /* SERVICES */
-  .services-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; margin-top:60px; }
-  .service-card {
-    padding:40px 28px; background:var(--dark2);
-    position:relative; overflow:hidden; transition:all .4s;
-    border:1px solid rgba(255,255,255,.03);
+  /* Bluetens featured card */
+  .brand-card.featured-bt {
+    grid-column:1/-1;
+    display:flex; align-items:center; gap:40px; text-align:right;
+    padding:40px 50px;
+    background:linear-gradient(135deg, rgba(0,102,204,.08) 0%, rgba(0,200,255,.04) 100%);
+    border:1px solid rgba(0,102,204,.25) !important;
   }
-  .service-card:hover { transform:translateY(-6px); }
-  .service-num {
-    font-size:5rem; font-weight:900; position:absolute;
-    top:16px; left:16px; line-height:1; opacity:.05;
+  .brand-card.featured-bt .brand-icon { font-size:4rem; flex-shrink:0; }
+  .brand-card.featured-bt .brand-info { flex:1; }
+  .brand-card.featured-bt .brand-name { font-size:1.8rem; }
+  .brand-card.featured-bt .brand-desc { font-size:.92rem; max-width:600px; }
+  .bt-5y-badge {
+    display:inline-block; background:var(--bt-blue);
+    color:#fff; font-size:.65rem; font-weight:900; letter-spacing:2px;
+    padding:5px 14px; margin-bottom:10px;
   }
-  .service-card.sc-blue   .service-num { color:var(--blue); }
-  .service-card.sc-green  .service-num { color:var(--green); }
-  .service-card.sc-pink   .service-num { color:var(--pink); }
-  .service-card.sc-yellow .service-num { color:var(--yellow); }
-  .service-icon  { font-size:2rem; margin-bottom:18px; }
-  .service-title { font-size:1rem; font-weight:700; margin-bottom:10px; }
-  .service-title.blue   { color:var(--blue); }
-  .service-title.green  { color:var(--green); }
-  .service-title.pink   { color:var(--pink); }
-  .service-title.yellow { color:var(--yellow); }
-  .service-desc { font-size:.84rem; color:var(--gray); line-height:1.7; }
-  .service-card::after {
-    content:''; position:absolute; top:0; right:0; width:0; height:3px; transition:width .4s;
+  .brand-card.featured-bt .brand-cta {
+    flex-shrink:0;
   }
-  .service-card.sc-blue::after   { background:var(--blue); }
-  .service-card.sc-green::after  { background:var(--green); }
-  .service-card.sc-pink::after   { background:var(--pink); }
-  .service-card.sc-yellow::after { background:var(--yellow); }
-  .service-card:hover::after { width:100%; }
 
   /* FULL PHOTO */
-  .full-photo { height:480px; position:relative; overflow:hidden; }
-  .full-photo img {
-    width:100%; height:100%; object-fit:cover;
-    object-position:center 30%;
-    filter:saturate(.7) brightness(.65);
-  }
+  .full-photo { height:440px; position:relative; overflow:hidden; }
+  .full-photo img { width:100%; height:100%; object-fit:cover; object-position:center 30%; filter:saturate(.7) brightness(.65); }
   .full-photo-overlay {
     position:absolute; inset:0;
-    background:
-      linear-gradient(to left, rgba(6,6,8,.9) 0%, rgba(6,6,8,.3) 50%, transparent 100%),
-      linear-gradient(to top, rgba(6,6,8,.7) 0%, transparent 50%);
+    background:linear-gradient(to left,rgba(6,6,8,.9) 0%,rgba(6,6,8,.3) 50%,transparent 100%),
+               linear-gradient(to top,rgba(6,6,8,.7) 0%,transparent 50%);
     display:flex; align-items:center; padding:80px 60px;
   }
-  .full-photo-text { max-width:550px; }
-  .full-photo-text h2 {
-    font-size:clamp(2.5rem,5vw,4rem);
-    font-weight:900; letter-spacing:-2px; line-height:1; margin-bottom:20px;
-  }
-  .full-photo-text p { color:#8888AA; font-size:1.05rem; line-height:1.8; margin-bottom:32px; }
+  .full-photo-text { max-width:520px; }
+  .full-photo-text h2 { font-size:clamp(2.2rem,4.5vw,3.8rem); font-weight:900; letter-spacing:-2px; line-height:1; margin-bottom:18px; }
+  .full-photo-text p { color:#8888AA; font-size:1rem; line-height:1.8; margin-bottom:28px; }
 
   /* WHY */
   .why-section { background:var(--dark); }
   .why-inner { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
-  .why-list { margin-top:40px; }
-  .why-item {
-    display:flex; gap:20px; align-items:flex-start;
-    padding:22px 0; border-bottom:1px solid rgba(255,255,255,.04);
-    transition:padding-right .3s;
-  }
+  .why-list { margin-top:36px; }
+  .why-item { display:flex; gap:18px; align-items:flex-start; padding:20px 0; border-bottom:1px solid rgba(255,255,255,.04); transition:padding-right .3s; }
   .why-item:last-child { border-bottom:none; }
   .why-item:hover { padding-right:8px; }
-  .why-num { font-size:.72rem; font-weight:900; letter-spacing:1px; width:28px; flex-shrink:0; margin-top:4px; }
+  .why-num { font-size:.7rem; font-weight:900; letter-spacing:1px; width:26px; flex-shrink:0; margin-top:3px; }
   .why-num.blue   { color:var(--blue); }
   .why-num.green  { color:var(--green); }
   .why-num.pink   { color:var(--pink); }
   .why-num.yellow { color:var(--yellow); }
-  .why-text h4 { font-size:1rem; font-weight:700; margin-bottom:5px; }
-  .why-text p  { font-size:.85rem; color:var(--gray); line-height:1.6; }
+  .why-num.btblue { color:#4DA6FF; }
+  .why-text h4 { font-size:.95rem; font-weight:700; margin-bottom:4px; }
+  .why-text p  { font-size:.82rem; color:var(--gray); line-height:1.6; }
   .why-photo-col { position:relative; }
-  .why-photo {
-    border-radius:4px; overflow:hidden;
-    border:1px solid rgba(0,200,255,.12);
-    box-shadow:0 0 60px rgba(0,200,255,.1);
-    height:500px; position:relative;
-  }
+  .why-photo { border-radius:4px; overflow:hidden; border:1px solid rgba(0,200,255,.12); box-shadow:0 0 60px rgba(0,200,255,.1); height:480px; position:relative; }
   .why-photo img { width:100%; height:100%; object-fit:cover; filter:saturate(.8); }
-  .why-photo::before {
-    content:''; position:absolute; inset:0; z-index:1;
-    background:linear-gradient(135deg, rgba(0,200,255,.1), rgba(0,255,136,.06));
-    mix-blend-mode:screen;
-  }
-  .why-floating-stat {
-    position:absolute; z-index:3;
-    background:rgba(6,6,8,.9); backdrop-filter:blur(12px);
-    border:1px solid; padding:16px 22px; text-align:center;
-  }
-  .why-floating-stat .fn { font-size:2rem; font-weight:900; line-height:1; }
-  .why-floating-stat .fl { font-size:.65rem; letter-spacing:2px; margin-top:4px; color:rgba(255,255,255,.4); }
-  .wfs-1 { top:-20px; left:-20px; border-color:rgba(0,200,255,.3); }
-  .wfs-1 .fn { color:var(--blue); text-shadow:0 0 16px rgba(0,200,255,.5); }
-  .wfs-2 { bottom:30px; left:-30px; border-color:rgba(255,63,164,.3); }
-  .wfs-2 .fn { color:var(--pink); text-shadow:0 0 16px rgba(255,63,164,.5); }
+  .why-photo::before { content:''; position:absolute; inset:0; z-index:1; background:linear-gradient(135deg,rgba(0,200,255,.1),rgba(0,255,136,.06)); mix-blend-mode:screen; }
+  .why-floating-stat { position:absolute; z-index:3; background:rgba(6,6,8,.9); backdrop-filter:blur(12px); border:1px solid; padding:14px 20px; text-align:center; }
+  .why-floating-stat .fn { font-size:1.8rem; font-weight:900; line-height:1; }
+  .why-floating-stat .fl { font-size:.62rem; letter-spacing:2px; margin-top:3px; color:rgba(255,255,255,.4); }
+  .wfs-1 { top:-18px; left:-18px; border-color:rgba(0,200,255,.3); }
+  .wfs-1 .fn { color:var(--blue); text-shadow:0 0 14px rgba(0,200,255,.5); }
+  .wfs-2 { bottom:28px; left:-28px; border-color:rgba(0,102,204,.4); }
+  .wfs-2 .fn { color:#4DA6FF; text-shadow:0 0 14px rgba(0,102,204,.5); }
 
   /* CONTACT */
   .contact-section { border-top:1px solid rgba(0,200,255,.08); }
-  .contact-inner { display:grid; grid-template-columns:1fr 1.3fr; gap:80px; align-items:start; }
-  .contact-photo {
-    border-radius:4px; overflow:hidden; height:540px;
-    border:1px solid rgba(0,255,136,.1);
-    box-shadow:0 0 40px rgba(0,255,136,.08);
-    position:relative;
-  }
+  .contact-inner { display:grid; grid-template-columns:1fr 1.3fr; gap:70px; align-items:start; }
+  .contact-photo { border-radius:4px; overflow:hidden; height:520px; border:1px solid rgba(0,255,136,.1); box-shadow:0 0 40px rgba(0,255,136,.08); position:relative; }
   .contact-photo img { width:100%; height:100%; object-fit:cover; filter:saturate(.8); }
-  .contact-photo::after {
-    content:''; position:absolute; inset:0;
-    background:linear-gradient(to top, rgba(6,6,8,.7) 0%, transparent 50%);
-  }
-  .contact-info { margin-bottom:40px; }
-  .contact-item { display:flex; gap:16px; align-items:flex-start; margin-bottom:22px; }
-  .contact-icon {
-    width:42px; height:42px; flex-shrink:0;
-    display:flex; align-items:center; justify-content:center;
-    font-size:1.1rem; border:1px solid;
-  }
+  .contact-photo::after { content:''; position:absolute; inset:0; background:linear-gradient(to top,rgba(6,6,8,.7) 0%,transparent 50%); }
+  .contact-info { margin-bottom:36px; }
+  .contact-item { display:flex; gap:14px; align-items:flex-start; margin-bottom:20px; }
+  .contact-icon { width:40px; height:40px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:1rem; border:1px solid; }
   .contact-icon.blue   { border-color:rgba(0,200,255,.3);  background:rgba(0,200,255,.07); }
   .contact-icon.green  { border-color:rgba(0,255,136,.3);  background:rgba(0,255,136,.07); }
   .contact-icon.pink   { border-color:rgba(255,63,164,.3); background:rgba(255,63,164,.07); }
   .contact-icon.yellow { border-color:rgba(255,229,0,.3);  background:rgba(255,229,0,.07); }
-  .contact-item-text span { display:block; font-size:.68rem; letter-spacing:2px; margin-bottom:3px; }
-  .contact-item-text p { font-size:.95rem; color:var(--white); }
-  .contact-form { display:flex; flex-direction:column; gap:14px; }
-  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .contact-item-text span { display:block; font-size:.65rem; letter-spacing:2px; margin-bottom:3px; }
+  .contact-item-text p { font-size:.92rem; color:var(--white); }
+  .contact-form { display:flex; flex-direction:column; gap:12px; }
+  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   .form-input {
-    background:rgba(255,255,255,.03);
-    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08);
     color:var(--white); font-family:'Heebo',sans-serif;
-    font-size:.92rem; padding:15px 18px; width:100%;
+    font-size:.9rem; padding:14px 16px; width:100%;
     transition:border-color .3s; direction:rtl;
   }
   .form-input:focus { outline:none; border-color:rgba(0,200,255,.4); background:rgba(0,200,255,.03); }
   .form-input::placeholder { color:rgba(255,255,255,.2); }
-  textarea.form-input { height:110px; resize:vertical; }
+  textarea.form-input { height:100px; resize:vertical; }
   .btn-grad {
-    background:linear-gradient(135deg, var(--blue) 0%, var(--green) 100%);
-    color:#000; padding:18px; width:100%;
-    font-size:1rem; font-weight:900; letter-spacing:2px;
-    font-family:'Heebo', sans-serif;
+    background:linear-gradient(135deg,var(--blue) 0%,var(--green) 100%);
+    color:#000; padding:16px; width:100%;
+    font-size:.95rem; font-weight:900; letter-spacing:2px;
+    font-family:'Heebo',sans-serif;
     border:none; cursor:pointer;
-    transition:all .3s; box-shadow:0 0 24px rgba(0,200,255,.2);
+    transition:all .3s; box-shadow:0 0 22px rgba(0,200,255,.2);
   }
-  .btn-grad:hover { box-shadow:0 6px 40px rgba(0,200,255,.4); transform:translateY(-2px); }
+  .btn-grad:hover { box-shadow:0 6px 38px rgba(0,200,255,.4); transform:translateY(-2px); }
 
+  /* ═══════════════════════════════════
+     PAGE BLUETENS
+  ═══════════════════════════════════ */
+  .bt-page { padding-top:90px; }
+
+  .bt-hero {
+    padding:80px 60px 60px;
+    background:
+      radial-gradient(ellipse 60% 80% at 20% 50%, rgba(0,102,204,.12) 0%, transparent 65%),
+      radial-gradient(ellipse 40% 60% at 80% 20%, rgba(0,200,255,.07) 0%, transparent 60%),
+      var(--black);
+    position:relative; overflow:hidden;
+  }
+  .bt-hero-grid {
+    position:absolute; inset:0;
+    background-image:linear-gradient(rgba(0,102,204,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,102,204,.05) 1px,transparent 1px);
+    background-size:60px 60px;
+    mask-image:radial-gradient(ellipse 80% 90% at 20% 50%, black 20%, transparent 80%);
+  }
+  .bt-hero-inner { position:relative; z-index:2; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+
+  .bt-logo-area { display:flex; align-items:center; gap:16px; margin-bottom:24px; }
+  .bt-logo-badge {
+    background:var(--bt-blue); color:#fff;
+    font-size:.65rem; font-weight:900; letter-spacing:2px;
+    padding:5px 14px;
+  }
+  .bt-partner-text { font-size:.75rem; color:var(--gray); letter-spacing:2px; }
+
+  .bt-hero h1 { font-size:clamp(2.8rem,5vw,5rem); font-weight:900; letter-spacing:-2px; line-height:.95; margin-bottom:16px; }
+  .bt-hero h1 span { color:#4DA6FF; text-shadow:0 0 24px rgba(0,102,204,.5); }
+  .bt-hero-sub { font-size:.9rem; letter-spacing:3px; color:var(--gray); margin-bottom:14px; }
+  .bt-hero-desc { font-size:1rem; line-height:1.85; color:#8888AA; margin-bottom:32px; max-width:460px; }
+  .bt-hero-ctas { display:flex; gap:14px; flex-wrap:wrap; }
+
+  /* Modes badges */
+  .bt-modes { display:flex; gap:12px; flex-wrap:wrap; margin-top:24px; }
+  .bt-mode {
+    display:flex; align-items:center; gap:8px;
+    background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08);
+    padding:10px 16px; transition:all .3s; cursor:default;
+  }
+  .bt-mode:hover { border-color:rgba(0,102,204,.4); background:rgba(0,102,204,.06); }
+  .bt-mode-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+  .bt-mode-cure  .bt-mode-dot { background:#FF4444; box-shadow:0 0 8px rgba(255,68,68,.6); }
+  .bt-mode-relax .bt-mode-dot { background:#4DA6FF; box-shadow:0 0 8px rgba(77,166,255,.6); }
+  .bt-mode-tone  .bt-mode-dot { background:var(--green); box-shadow:0 0 8px rgba(0,255,136,.6); }
+  .bt-mode-text h5 { font-size:.8rem; font-weight:700; margin-bottom:2px; }
+  .bt-mode-text p  { font-size:.7rem; color:var(--gray); }
+
+  /* BT Product image side */
+  .bt-hero-image { position:relative; display:flex; align-items:center; justify-content:center; min-height:400px; }
+  .bt-hero-image-main {
+    width:100%; height:380px; border-radius:4px; overflow:hidden;
+    border:1px solid rgba(0,102,204,.2); box-shadow:0 0 50px rgba(0,102,204,.2);
+    position:relative;
+  }
+  .bt-hero-image-main img { width:100%; height:100%; object-fit:cover; }
+  .bt-hero-image-main::after {
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(135deg,rgba(0,102,204,.15),transparent 60%);
+  }
+
+  /* BT products */
+  .bt-products-section { padding:80px 60px; }
+  .bt-products-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:3px; margin-top:50px; }
+
+  .bt-product-card {
+    background:var(--dark2); overflow:hidden;
+    border:1px solid rgba(255,255,255,.04);
+    transition:all .4s; cursor:pointer; position:relative;
+  }
+  .bt-product-card:hover { border-color:rgba(0,102,204,.35); transform:translateY(-6px); }
+  .bt-product-card:hover .bt-product-img img { transform:scale(1.05); filter:saturate(1); }
+
+  .bt-product-img { height:260px; overflow:hidden; position:relative; }
+  .bt-product-img img { width:100%; height:100%; object-fit:cover; transition:transform .7s; filter:saturate(.8); }
+  .bt-product-img::after {
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(to top,rgba(20,20,24,1) 0%,transparent 50%);
+  }
+
+  .bt-product-badge {
+    position:absolute; top:16px; right:16px; z-index:2;
+    font-size:.6rem; font-weight:900; letter-spacing:2px;
+    padding:4px 12px; background:var(--bt-blue); color:#fff;
+  }
+
+  .bt-product-info { padding:28px; }
+  .bt-product-name { font-size:1.2rem; font-weight:900; color:#4DA6FF; text-shadow:0 0 12px rgba(0,102,204,.3); margin-bottom:8px; }
+  .bt-product-tagline { font-size:.78rem; color:var(--gray); margin-bottom:16px; line-height:1.6; }
+
+  .bt-features-list { list-style:none; margin-bottom:20px; }
+  .bt-features-list li {
+    display:flex; gap:10px; align-items:flex-start;
+    font-size:.78rem; color:#9999BB; padding:5px 0;
+    border-bottom:1px solid rgba(255,255,255,.04);
+  }
+  .bt-features-list li:last-child { border-bottom:none; }
+  .bt-features-list li::before { content:'→'; color:#4DA6FF; flex-shrink:0; }
+
+  .bt-product-cta {
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top:16px; border-top:1px solid rgba(0,102,204,.15);
+  }
+
+  /* BT Features */
+  .bt-features-section { background:var(--dark); padding:80px 60px; }
+  .bt-features-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; margin-top:50px; }
+  .bt-feat-card {
+    background:var(--dark2); padding:36px 28px;
+    border:1px solid rgba(255,255,255,.03); transition:all .4s; position:relative; overflow:hidden;
+  }
+  .bt-feat-card:hover { border-color:rgba(0,102,204,.3); transform:translateY(-4px); }
+  .bt-feat-card::after {
+    content:''; position:absolute; top:0; right:0; width:0; height:3px;
+    background:var(--bt-blue); transition:width .4s;
+  }
+  .bt-feat-card:hover::after { width:100%; }
+  .bt-feat-num { font-size:4.5rem; font-weight:900; color:rgba(0,102,204,.06); position:absolute; top:12px; left:12px; line-height:1; }
+  .bt-feat-icon { font-size:1.8rem; margin-bottom:14px; }
+  .bt-feat-title { font-size:.95rem; font-weight:700; color:#4DA6FF; margin-bottom:8px; }
+  .bt-feat-desc  { font-size:.8rem; color:var(--gray); line-height:1.7; }
+
+  /* BT About brand */
+  .bt-brand-section { padding:80px 60px; }
+  .bt-brand-inner { display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center; }
+  .bt-brand-text p { color:#8888AA; line-height:1.9; font-size:1rem; margin-bottom:16px; }
+  .bt-brand-stats { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:28px; }
+  .bt-brand-stat { padding:24px; border:1px solid rgba(0,102,204,.2); text-align:center; background:rgba(0,102,204,.04); }
+  .bt-brand-stat .n { font-size:2.2rem; font-weight:900; color:#4DA6FF; text-shadow:0 0 16px rgba(0,102,204,.4); display:block; margin-bottom:6px; }
+  .bt-brand-stat .l { font-size:.72rem; color:var(--gray); letter-spacing:1px; }
+  .bt-brand-image { height:420px; border-radius:4px; overflow:hidden; border:1px solid rgba(0,102,204,.15); box-shadow:0 0 40px rgba(0,102,204,.1); }
+  .bt-brand-image img { width:100%; height:100%; object-fit:cover; filter:saturate(.85); }
+
+  /* FOOTER */
   footer {
-    background:var(--dark2); padding:36px 60px;
+    background:var(--dark2); padding:34px 60px;
     display:flex; justify-content:space-between; align-items:center;
     border-top:1px solid rgba(255,255,255,.05);
   }
-  .footer-logo {
-    font-size:1.5rem; font-weight:900;
-    background:linear-gradient(90deg, var(--blue), var(--green));
-    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-  }
-  .footer-links { display:flex; gap:28px; }
-  .footer-links a { color:rgba(255,255,255,.25); text-decoration:none; font-size:.82rem; transition:color .3s; }
+  .footer-logo { font-size:1.4rem; font-weight:900; background:linear-gradient(90deg,var(--blue),var(--green)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .footer-links { display:flex; gap:26px; }
+  .footer-links a { color:rgba(255,255,255,.25); text-decoration:none; font-size:.8rem; transition:color .3s; cursor:pointer; }
   .footer-links a:hover { color:var(--blue); }
-  .footer-copy { font-size:.75rem; color:rgba(255,255,255,.15); letter-spacing:1px; }
+  .footer-copy { font-size:.72rem; color:rgba(255,255,255,.15); letter-spacing:1px; }
 
-  .reveal { opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease; }
+  /* REVEAL */
+  .reveal { opacity:0; transform:translateY(26px); transition:opacity .7s ease,transform .7s ease; }
   .reveal.visible { opacity:1; transform:translateY(0); }
-  .rd1 { transition-delay:.1s; }
-  .rd2 { transition-delay:.2s; }
-  .rd3 { transition-delay:.3s; }
+  .rd1{transition-delay:.1s} .rd2{transition-delay:.2s} .rd3{transition-delay:.3s}
 
-  @media(max-width:900px) {
-    nav { padding:14px 22px; }
-    .nav-links { display:none; }
-    section { padding:70px 22px; }
-    .hero { grid-template-columns:1fr; padding:100px 22px 50px; }
-    .hero-images { height:260px; margin-top:30px; }
-    .photo-strip { grid-template-columns:1fr 1fr; height:240px; }
-    .photo-strip-item:last-child { display:none; }
-    .about, .why-inner, .contact-inner { grid-template-columns:1fr; gap:40px; }
-    .about-img, .why-photo, .contact-photo { height:280px; }
-    .brands-grid, .services-grid { grid-template-columns:1fr 1fr; }
-    .stats-bar { padding:20px 22px; flex-wrap:wrap; gap:16px; }
-    footer { flex-direction:column; gap:16px; text-align:center; }
-    .full-photo { height:320px; }
-    .full-photo-overlay { padding:40px 22px; }
-    .wfs-1,.wfs-2 { display:none; }
+  @media(max-width:900px){
+    nav{padding:14px 20px} .nav-links{display:none}
+    section,.bt-hero,.bt-products-section,.bt-features-section,.bt-brand-section{padding:60px 20px}
+    .hero{grid-template-columns:1fr;padding:90px 20px 40px}
+    .hero-images{height:240px;margin-top:24px}
+    .bt-banner{margin:0 20px;flex-direction:column;gap:16px}
+    .photo-strip{grid-template-columns:1fr 1fr;height:220px}
+    .photo-strip-item:last-child{display:none}
+    .about,.why-inner,.contact-inner,.bt-hero-inner,.bt-brand-inner{grid-template-columns:1fr;gap:36px}
+    .about-img,.why-photo,.contact-photo,.bt-brand-image,.bt-hero-image-main{height:260px}
+    .brands-grid,.bt-products-grid,.bt-features-grid{grid-template-columns:1fr 1fr}
+    .brand-card.featured-bt{flex-direction:column;text-align:center;gap:16px}
+    .stats-bar{padding:18px 20px;flex-wrap:wrap;gap:14px}
+    footer{flex-direction:column;gap:14px;text-align:center}
+    .full-photo{height:300px} .full-photo-overlay{padding:36px 20px}
+    .wfs-1,.wfs-2{display:none}
+    .form-row{grid-template-columns:1fr}
   }
 </style>
 </head>
 <body>
 
 <nav id="mainNav">
-  <div class="nav-logo">פאוורזון⚡</div>
+  <div class="nav-logo" onclick="showPage('home')">
+    <div>
+      <span class="nav-logo-text">AMG Sport & Health</span>
+      <span class="nav-logo-sub">DRIVING PERFORMANCE</span>
+    </div>
+  </div>
   <ul class="nav-links">
-    <li><a href="#about">אודות</a></li>
-    <li><a href="#brands">מותגים</a></li>
-    <li><a href="#services">שירותים</a></li>
-    <li><a href="#why">למה אנחנו</a></li>
-    <li><a href="#contact">צור קשר</a></li>
+    <li><a onclick="showPage('home');scrollTo('#about')">אודות</a></li>
+    <li><a onclick="showPage('home');scrollTo('#brands')">מותגים</a></li>
+    <li><a onclick="showPage('home');scrollTo('#services')">שירותים</a></li>
+    <li><a onclick="showPage('home');scrollTo('#contact')">צור קשר</a></li>
+    <li><a class="nav-bt-btn" onclick="showPage('bluetens')">⚡ Bluetens ישראל</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-content">
-    <div class="hero-badge"><span class="dot"></span>יבואן ומפיץ מורשה בישראל</div>
-    <h1>הדלק<br>את <span class="c-blue">הביצועים</span><br><span class="c-green">שלך</span></h1>
-    <p class="hero-sub">POWER THE PERFORMANCE</p>
-    <p class="hero-desc">יבואן ומפיץ מוביל של משקאות אנרגיה פרימיום לספורטאים — מפיצים ברחבי ישראל עם מחויבות לאיכות, מהירות ושירות מקצועי ללא פשרות.</p>
-    <div class="hero-ctas">
-      <a href="#brands" class="btn-blue">המותגים שלנו</a>
-      <a href="#contact" class="btn-outline">צור קשר</a>
-    </div>
-  </div>
-  <div class="hero-images">
-    <div class="hero-stat-badge"><span class="n">+500</span><span class="l">לקוחות עסקיים</span></div>
-    <div class="hero-img-main">
-      <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&auto=format&fit=crop"
-           alt="ספורטאי שותה משקה אנרגיה" loading="eager">
-    </div>
-    <div class="hero-img-small">
-      <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=300&auto=format&fit=crop"
-           alt="אימון ספורט" loading="eager">
-    </div>
-  </div>
-</section>
+<!-- ════════════════════════════════════
+     PAGE: HOME
+════════════════════════════════════ -->
+<div id="page-home" class="page active">
 
-<!-- TICKER -->
-<div class="ticker-wrap">
-  <div class="ticker-track">
-    <span class="ticker-item blue">משקאות אנרגיה לספורטאים</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item green">יבואן מורשה בישראל</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item pink">הפצה ארצית מהירה</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item yellow">מותגים פרימיום בלעדיים</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item blue">ביצועים ללא פשרות</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item green">כשר ומאושר</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item pink">שירות מהיר ואמין</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item blue">משקאות אנרגיה לספורטאים</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item green">יבואן מורשה בישראל</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item pink">הפצה ארצית מהירה</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item yellow">מותגים פרימיום בלעדיים</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item blue">ביצועים ללא פשרות</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item green">כשר ומאושר</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item pink">שירות מהיר ואמין</span><span class="ticker-sep">✦</span>
-  </div>
-</div>
-
-<!-- STATS -->
-<div class="stats-bar">
-  <div class="stat-item"><div class="stat-num blue" data-target="15" data-suffix="+">+15</div><div class="stat-label">שנות ניסיון</div></div>
-  <div class="stat-item"><div class="stat-num green" data-target="500" data-suffix="+">+500</div><div class="stat-label">לקוחות עסקיים</div></div>
-  <div class="stat-item"><div class="stat-num pink" data-target="8" data-suffix="">8</div><div class="stat-label">מותגים בלעדיים</div></div>
-  <div class="stat-item"><div class="stat-num yellow">48H</div><div class="stat-label">זמן אספקה</div></div>
-  <div class="stat-item"><div class="stat-num blue" data-target="100" data-suffix="%">100%</div><div class="stat-label">כשר ומאושר</div></div>
-</div>
-
-<!-- PHOTO STRIP -->
-<div class="photo-strip">
-  <div class="photo-strip-item tint-blue">
-    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&auto=format&fit=crop" alt="אימון עצים" loading="lazy">
-    <span class="strip-label">HIGH INTENSITY</span>
-  </div>
-  <div class="photo-strip-item tint-green">
-    <img src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=500&auto=format&fit=crop" alt="ריצה" loading="lazy">
-    <span class="strip-label">ENDURANCE</span>
-  </div>
-  <div class="photo-strip-item tint-pink">
-    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&auto=format&fit=crop" alt="ספורטאי עם משקה" loading="lazy">
-    <span class="strip-label">FUEL UP</span>
-  </div>
-</div>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="about">
-    <div class="about-img reveal">
-      <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=700&auto=format&fit=crop" alt="חדר כושר" loading="lazy">
-      <div class="about-img-badge"><div class="bn">15+</div><div class="bl">שנות מצוינות</div></div>
-    </div>
-    <div class="about-text reveal rd1">
-      <span class="section-tag blue">מי אנחנו</span>
-      <h2 class="section-title">המומחים ב<span class="c-blue">אנרגיה</span><br>לספורטאים</h2>
-      <p>פאוורזון היא חברה ישראלית מובילה המתמחה ביבוא והפצה של משקאות אנרגיה ספורטיביים פרימיום. אנחנו עובדים עם מותגים בינלאומיים ומפיצים אותם לחדרי כושר, חנויות ספורט, בתי מרקחת ורשתות שיווק ברחבי ישראל.</p>
-      <p>עם ניסיון של מעל 15 שנה בענף, אנחנו מביאים לספורטאים המוצרים הטובים בעולם — בתנאים הטובים ביותר.</p>
-      <div class="features-grid">
-        <div class="feature-box fb-blue"><div class="feature-icon">🏆</div><div class="feature-title">יבואן בלעדי</div><div class="feature-desc">סוכן בלעדי לישראל של מותגים בינלאומיים</div></div>
-        <div class="feature-box fb-green"><div class="feature-icon">🚚</div><div class="feature-title">הפצה מהירה</div><div class="feature-desc">אספקה ברחבי ישראל תוך 48 שעות</div></div>
-        <div class="feature-box fb-pink"><div class="feature-icon">✅</div><div class="feature-title">כשרות ואיכות</div><div class="feature-desc">כל המוצרים כשרים ועומדים בסטנדרטים הגבוהים</div></div>
-        <div class="feature-box fb-yellow"><div class="feature-icon">💼</div><div class="feature-title">תמיכה עסקית</div><div class="feature-desc">חומרי שיווק, תמיכה ומנהל לקוח ייעודי</div></div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-badge"><span class="dot"></span>יבואן ומפיץ מורשה | רעננה, ישראל</div>
+      <h1>הדלק<br>את <span class="c-blue">הביצועים</span><br><span class="c-green">שלך</span></h1>
+      <p class="hero-sub">AMG SPORT & HEALTH | DRIVING PERFORMANCE</p>
+      <p class="hero-desc">אנחנו יבואן ומפיץ בלעדי של מוצרי ספורט ובריאות פרימיום בישראל — מביצועים מקסימליים ועד שיקום מהיר, אנחנו כאן עם המוצרים הטובים בעולם.</p>
+      <div class="hero-ctas">
+        <a href="#brands" class="btn-blue" onclick="document.getElementById('brands').scrollIntoView({behavior:'smooth'})">המותגים שלנו</a>
+        <a class="btn-bt" onclick="showPage('bluetens')">⚡ Bluetens ישראל</a>
+        <a href="#contact" class="btn-outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">צור קשר</a>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- BRANDS -->
-<section id="brands" class="brands-section">
-  <div class="brands-header reveal">
-    <span class="section-tag green">הפורטפוליו שלנו</span>
-    <h2 class="section-title">המותגים ה<span class="c-green">בלעדיים</span> שלנו</h2>
-  </div>
-  <div class="brands-grid">
-    <div class="brand-card bc-blue reveal"><span class="brand-icon">⚡</span><div class="brand-name blue">VOLT SPORT</div><div class="brand-desc">משקה אנרגיה פרימיום עם קפאין טבעי, ויטמינים B ואלקטרוליטים לספורטאים מקצועיים</div><span class="brand-tag blue">EXCLUSIVE IMPORT</span></div>
-    <div class="brand-card bc-pink reveal rd1"><span class="brand-icon">🔥</span><div class="brand-name pink">BLAZE PRO</div><div class="brand-desc">פורמולה פיצוץ לאנרגיה מתמשכת — ייחודי לאימונים עצימים ומרתונים</div><span class="brand-tag pink">EXCLUSIVE IMPORT</span></div>
-    <div class="brand-card bc-green reveal rd2"><span class="brand-icon">💧</span><div class="brand-name green">HYDRA FORCE</div><div class="brand-desc">שיקום והידרציה מהיר — עשיר במגנזיום, אשלגן וחומצות אמינו חיוניות</div><span class="brand-tag green">EXCLUSIVE IMPORT</span></div>
-    <div class="brand-card bc-yellow reveal"><span class="brand-icon">🏃</span><div class="brand-name yellow">APEX ENDURANCE</div><div class="brand-desc">מיוצר לספורטאי סיבולת — תמיכה ב-VO2 Max ואנרגיה ארוכת טווח</div><span class="brand-tag yellow">EXCLUSIVE IMPORT</span></div>
-    <div class="brand-card bc-blue reveal rd1"><span class="brand-icon">💪</span><div class="brand-name blue">IRON RUSH</div><div class="brand-desc">לפני ואחרי אימוני כוח — עשיר בחלבון וקריאטין טבעי לשיקום מהיר</div><span class="brand-tag blue">EXCLUSIVE IMPORT</span></div>
-    <div class="brand-card bc-green reveal rd2"><span class="brand-icon">🌿</span><div class="brand-name green">GREEN ENERGY</div><div class="brand-desc">קו אורגאני טבעי לחלוטין — תה ירוק, ג׳ינסנג׳ ומיצוי גרגרי קפה ירוק</div><span class="brand-tag green">ORGANIC LINE</span></div>
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section id="services">
-  <div class="reveal">
-    <span class="section-tag pink">מה אנחנו מציעים</span>
-    <h2 class="section-title">שירותי <span class="c-pink">הפצה</span> מלאים</h2>
-  </div>
-  <div class="services-grid">
-    <div class="service-card sc-blue reveal"><div class="service-num">01</div><div class="service-icon">🏪</div><h3 class="service-title blue">רשתות קמעונאיות</h3><p class="service-desc">אספקה קבועה לסופרמרקטים, חנויות נוחות ורשתות ספורט ברחבי ישראל</p></div>
-    <div class="service-card sc-green reveal rd1"><div class="service-num">02</div><div class="service-icon">🏋️</div><h3 class="service-title green">חדרי כושר ומכוני ספורט</h3><p class="service-desc">תנאים מיוחדים עם אפשרות למכירה חוזרת ומיתוג מותאם אישית</p></div>
-    <div class="service-card sc-pink reveal rd2"><div class="service-num">03</div><div class="service-icon">💊</div><h3 class="service-title pink">בתי מרקחת</h3><p class="service-desc">קו מוצרים מאושר FDA לשיווק בבתי מרקחת ובחנויות טבע</p></div>
-    <div class="service-card sc-yellow reveal rd3"><div class="service-num">04</div><div class="service-icon">🎽</div><h3 class="service-title yellow">חסות לאירועי ספורט</h3><p class="service-desc">שותפות ומיתוג לאירועי ריצה, שחייה ואתלטיקה בישראל</p></div>
-  </div>
-</section>
-
-<!-- FULL PHOTO -->
-<div class="full-photo">
-  <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=1400&auto=format&fit=crop" alt="ספורטאים בפעולה" loading="lazy">
-  <div class="full-photo-overlay">
-    <div class="full-photo-text reveal">
-      <span class="section-tag yellow">המשימה שלנו</span>
-      <h2>להניע<br><span class="c-yellow">כל ספורטאי</span><br>בישראל</h2>
-      <p>אנחנו מאמינים שכל ספורטאי — מקצועי או חובב — ראוי לגישה למוצרי האנרגיה הטובים בעולם, במחיר הוגן ועם שירות ישראלי אמיתי.</p>
-      <a href="#contact" class="btn-blue">הצטרפו אלינו</a>
-    </div>
-  </div>
-</div>
-
-<!-- WHY -->
-<section id="why" class="why-section">
-  <div class="why-inner">
-    <div class="reveal">
-      <span class="section-tag blue">למה לבחור בנו</span>
-      <h2 class="section-title">הבחירה ה<span class="c-blue">חכמה</span><br>לעסק שלך</h2>
-      <div class="why-list">
-        <div class="why-item"><div class="why-num blue">01</div><div class="why-text"><h4>מחירים תחרותיים ויציבים</h4><p>תמחור שקוף עם הנחות נפח והסדרי תשלום גמישים</p></div></div>
-        <div class="why-item"><div class="why-num green">02</div><div class="why-text"><h4>מלאי זמין תמיד</h4><p>מחסנים מאובזרים עם מלאי עצום — לא תחכו לסחורה</p></div></div>
-        <div class="why-item"><div class="why-num pink">03</div><div class="why-text"><h4>מנהל לקוח ייעודי</h4><p>כל לקוח מקבל נציג אישי שמכיר את הצרכים שלו</p></div></div>
-        <div class="why-item"><div class="why-num yellow">04</div><div class="why-text"><h4>תמיכה שיווקית מלאה</h4><p>חומרי תצוגה, שלטים ומסעות פרסום דיגיטליים</p></div></div>
-        <div class="why-item"><div class="why-num blue">05</div><div class="why-text"><h4>אמינות לאורך שנים</h4><p>+500 לקוחות עסקיים מרוצים — רובם איתנו מעל 5 שנים</p></div></div>
+    <div class="hero-images">
+      <div class="hero-stat-badge"><span class="n">5+</span><span class="l">שנות Bluetens</span></div>
+      <div class="hero-img-main">
+        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&auto=format&fit=crop" alt="ספורטאי" loading="eager">
+      </div>
+      <div class="hero-img-small">
+        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=300&auto=format&fit=crop" alt="אימון" loading="eager">
       </div>
     </div>
-    <div class="why-photo-col reveal rd2">
-      <div class="wfs-1 why-floating-stat"><div class="fn">15+</div><div class="fl">שנות ניסיון</div></div>
-      <div class="why-photo">
-        <img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=600&auto=format&fit=crop" alt="ספורטאי" loading="lazy">
+  </section>
+
+  <!-- BLUETENS BANNER -->
+  <div class="bt-banner">
+    <div class="bt-banner-left">
+      <div class="bt-badge-5y">5+ שנים</div>
+      <div class="bt-banner-text">
+        <h3>מפיצים בלעדיים של Bluetens בישראל</h3>
+        <p>מאז 2019 — <span>מכשירי האלקטרוסטימולציה המובילים בעולם</span> זמינים לכם ישירות דרכנו</p>
       </div>
-      <div class="wfs-2 why-floating-stat"><div class="fn">48H</div><div class="fl">זמן אספקה</div></div>
+    </div>
+    <button class="btn-bt" onclick="showPage('bluetens')">גלו את הגאמא ←</button>
+  </div>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap">
+    <div class="ticker-track">
+      <span class="ticker-item blue">מוצרי ספורט פרימיום</span><span class="ticker-sep">✦</span>
+      <span class="ticker-item btblue">Bluetens — מפיצים בלעדיים בישראל</span><span class="ticker-sep">✦</span>
+      <span class="ticker-item green">יבואן מורשה</span><span class="ticker-sep">✦</span>
+      <span class="ticker-item pink">הפצה ארצית מהירה</span><span class="ticker-sep">✦</span>
+      <span class="ticker-item yellow">כשר ומאושר</span><span class="ticker-sep">✦</span>
+      <span class="ticker-item blue">מוצרי ספורט פרימיום</span><span class="ticker-sep">✦</span>
+      <span class="ticker-item btblue">Bluetens — מפיצים בלעדיים בישראל</span><span class="ticker-sep">✦</span>
+      <span class="ticker-item green">יבואן מורשה</span><span class="ticker-sep">✦</span>
+      <span class="ticker-item pink">הפצה ארצית מהירה</span><span class="ticker-sep">✦</span>
+      <span class="ticker-item yellow">כשר ומאושר</span><span class="ticker-sep">✦</span>
     </div>
   </div>
-</section>
 
-<!-- CONTACT -->
-<section id="contact" class="contact-section">
-  <div style="text-align:center; margin-bottom:60px;" class="reveal">
-    <span class="section-tag green">בואו נתחיל</span>
-    <h2 class="section-title">צור <span class="c-green">קשר</span> עכשיו</h2>
-    <p style="color:var(--gray); max-width:480px; margin:0 auto; font-size:1rem; line-height:1.8;">השאירו פרטים ונחזור אליכם תוך 24 שעות</p>
+  <!-- STATS -->
+  <div class="stats-bar" id="statsBar">
+    <div class="stat-item"><div class="stat-num blue" data-target="10" data-suffix="+">+10</div><div class="stat-label">שנות ניסיון</div></div>
+    <div class="stat-item"><div class="stat-num btblue" data-target="5" data-suffix="+">+5</div><div class="stat-label">שנות Bluetens</div></div>
+    <div class="stat-item"><div class="stat-num green" data-target="500" data-suffix="+">+500</div><div class="stat-label">לקוחות עסקיים</div></div>
+    <div class="stat-item"><div class="stat-num pink" data-target="5" data-suffix="">5</div><div class="stat-label">מותגים בלעדיים</div></div>
+    <div class="stat-item"><div class="stat-num yellow">48H</div><div class="stat-label">זמן אספקה</div></div>
   </div>
-  <div class="contact-inner">
-    <div class="reveal">
-      <div class="contact-info">
-        <div class="contact-item"><div class="contact-icon blue">📍</div><div class="contact-item-text"><span style="color:var(--blue)">כתובת</span><p>רחוב המסחר 42, אזור תעשייה, תל אביב</p></div></div>
-        <div class="contact-item"><div class="contact-icon green">📞</div><div class="contact-item-text"><span style="color:var(--green)">טלפון</span><p>03-1234567</p></div></div>
-        <div class="contact-item"><div class="contact-icon pink">📧</div><div class="contact-item-text"><span style="color:var(--pink)">אימייל</span><p>info@powerzone.co.il</p></div></div>
-        <div class="contact-item"><div class="contact-icon yellow">🕐</div><div class="contact-item-text"><span style="color:var(--yellow)">שעות פעילות</span><p>א–ה 08:00–18:00 | ו 08:00–13:00</p></div></div>
+
+  <!-- PHOTO STRIP -->
+  <div class="photo-strip">
+    <div class="photo-strip-item tint-blue">
+      <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&auto=format&fit=crop" alt="אימון עצים" loading="lazy">
+      <span class="strip-label">HIGH INTENSITY</span>
+    </div>
+    <div class="photo-strip-item tint-green">
+      <img src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=500&auto=format&fit=crop" alt="ריצה" loading="lazy">
+      <span class="strip-label">ENDURANCE</span>
+    </div>
+    <div class="photo-strip-item tint-pink">
+      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&auto=format&fit=crop" alt="ספורטאי" loading="lazy">
+      <span class="strip-label">RECOVERY</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about">
+      <div class="about-img reveal">
+        <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=700&auto=format&fit=crop" alt="חדר כושר" loading="lazy">
+        <div class="about-img-badge"><div class="bn">10+</div><div class="bl">שנות מצוינות</div></div>
       </div>
-      <div class="contact-form">
-        <div class="form-row">
-          <input class="form-input" type="text" placeholder="שם מלא">
-          <input class="form-input" type="text" placeholder="שם העסק">
+      <div class="about-text reveal rd1">
+        <span class="section-tag blue">מי אנחנו</span>
+        <h2 class="section-title">AMG Sport &amp; Health<br><span class="c-blue">Driving Performance</span></h2>
+        <p>חברת AMG Sport &amp; Health היא יבואן ומפיץ בלעדי ומורשה של מוצרי ספורט ובריאות פרימיום בישראל ובמזרח התיכון. אנחנו מאמינים באיכות — ומבצעים מחקרי שוק ובדיקות קפדניות לפני כל החלטה לשווק מותג בארץ.</p>
+        <p>מאז 2019 אנחנו המפיצים הבלעדיים של <strong style="color:#4DA6FF">Bluetens</strong> בישראל — מותג הצרפתי המוביל בעולם באלקטרוסטימולציה מחוברת, עם אלפי לקוחות מרוצים ברחבי הארץ.</p>
+        <div class="features-grid">
+          <div class="feature-box fb-btblue"><div class="feature-icon">⚡</div><div class="feature-title">מפיץ Bluetens</div><div class="feature-desc">מפיצים בלעדיים מאז 2019 — 5+ שנות שיתוף פעולה</div></div>
+          <div class="feature-box fb-blue"><div class="feature-icon">🏆</div><div class="feature-title">יבואן בלעדי</div><div class="feature-desc">סוכן בלעדי לישראל של מותגים בינלאומיים מובילים</div></div>
+          <div class="feature-box fb-green"><div class="feature-icon">🚚</div><div class="feature-title">הפצה מהירה</div><div class="feature-desc">אספקה ברחבי ישראל תוך 48 שעות</div></div>
+          <div class="feature-box fb-pink"><div class="feature-icon">💼</div><div class="feature-title">תמיכה עסקית</div><div class="feature-desc">מנהל לקוח ייעודי וחומרי שיווק לשותפים</div></div>
         </div>
-        <div class="form-row">
-          <input class="form-input" type="tel" placeholder="טלפון">
-          <input class="form-input" type="email" placeholder="אימייל">
-        </div>
-        <select class="form-input" style="direction:rtl; appearance:none; cursor:pointer;">
-          <option value="" disabled selected>סוג העסק</option>
-          <option>חדר כושר</option>
-          <option>חנות ספורט</option>
-          <option>סופרמרקט / רשת קמעונאית</option>
-          <option>בית מרקחת</option>
-          <option>מסעדה / קייטרינג</option>
-          <option>אחר</option>
-        </select>
-        <textarea class="form-input" placeholder="ספרו לנו על הצרכים שלכם..."></textarea>
-        <button class="btn-grad" onclick="alert('תודה! נחזור אליכם בהקדם ⚡')">שלח פנייה ⚡</button>
       </div>
     </div>
-    <div class="contact-photo reveal rd1">
-      <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&auto=format&fit=crop" alt="ספורטאית" loading="lazy">
+  </section>
+
+  <!-- BRANDS -->
+  <section id="brands" class="brands-section">
+    <div class="reveal">
+      <span class="section-tag green">הפורטפוליו שלנו</span>
+      <h2 class="section-title">המותגים ה<span class="c-green">בלעדיים</span> שלנו</h2>
+    </div>
+    <div class="brands-grid">
+      <!-- Bluetens — FEATURED -->
+      <div class="brand-card featured-bt bc-btblue reveal" onclick="showPage('bluetens')" style="cursor:pointer">
+        <span class="brand-icon">⚡</span>
+        <div class="brand-info">
+          <div class="bt-5y-badge">מפיצים בלעדיים מאז 2019</div>
+          <div class="brand-name btblue">Bluetens</div>
+          <div class="brand-desc">מכשירי האלקטרוסטימולציה המחוברים המובילים בעולם — TENS ו-EMS לספורטאים ולמטפלים. מפיצים בלעדיים בישראל עם יותר מ-5 שנות ניסיון והצלחה.</div>
+          <span class="brand-tag btblue" style="margin-top:10px">EXCLUSIVE DISTRIBUTOR ISRAEL</span>
+        </div>
+        <div class="brand-cta">
+          <button class="btn-bt">גלו את הגאמא ←</button>
+        </div>
+      </div>
+      <!-- Other brands -->
+      <div class="brand-card bc-blue reveal"><span class="brand-icon">🏃</span><div class="brand-name blue">SHAPEHEART</div><div class="brand-desc">אביזרי ספורט חכמים לרצים ולרוכבים — פטנט מגנטי ייחודי לנוחות מקסימלית בתנועה</div><span class="brand-tag blue">EXCLUSIVE IMPORT</span></div>
+      <div class="brand-card bc-green reveal rd1"><span class="brand-icon">💧</span><div class="brand-name green">HYDRA SPORT</div><div class="brand-desc">משקאות הידרציה ותוספי ספורט לשיקום מהיר — עשיר במגנזיום ואלקטרוליטים</div><span class="brand-tag green">EXCLUSIVE IMPORT</span></div>
+      <div class="brand-card bc-pink reveal rd2"><span class="brand-icon">🔥</span><div class="brand-name pink">RECOVERY PRO</div><div class="brand-desc">מוצרי שיקום מתקדמים — פיסיותרפיה, פאשיה ומניעת פציעות לספורטאים</div><span class="brand-tag pink">EXCLUSIVE IMPORT</span></div>
+      <div class="brand-card bc-yellow reveal rd3"><span class="brand-icon">💪</span><div class="brand-name yellow">POWER FUEL</div><div class="brand-desc">תוספי תזונה ומשקאות אנרגיה לספורטאים — פורמולות מקצועיות בינלאומיות</div><span class="brand-tag yellow">COMING SOON</span></div>
+    </div>
+  </section>
+
+  <!-- FULL PHOTO -->
+  <div class="full-photo">
+    <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=1400&auto=format&fit=crop" alt="ספורטאים" loading="lazy">
+    <div class="full-photo-overlay">
+      <div class="full-photo-text reveal">
+        <span class="section-tag yellow">המשימה שלנו</span>
+        <h2>להניע<br><span class="c-yellow">כל ספורטאי</span><br>בישראל</h2>
+        <p>אנחנו מאמינים שכל ספורטאי — מקצועי או חובב — ראוי לגישה למוצרים הטובים בעולם, עם שירות ישראלי אמיתי ומחויבות אישית.</p>
+        <button class="btn-blue" onclick="showPage('bluetens')">גלו את Bluetens ⚡</button>
+      </div>
     </div>
   </div>
-</section>
 
+  <!-- WHY -->
+  <section id="services" class="why-section">
+    <div class="why-inner">
+      <div class="reveal">
+        <span class="section-tag blue">למה לבחור בנו</span>
+        <h2 class="section-title">הבחירה ה<span class="c-blue">חכמה</span><br>לעסק שלך</h2>
+        <div class="why-list">
+          <div class="why-item"><div class="why-num btblue">01</div><div class="why-text"><h4>5+ שנות Bluetens בישראל</h4><p>ניסיון מוכח ואמיתי בהפצה, שיווק ושירות מוצרי Bluetens בשוק הישראלי</p></div></div>
+          <div class="why-item"><div class="why-num blue">02</div><div class="why-text"><h4>יבואן בלעדי ומורשה</h4><p>ייצוג רשמי של המותגים שלנו — אחריות יצרן מלאה על כל המוצרים</p></div></div>
+          <div class="why-item"><div class="why-num green">03</div><div class="why-text"><h4>מלאי זמין תמיד</h4><p>מחסנים מאובזרים עם מלאי עצום — אספקה תוך 48 שעות לכל רחבי ישראל</p></div></div>
+          <div class="why-item"><div class="why-num pink">04</div><div class="why-text"><h4>מנהל לקוח ייעודי</h4><p>כל לקוח מקבל נציג אישי שמכיר אותו ואת הצרכים הספציפיים שלו</p></div></div>
+          <div class="why-item"><div class="why-num yellow">05</div><div class="why-text"><h4>תמיכה שיווקית מלאה</h4><p>חומרי תצוגה בעברית, הדרכות מוצר ותמיכה דיגיטלית לשותפים</p></div></div>
+        </div>
+      </div>
+      <div class="why-photo-col reveal rd2">
+        <div class="wfs-1 why-floating-stat"><div class="fn">10+</div><div class="fl">שנות ניסיון</div></div>
+        <div class="why-photo">
+          <img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=600&auto=format&fit=crop" alt="ספורטאי" loading="lazy">
+        </div>
+        <div class="wfs-2 why-floating-stat"><div class="fn">⚡ BT</div><div class="fl">מפיצים בלעדיים</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section">
+    <div style="text-align:center;margin-bottom:55px" class="reveal">
+      <span class="section-tag green">בואו נתחיל</span>
+      <h2 class="section-title">צור <span class="c-green">קשר</span> עכשיו</h2>
+      <p style="color:var(--gray);max-width:460px;margin:0 auto;font-size:1rem;line-height:1.8;">השאירו פרטים ונחזור אליכם תוך 24 שעות</p>
+    </div>
+    <div class="contact-inner">
+      <div class="reveal">
+        <div class="contact-info">
+          <div class="contact-item"><div class="contact-icon blue">📍</div><div class="contact-item-text"><span style="color:var(--blue)">כתובת</span><p>רעננה, ישראל</p></div></div>
+          <div class="contact-item"><div class="contact-icon green">📞</div><div class="contact-item-text"><span style="color:var(--green)">טלפון</span><p>+972 54-918-2299</p></div></div>
+          <div class="contact-item"><div class="contact-icon btblue" style="border-color:rgba(0,102,204,.3);background:rgba(0,102,204,.07)">📧</div><div class="contact-item-text"><span style="color:#4DA6FF">אימייל</span><p>support@adzonemediagroup.com</p></div></div>
+          <div class="contact-item"><div class="contact-icon yellow">🕐</div><div class="contact-item-text"><span style="color:var(--yellow)">שעות פעילות</span><p>א–ה 09:00–18:00 | ו 09:00–13:00</p></div></div>
+        </div>
+        <div class="contact-form">
+          <div class="form-row">
+            <input class="form-input" type="text" placeholder="שם מלא">
+            <input class="form-input" type="text" placeholder="שם העסק">
+          </div>
+          <div class="form-row">
+            <input class="form-input" type="tel" placeholder="טלפון">
+            <input class="form-input" type="email" placeholder="אימייל">
+          </div>
+          <select class="form-input" style="direction:rtl;appearance:none;cursor:pointer;">
+            <option value="" disabled selected>תחום עניין</option>
+            <option>Bluetens — אלקטרוסטימולציה</option>
+            <option>Shapeheart — אביזרי ספורט</option>
+            <option>הפצה / שותפות עסקית</option>
+            <option>חדר כושר / מכון ספורט</option>
+            <option>בית מרקחת / קופת חולים</option>
+            <option>אחר</option>
+          </select>
+          <textarea class="form-input" placeholder="ספרו לנו על הצרכים שלכם..."></textarea>
+          <button class="btn-grad" onclick="alert('תודה! נחזור אליכם בהקדם ⚡')">שלח פנייה ⚡</button>
+        </div>
+      </div>
+      <div class="contact-photo reveal rd1">
+        <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&auto=format&fit=crop" alt="ספורטאית" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+</div><!-- end page-home -->
+
+
+<!-- ════════════════════════════════════
+     PAGE: BLUETENS
+════════════════════════════════════ -->
+<div id="page-bluetens" class="page bt-page">
+
+  <!-- BT HERO -->
+  <div class="bt-hero">
+    <div class="bt-hero-grid"></div>
+    <div class="bt-hero-inner">
+      <div>
+        <div class="bt-logo-area">
+          <div class="bt-logo-badge">מפיצים בלעדיים בישראל</div>
+          <span class="bt-partner-text">מאז 2019 | AMG Sport &amp; Health</span>
+        </div>
+        <h1 class="bt-hero"><span>Bluetens</span><br>ישראל</h1>
+        <p class="bt-hero-sub">ELECTROSTIMULATION | TENS & EMS</p>
+        <p class="bt-hero-desc">הדור החדש של האלקטרוסטימולציה המחוברת — מפחית כאבים, מזרז שיקום ומשפר ביצועים ספורטיביים. הסוד של ספורטאים מקצועיים, עכשיו לכולם.</p>
+        <div class="bt-hero-ctas">
+          <a href="#bt-products" class="btn-bt" onclick="document.getElementById('bt-products').scrollIntoView({behavior:'smooth'})">כל המוצרים ↓</a>
+          <button class="btn-outline" onclick="showPage('home');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),100)">צור קשר</button>
+        </div>
+        <div class="bt-modes">
+          <div class="bt-mode bt-mode-cure"><div class="bt-mode-dot"></div><div class="bt-mode-text"><h5>CURE — ריפוי</h5><p>הפחתת כאבים כרוניים ואקוטיים</p></div></div>
+          <div class="bt-mode bt-mode-relax"><div class="bt-mode-dot"></div><div class="bt-mode-text"><h5>RELAX — שיקום</h5><p>שחרור שרירים ומניעת כאבי שרירים</p></div></div>
+          <div class="bt-mode bt-mode-tone"><div class="bt-mode-dot"></div><div class="bt-mode-text"><h5>TONE — חיזוק</h5><p>חיזוק שרירים ושיפור ביצועים</p></div></div>
+        </div>
+      </div>
+      <div class="bt-hero-image">
+        <div class="bt-hero-image-main">
+          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=700&auto=format&fit=crop" alt="Bluetens electrostimulation" loading="eager">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BT PRODUCTS -->
+  <div class="bt-products-section" id="bt-products">
+    <div class="reveal">
+      <span class="section-tag btblue">הגאמא המלאה</span>
+      <h2 class="section-title">מוצרי <span style="color:#4DA6FF">Bluetens</span> בישראל</h2>
+      <p style="color:var(--gray);margin-top:10px;font-size:1rem">כל המוצרים זמינים במלאי — אחריות יצרן מלאה | כשרות ואישורי משרד הבריאות</p>
+    </div>
+    <div class="bt-products-grid">
+
+      <!-- Product 1: Classic 2 -->
+      <div class="bt-product-card reveal">
+        <div class="bt-product-img">
+          <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?w=500&auto=format&fit=crop" alt="Bluetens Classic 2" loading="lazy">
+          <span class="bt-product-badge">חדש 2025</span>
+        </div>
+        <div class="bt-product-info">
+          <div class="bt-product-name">Bluetens Classic 2</div>
+          <div class="bt-product-tagline">האלקטרוסטימולטור המתקדם לכאב וביצועים — 50% יותר סוללה, 20% יותר עוצמה</div>
+          <ul class="bt-features-list">
+            <li>טכנולוגיית TENS ו-EMS משולבת</li>
+            <li>+100 תוכניות | 15 אזורי גוף</li>
+            <li>אלחוטי — קישור מגנטי לאלקטרודות</li>
+            <li>אפליקציה ל-iOS ו-Android</li>
+            <li>סוללה עד 15 שעות</li>
+          </ul>
+          <div class="bt-product-cta">
+            <span style="font-size:.72rem;color:var(--gray);letter-spacing:1px">למידע ומחיר</span>
+            <button class="btn-bt" style="padding:8px 20px;font-size:.82rem" onclick="showPage('home');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),100)">פנה אלינו</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 2: Duo Sport 2 -->
+      <div class="bt-product-card reveal rd1">
+        <div class="bt-product-img">
+          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&auto=format&fit=crop" alt="Bluetens Duo Sport 2" loading="lazy">
+          <span class="bt-product-badge">לספורטאים</span>
+        </div>
+        <div class="bt-product-info">
+          <div class="bt-product-name">Bluetens Duo Sport 2</div>
+          <div class="bt-product-tagline">שני מודולים עצמאיים — לעבוד על שתי קבוצות שרירים במקביל</div>
+          <ul class="bt-features-list">
+            <li>2 מודולים עצמאיים בו-זמנית</li>
+            <li>תוכניות ייעודיות לאתלטים</li>
+            <li>שיקום מהיר אחרי אימון</li>
+            <li>הכנה לפני תחרות</li>
+            <li>מגיע עם מזוודת הובלה</li>
+          </ul>
+          <div class="bt-product-cta">
+            <span style="font-size:.72rem;color:var(--gray);letter-spacing:1px">למידע ומחיר</span>
+            <button class="btn-bt" style="padding:8px 20px;font-size:.82rem" onclick="showPage('home');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),100)">פנה אלינו</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 3: Accessories -->
+      <div class="bt-product-card reveal rd2">
+        <div class="bt-product-img">
+          <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=500&auto=format&fit=crop" alt="Bluetens אביזרים" loading="lazy">
+          <span class="bt-product-badge">אביזרים</span>
+        </div>
+        <div class="bt-product-info">
+          <div class="bt-product-name">אביזרים ואלקטרודות</div>
+          <div class="bt-product-tagline">כל האביזרים הרשמיים של Bluetens — זמינים במלאי בישראל</div>
+          <ul class="bt-features-list">
+            <li>אלקטרודות מלבניות M ו-S</li>
+            <li>אלקטרודת בטן (פרפר)</li>
+            <li>אלקטרודות Surf לגב</li>
+            <li>כבלי חיבור ומטענים</li>
+            <li>קליפ חגורה | שקית הובלה</li>
+          </ul>
+          <div class="bt-product-cta">
+            <span style="font-size:.72rem;color:var(--gray);letter-spacing:1px">למידע ומחיר</span>
+            <button class="btn-bt" style="padding:8px 20px;font-size:.82rem" onclick="showPage('home');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),100)">פנה אלינו</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BT FEATURES -->
+  <div class="bt-features-section">
+    <div class="reveal" style="text-align:center;margin-bottom:0">
+      <span class="section-tag btblue">למה Bluetens?</span>
+      <h2 class="section-title">טכנולוגיה <span style="color:#4DA6FF">צרפתית</span> מובילה</h2>
+    </div>
+    <div class="bt-features-grid">
+      <div class="bt-feat-card reveal"><div class="bt-feat-num">01</div><div class="bt-feat-icon">📱</div><div class="bt-feat-title">אפליקציה חכמה</div><div class="bt-feat-desc">+100 תוכניות מנוהלות ישירות מהסמארטפון — iOS ו-Android. פשוט, מהיר, ומדויק.</div></div>
+      <div class="bt-feat-card reveal rd1"><div class="bt-feat-num">02</div><div class="bt-feat-icon">🏥</div><div class="bt-feat-title">פיתוח מקצועי</div><div class="bt-feat-desc">פותח בשיתוף פיסיותרפיסטים, רופאים וספורטאים עלית — ציוד רפואי מאושר.</div></div>
+      <div class="bt-feat-card reveal rd2"><div class="bt-feat-num">03</div><div class="bt-feat-icon">🔋</div><div class="bt-feat-title">אלחוטי לחלוטין</div><div class="bt-feat-desc">עיצוב קומפקטי וחסר חוטים — מגנטי, קל לשימוש, ניתן לשימוש בכל מקום.</div></div>
+      <div class="bt-feat-card reveal rd3"><div class="bt-feat-num">04</div><div class="bt-feat-icon">🇮🇱</div><div class="bt-feat-title">שירות מקומי</div><div class="bt-feat-desc">תמיכה בעברית, מלאי זמין בישראל, ואחריות יצרן מלאה. AMG — הסמכות המקומית.</div></div>
+    </div>
+  </div>
+
+  <!-- BT BRAND STORY -->
+  <div class="bt-brand-section">
+    <div class="bt-brand-inner">
+      <div class="bt-brand-image reveal">
+        <img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=600&auto=format&fit=crop" alt="Bluetens sport" loading="lazy">
+      </div>
+      <div class="bt-brand-text reveal rd1">
+        <span class="section-tag btblue">הסיפור שלנו עם Bluetens</span>
+        <h2 class="section-title">5 שנות <span style="color:#4DA6FF">שותפות</span> מוצלחת</h2>
+        <p>מאז 2019, AMG Sport &amp; Health היא המפיצה הבלעדית הרשמית של Bluetens בישראל. בחרנו ב-Bluetens לאחר מחקר שוק מעמיק — ואנחנו גאים להביא את הטכנולוגיה הצרפתית הזאת לספורטאים ולמטופלים בישראל.</p>
+        <p>בשנים האחרונות בנינו רשת הפצה רחבה — מחדרי כושר ומרפאות פיזיותרפיה ועד בתי מרקחת ומאמנים אישיים. אלפי לקוחות ישראליים נהנים היום מהיתרונות של אלקטרוסטימולציה חכמה.</p>
+        <div class="bt-brand-stats">
+          <div class="bt-brand-stat"><span class="n">5+</span><span class="l">שנות שותפות</span></div>
+          <div class="bt-brand-stat"><span class="n">+100</span><span class="l">תוכניות באפליקציה</span></div>
+          <div class="bt-brand-stat"><span class="n">15</span><span class="l">אזורי גוף</span></div>
+          <div class="bt-brand-stat"><span class="n">🇮🇱</span><span class="l">שירות בעברית</span></div>
+        </div>
+        <div style="margin-top:28px;display:flex;gap:14px;flex-wrap:wrap">
+          <button class="btn-bt" onclick="document.getElementById('bt-products').scrollIntoView({behavior:'smooth'})">כל המוצרים ⚡</button>
+          <button class="btn-outline" onclick="showPage('home');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),100)">צור קשר</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end page-bluetens -->
+
+
+<!-- FOOTER (shared) -->
 <footer>
-  <div class="footer-logo">פאוורזון ⚡</div>
+  <div class="footer-logo" onclick="showPage('home')" style="cursor:pointer">AMG Sport &amp; Health ⚡</div>
   <div class="footer-links">
-    <a href="#about">אודות</a>
-    <a href="#brands">מותגים</a>
-    <a href="#services">שירותים</a>
-    <a href="#contact">צור קשר</a>
+    <a onclick="showPage('home');scrollTo('#about')">אודות</a>
+    <a onclick="showPage('home');scrollTo('#brands')">מותגים</a>
+    <a onclick="showPage('bluetens')">Bluetens</a>
+    <a onclick="showPage('home');scrollTo('#contact')">צור קשר</a>
   </div>
-  <div class="footer-copy">© 2025 פאוורזון. כל הזכויות שמורות.</div>
+  <div class="footer-copy">© 2025 AMG Sport &amp; Health | adzonemediagroup.com</div>
 </footer>
 
 <script>
+  // Page system
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+    // re-trigger reveal for new page
+    setTimeout(triggerReveal, 100);
+  }
+
+  function scrollTo(id) {
+    setTimeout(() => {
+      const el = document.querySelector(id);
+      if (el) el.scrollIntoView({behavior:'smooth'});
+    }, 50);
+  }
+
+  // Nav scroll
   const nav = document.getElementById('mainNav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-  });
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); });
 
-  const revealEls = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }});
-  }, { threshold: 0.1 });
-  revealEls.forEach(el => io.observe(el));
+  // Reveal on scroll
+  function triggerReveal() {
+    const els = document.querySelectorAll('.page.active .reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }});
+    }, {threshold:.08});
+    els.forEach(el => { el.classList.remove('visible'); io.observe(el); });
+  }
+  triggerReveal();
 
+  // Counter animation
   function animateNum(el) {
     const target = parseInt(el.dataset.target);
     const suffix = el.dataset.suffix || '';
@@ -789,18 +1057,15 @@
     let cur = 0; const step = target / 60;
     const t = setInterval(() => {
       cur = Math.min(cur + step, target);
-      el.textContent = (suffix === '+' ? '+' : '') + Math.floor(cur) + (suffix === '+' ? '' : suffix);
+      el.textContent = (suffix === '+' ? '+' : '') + Math.floor(cur) + (suffix !== '+' ? suffix : '');
       if (cur >= target) clearInterval(t);
     }, 16);
   }
-  const statsObs = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) {
-      document.querySelectorAll('.stat-num[data-target]').forEach(animateNum);
-      statsObs.disconnect();
-    }
+  const so = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) { document.querySelectorAll('.stat-num[data-target]').forEach(animateNum); so.disconnect(); }
   });
-  const sb = document.querySelector('.stats-bar');
-  if (sb) statsObs.observe(sb);
+  const sb = document.getElementById('statsBar');
+  if (sb) so.observe(sb);
 </script>
 </body>
 </html>
