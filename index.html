@@ -374,14 +374,14 @@ footer{background:var(--dark2);padding:30px var(--pad);display:flex;justify-cont
       <span class="bbbadge bbt">מפיצים בלעדיים מאז 2019</span>
       <div><div class="bbt-h">Bluetens — אלקטרוסטימולציה מחוברת</div><p class="bbt-p">מכשירי TENS/EMS המובילים בעולם — <span class="hi-bt">5+ שנות הפצה בישראל</span></p></div>
     </div>
-    <a class="btn btn-bt" onclick="sp('bt')">גלו את הגאמא ←</a>
+    <a class="btn btn-bt" onclick="sp('bt')">לכל הקולקציה ←</a>
   </div>
   <div class="bbanner bb-sh rv">
     <div class="bbl">
       <span class="bbbadge bbs">מפיצים בלעדיים בישראל</span>
       <div><div class="bbt-h">Shapeheart — אביזרי טלפון מגנטיים לספורט</div><p class="bbt-p">לרצים ולרוכבים — <span class="hi-sh">פטנט צרפתי, מחזיק עד 8 ק"ג</span></p></div>
     </div>
-    <a class="btn btn-sh" onclick="sp('sh')">גלו את הגאמא ←</a>
+    <a class="btn btn-sh" onclick="sp('sh')">לכל הקולקציה ←</a>
   </div>
 
   <!-- TICKER -->
@@ -464,7 +464,7 @@ footer{background:var(--dark2);padding:30px var(--pad);display:flex;justify-cont
         </div>
         <div class="bdesc">מכשירי האלקטרוסטימולציה המחוברים המובילים בעולם — TENS ו-EMS. 5+ שנות הצלחה בישראל.</div>
         <span class="btag btag-bt">EXCLUSIVE DISTRIBUTOR ISRAEL</span>
-        <div class="bfeat-cta" style="margin-top:16px"><a class="btn btn-bt" onclick="sp('bt')">גלו את הגאמא ←</a></div>
+        <div class="bfeat-cta" style="margin-top:16px"><a class="btn btn-bt" onclick="sp('bt')">לכל הקולקציה ←</a></div>
       </div>
       <div class="bcard bfeat bc-sh rv" onclick="sp('sh')" style="background:linear-gradient(135deg,rgba(204,85,0,.08),rgba(255,122,42,.04));border-color:rgba(229,91,0,.25)!important">
         <span class="bicon">🧲</span>
@@ -473,7 +473,7 @@ footer{background:var(--dark2);padding:30px var(--pad);display:flex;justify-cont
         </div>
         <div class="bdesc">ממציאי ההחזקה המגנטית לטלפון בספורט — לרצים ורוכבים. פטנט צרפתי, 8 ק"ג, עמיד גשם.</div>
         <span class="btag btag-sh">EXCLUSIVE DISTRIBUTOR ISRAEL</span>
-        <div class="bfeat-cta" style="margin-top:16px"><a class="btn btn-sh" onclick="sp('sh')">גלו את הגאמא ←</a></div>
+        <div class="bfeat-cta" style="margin-top:16px"><a class="btn btn-sh" onclick="sp('sh')">לכל הקולקציה ←</a></div>
       </div>
       <div class="bcard bc-g rv"><span class="bicon">💧</span><div class="bname bn-g">HYDRA SPORT</div><div class="bdesc">משקאות הידרציה לספורטאים — מגנזיום, אשלגן, אלקטרוליטים</div><span class="btag btag-g">IMPORT</span></div>
       <div class="bcard bc-p rv d1"><span class="bicon">🔥</span><div class="bname bn-p">ENERGY FUEL</div><div class="bdesc">משקאות אנרגיה לספורטאי CrossFit — פורמולות מקצועיות</div><span class="btag btag-p">COMING SOON</span></div>
@@ -582,7 +582,7 @@ footer{background:var(--dark2);padding:30px var(--pad);display:flex;justify-cont
   </div>
 
   <div class="sec-sm sec-dark" id="bt-products" style="padding-bottom:0">
-    <div style="padding:0 var(--pad)" class="rv"><span class="tag t-bt">הגאמא</span><h2 class="h2">מוצרי <span class="c-bt">Bluetens</span></h2><p class="body" style="margin-top:8px">כשרות | אחריות יצרן מלאה</p></div>
+    <div style="padding:0 var(--pad)" class="rv"><span class="tag t-bt">הקולקציה</span><h2 class="h2">מוצרי <span class="c-bt">Bluetens</span></h2><p class="body" style="margin-top:8px">כשרות | אחריות יצרן מלאה</p></div>
   </div>
   <div class="pgrid" style="padding:20px var(--pad) 60px;background:var(--dark)">
     <div class="pcard rv">
@@ -804,7 +804,9 @@ function showPage(n,push){
 function sp(n){showPage(n)}
 function goHome(){showPage('home')}
 window.addEventListener('popstate',e=>{showPage((e.state&&e.state.page)||'home',false)});
-history.replaceState({page:'home'},'','#');
+// On load, read hash and show correct page
+const initHash = window.location.hash.replace('#','') || 'home';
+showPage(initHash, false);
 function sTo(id){setTimeout(()=>{const el=document.querySelector(id);if(el)el.scrollIntoView({behavior:'smooth'})},60)}
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>50));
