@@ -3,1371 +3,809 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AMG Sport & Health | יבואן ומפיץ מוצרי ספורט ובריאות</title>
+<title>AMG Sport & Health | יבואן ומפיץ מוצרי ספורט</title>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --blue:   #00C8FF;
-    --green:  #00FF88;
-    --pink:   #FF3FA4;
-    --yellow: #FFE500;
-    --black:  #060608;
-    --dark:   #0e0e12;
-    --dark2:  #141418;
-    --white:  #F0F4FF;
-    --gray:   #6A6A80;
-    --bt-blue: #0066CC; /* Bluetens brand blue */
-  }
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Heebo',sans-serif;background:#06060A;color:#EEF0FF;overflow-x:hidden;line-height:1.6}
+:root{
+  --blue:#00C8FF;--blue-d:#0077BB;--green:#00FF88;--green-d:#00BB66;
+  --pink:#FF3FA4;--yellow:#FFE500;--orange:#FF7A2A;--orange-d:#CC5500;
+  --bt:#0066CC;--bg:#06060A;--dark:#0D0D14;--dark2:#13131C;
+  --white:#EEF0FF;--gray:#7070A0;
+  --pad:clamp(20px,5vw,70px);
+}
+.page{display:none}.page.active{display:block}
 
-  * { margin:0; padding:0; box-sizing:border-box; }
-  html { scroll-behavior:smooth; }
-  body { font-family:'Heebo',sans-serif; background:var(--black); color:var(--white); overflow-x:hidden; }
+/* NOISE */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.4;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E")}
 
-  /* PAGE SYSTEM */
-  .page { display:none; }
-  .page.active { display:block; }
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:14px var(--pad);transition:background .4s}
+nav.scrolled{background:rgba(6,6,10,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,200,255,.08)}
+.nav-logo{cursor:pointer;line-height:1.1}
+.nav-logo-main{font-size:1.4rem;font-weight:900;background:linear-gradient(90deg,var(--blue),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 10px rgba(0,200,255,.4))}
+.nav-logo-sub{font-size:.78rem;color:var(--gray);letter-spacing:2px;display:block}
+.nav-links{display:flex;gap:clamp(10px,2vw,24px);list-style:none;align-items:center}
+.nav-links a{color:var(--gray);text-decoration:none;font-size:1rem;cursor:pointer;transition:color .3s}
+.nav-links a:hover{color:var(--blue)}
+.npill{padding:8px 18px;border-radius:2px;font-weight:700;font-size:.95rem!important;color:#fff!important;transition:all .3s!important}
+.npill-bt{background:var(--bt);box-shadow:0 0 14px rgba(0,102,204,.35)}.npill-bt:hover{background:#0055AA!important}
+.npill-sh{background:var(--orange-d);box-shadow:0 0 14px rgba(204,85,0,.35)}.npill-sh:hover{background:#AA4400!important}
 
-  /* NAV */
-  nav {
-    position:fixed; top:0; left:0; right:0; z-index:200;
-    display:flex; justify-content:space-between; align-items:center;
-    padding:16px 60px;
-    transition:background .4s;
-  }
-  nav.scrolled {
-    background:rgba(6,6,8,.96);
-    backdrop-filter:blur(16px);
-    border-bottom:1px solid rgba(0,200,255,.08);
-  }
+/* HAMBURGER */
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.ham span{width:24px;height:2px;background:var(--white);border-radius:2px;transition:all .3s;display:block}
+.ham.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.ham.open span:nth-child(2){opacity:0}
+.ham.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
 
-  .nav-logo {
-    display:flex; align-items:center; gap:12px; cursor:pointer;
-  }
-  .nav-logo-text {
-    font-size:1.5rem; font-weight:900; letter-spacing:-0.5px;
-    background:linear-gradient(90deg, var(--blue), var(--green));
-    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-    filter:drop-shadow(0 0 10px rgba(0,200,255,.4));
-  }
-  .nav-logo-sub { font-size:.65rem; color:var(--gray); letter-spacing:2px; display:block; margin-top:-4px; }
+/* MOBILE MENU */
+.mmenu{display:none;position:fixed;inset:0;z-index:190;background:rgba(6,6,10,.97);backdrop-filter:blur(20px);flex-direction:column;align-items:center;justify-content:center;gap:28px}
+.mmenu.open{display:flex}
+.mmenu a{color:var(--white);text-decoration:none;font-size:2rem;font-weight:700;cursor:pointer;transition:color .3s}
+.mmenu a:hover{color:var(--blue)}
+.mmenu-pills{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:8px}
 
-  .nav-links { display:flex; gap:28px; list-style:none; align-items:center; }
-  .nav-links a {
-    color:var(--gray); text-decoration:none;
-    font-size:.88rem; letter-spacing:1px; transition:color .3s;
-    position:relative; cursor:pointer;
-  }
-  .nav-links a::after {
-    content:''; position:absolute; bottom:-4px; right:0;
-    width:0; height:1px;
-    background:linear-gradient(90deg,var(--blue),var(--green));
-    transition:width .3s;
-  }
-  .nav-links a:hover { color:var(--blue); }
-  .nav-links a:hover::after { width:100%; }
+/* BUTTONS */
+.btn{display:inline-block;text-decoration:none;font-family:'Heebo',sans-serif;font-weight:700;font-size:1rem;letter-spacing:1px;padding:14px 32px;cursor:pointer;border:none;transition:all .3s}
+.btn-p{background:linear-gradient(135deg,var(--blue),var(--blue-d));color:#000;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));box-shadow:0 0 20px rgba(0,200,255,.25)}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(0,200,255,.45)}
+.btn-ghost{background:transparent;border:1px solid rgba(0,200,255,.4);color:var(--blue)}
+.btn-ghost:hover{background:rgba(0,200,255,.07)}
+.btn-bt{background:var(--bt);color:#fff;box-shadow:0 0 18px rgba(0,102,204,.3)}.btn-bt:hover{background:#0055AA;transform:translateY(-2px)}
+.btn-sh{background:var(--orange-d);color:#fff;box-shadow:0 0 18px rgba(204,85,0,.3)}.btn-sh:hover{background:#AA4400;transform:translateY(-2px)}
+.btn-ghost-sh{background:transparent;border:1px solid rgba(255,122,42,.4);color:var(--orange)}.btn-ghost-sh:hover{background:rgba(255,122,42,.07)}
+.btn-gr{background:linear-gradient(135deg,var(--green),var(--green-d));color:#000}.btn-gr:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,255,136,.4)}
 
-  .nav-bt-btn {
-    background:var(--bt-blue);
-    color:#fff !important; padding:8px 20px;
-    font-size:.8rem !important; font-weight:700; letter-spacing:1px;
-    border-radius:2px; transition:all .3s !important;
-    box-shadow:0 0 16px rgba(0,102,204,.3);
-  }
-  .nav-bt-btn::after { display:none !important; }
-  .nav-bt-btn:hover { background:#0052a3 !important; box-shadow:0 4px 20px rgba(0,102,204,.5) !important; transform:translateY(-1px); }
+/* REVEAL */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}.rv.in{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
 
-  /* ═══════════════════════════════════
-     PAGE ACCUEIL
-  ═══════════════════════════════════ */
+/* LAYOUT */
+.sec{padding:80px var(--pad)}.sec-sm{padding:50px var(--pad)}
+.sec-dark{background:var(--dark)}.sec-dk2{background:var(--dark2)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,70px);align-items:center}
 
-  /* HERO */
-  .hero {
-    min-height:100vh;
-    display:grid; grid-template-columns:1fr 1fr;
-    align-items:center; padding:120px 60px 60px;
-    position:relative; overflow:hidden;
-  }
-  .hero-bg {
-    position:absolute; inset:0;
-    background:
-      radial-gradient(ellipse 55% 70% at 0% 60%, rgba(0,200,255,.09) 0%, transparent 65%),
-      radial-gradient(ellipse 40% 50% at 100% 10%, rgba(0,255,136,.07) 0%, transparent 60%),
-      radial-gradient(ellipse 30% 40% at 60% 80%, rgba(255,63,164,.05) 0%, transparent 60%),
-      var(--black);
-  }
-  .hero-grid {
-    position:absolute; inset:0;
-    background-image:
-      linear-gradient(rgba(0,200,255,.04) 1px,transparent 1px),
-      linear-gradient(90deg,rgba(0,200,255,.04) 1px,transparent 1px);
-    background-size:70px 70px;
-    mask-image:radial-gradient(ellipse 80% 90% at 30% 50%, black 20%, transparent 80%);
-  }
-  .hero-content { position:relative; z-index:2; }
+/* TYPE */
+.tag{display:inline-block;font-size:.85rem;letter-spacing:3px;font-weight:700;margin-bottom:12px}
+.t-blue{color:var(--blue)}.t-green{color:var(--green)}.t-pink{color:var(--pink)}
+.t-yellow{color:var(--yellow)}.t-orange{color:var(--orange)}.t-bt{color:#4DA6FF}
+.h1{font-size:clamp(3rem,8vw,6rem);font-weight:900;letter-spacing:-2px;line-height:.95}
+.h2{font-size:clamp(2rem,4vw,3rem);font-weight:900;letter-spacing:-1.5px;line-height:1.05}
+.lead{font-size:1.2rem;color:var(--gray);letter-spacing:2px;font-weight:300}
+.body{font-size:1.1rem;color:#9090C0;line-height:1.85}
+.c-blue{color:var(--blue);text-shadow:0 0 24px rgba(0,200,255,.45)}
+.c-green{color:var(--green);text-shadow:0 0 24px rgba(0,255,136,.45)}
+.c-pink{color:var(--pink);text-shadow:0 0 24px rgba(255,63,164,.45)}
+.c-yellow{color:var(--yellow);text-shadow:0 0 24px rgba(255,229,0,.45)}
+.c-orange{color:var(--orange);text-shadow:0 0 24px rgba(229,91,0,.45)}
+.c-bt{color:#4DA6FF;text-shadow:0 0 24px rgba(0,102,204,.5)}
 
-  .hero-badge {
-    display:inline-flex; align-items:center; gap:10px;
-    border:1px solid rgba(0,200,255,.3); background:rgba(0,200,255,.06);
-    padding:6px 18px; border-radius:2px;
-    font-size:.72rem; letter-spacing:3px; color:var(--blue); margin-bottom:28px;
-    animation:fadeDown .8s ease both;
-  }
-  .dot { width:6px; height:6px; background:var(--green); border-radius:50%; animation:pulse 1.6s infinite; }
-  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
+/* TICKER */
+.ticker{overflow:hidden;padding:16px 0;border-top:1px solid rgba(0,200,255,.1);border-bottom:1px solid rgba(0,200,255,.1);background:rgba(0,200,255,.03)}
+.ticker-t{display:inline-block;animation:tick 26s linear infinite;white-space:nowrap}
+.ti{display:inline-block;padding:0 34px;font-size:1rem;letter-spacing:3px;font-weight:700}
+.ti-b{color:var(--blue)}.ti-g{color:var(--green)}.ti-p{color:var(--pink)}.ti-y{color:var(--yellow)}.ti-o{color:var(--orange)}.ti-bt{color:#4DA6FF}
+.tsep{color:rgba(255,255,255,.12);padding:0 8px}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-  .hero h1 {
-    font-size:clamp(3rem,6.5vw,6rem); font-weight:900;
-    line-height:.95; letter-spacing:-3px; margin-bottom:20px;
-    animation:fadeDown .8s ease .1s both;
-  }
-  .c-blue   { color:var(--blue);   text-shadow:0 0 28px rgba(0,200,255,.4); }
-  .c-green  { color:var(--green);  text-shadow:0 0 28px rgba(0,255,136,.4); }
-  .c-pink   { color:var(--pink);   text-shadow:0 0 28px rgba(255,63,164,.4); }
-  .c-yellow { color:var(--yellow); text-shadow:0 0 28px rgba(255,229,0,.4); }
+/* STATS */
+.stats{display:flex;justify-content:space-around;flex-wrap:wrap;gap:20px;padding:30px var(--pad);background:var(--dark);border-bottom:1px solid rgba(255,255,255,.04)}
+.si{text-align:center;min-width:80px}
+.sn{font-size:clamp(1.9rem,4vw,2.6rem);font-weight:900;line-height:1;letter-spacing:-1px}
+.sn-b{color:var(--blue);text-shadow:0 0 20px rgba(0,200,255,.45)}
+.sn-g{color:var(--green);text-shadow:0 0 20px rgba(0,255,136,.45)}
+.sn-p{color:var(--pink);text-shadow:0 0 20px rgba(255,63,164,.45)}
+.sn-y{color:var(--yellow);text-shadow:0 0 20px rgba(255,229,0,.45)}
+.sn-bt{color:#4DA6FF;text-shadow:0 0 20px rgba(0,102,204,.5)}
+.sl{font-size:1rem;color:var(--gray);letter-spacing:1px;margin-top:6px}
 
-  .hero-sub { font-size:.95rem; letter-spacing:4px; color:var(--gray); margin-bottom:16px; animation:fadeDown .8s ease .2s both; }
-  .hero-desc { font-size:1rem; line-height:1.85; color:#8888AA; max-width:460px; margin-bottom:40px; animation:fadeDown .8s ease .3s both; }
-  .hero-ctas { display:flex; gap:16px; flex-wrap:wrap; animation:fadeDown .8s ease .4s both; }
+/* PHOTO STRIP */
+.strip{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:3px;height:clamp(220px,35vw,400px)}
+.sc{overflow:hidden;position:relative;cursor:pointer}
+.sc img{width:100%;height:100%;object-fit:cover;transition:transform .7s;filter:saturate(.75)}
+.sc:hover img{transform:scale(1.06);filter:saturate(1.1)}
+.sc::before{content:'';position:absolute;inset:0;z-index:1;mix-blend-mode:screen}
+.sc-b::before{background:rgba(0,200,255,.2)}.sc-p::before{background:rgba(255,63,164,.2)}.sc-g::before{background:rgba(0,255,136,.18)}
+.sc::after{content:'';position:absolute;inset:0;z-index:2;background:linear-gradient(to top,rgba(6,6,10,.7) 0%,transparent 55%)}
+.slabel{position:absolute;bottom:16px;right:16px;z-index:3;font-size:.85rem;letter-spacing:3px;font-weight:700;padding:5px 12px;border:1px solid}
+.sc-b .slabel{color:var(--blue);border-color:rgba(0,200,255,.45)}
+.sc-p .slabel{color:var(--pink);border-color:rgba(255,63,164,.45)}
+.sc-g .slabel{color:var(--green);border-color:rgba(0,255,136,.45)}
 
-  .btn-blue {
-    background:linear-gradient(135deg,var(--blue),#0084CC);
-    color:#000; padding:14px 34px; font-size:.92rem; font-weight:900;
-    letter-spacing:1px; font-family:'Heebo',sans-serif;
-    border:none; cursor:pointer; text-decoration:none; display:inline-block;
-    clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
-    transition:all .3s; box-shadow:0 0 20px rgba(0,200,255,.25);
-  }
-  .btn-blue:hover { transform:translateY(-3px); box-shadow:0 6px 28px rgba(0,200,255,.45); }
+/* PHOTO FRAME */
+.pframe{border-radius:4px;overflow:hidden;position:relative;height:clamp(280px,45vw,500px)}
+.pframe img{width:100%;height:100%;object-fit:cover;filter:saturate(.85)}
+.pbadge{position:absolute;bottom:20px;left:20px;z-index:2;background:rgba(6,6,10,.92);backdrop-filter:blur(10px);border:1px solid;padding:14px 20px;text-align:center}
+.pbadge .n{font-size:2rem;font-weight:900;line-height:1;display:block}.pbadge .l{font-size:.82rem;color:rgba(255,255,255,.4);letter-spacing:2px;margin-top:4px}
 
-  .btn-outline {
-    border:1px solid rgba(0,255,136,.35); color:var(--green);
-    padding:14px 34px; font-size:.92rem; letter-spacing:1px; font-family:'Heebo',sans-serif;
-    text-decoration:none; display:inline-block; background:transparent; transition:all .3s; cursor:pointer;
-  }
-  .btn-outline:hover { background:rgba(0,255,136,.07); border-color:var(--green); }
+/* FEATURE BOXES */
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
+.fbox{padding:20px;border:1px solid rgba(255,255,255,.06);transition:all .4s;position:relative;overflow:hidden}
+.fbox::before{content:'';position:absolute;top:0;right:0;width:3px;height:0;transition:height .4s}
+.fbox:hover{background:rgba(255,255,255,.02)}.fbox:hover::before{height:100%}
+.fb-bt::before{background:var(--bt)}.fb-g::before{background:var(--green)}.fb-p::before{background:var(--pink)}.fb-o::before{background:var(--orange)}
+.fi{font-size:1.5rem;margin-bottom:8px}.ft{font-size:1.1rem;font-weight:700;margin-bottom:4px;color:var(--white)}.fd{font-size:1rem;color:var(--gray);line-height:1.6}
 
-  .btn-bt {
-    background:var(--bt-blue); color:#fff;
-    padding:14px 34px; font-size:.92rem; font-weight:700;
-    letter-spacing:1px; font-family:'Heebo',sans-serif;
-    border:none; cursor:pointer; text-decoration:none; display:inline-block;
-    transition:all .3s; box-shadow:0 0 20px rgba(0,102,204,.3);
-  }
-  .btn-bt:hover { transform:translateY(-3px); box-shadow:0 6px 28px rgba(0,102,204,.5); background:#0052a3; }
+/* BANNERS */
+.bbanner{padding:22px var(--pad);display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;position:relative;overflow:hidden}
+.bbanner::before{content:'';position:absolute;top:0;right:0;width:4px;height:100%}
+.bb-bt{background:rgba(0,102,204,.1);border:1px solid rgba(0,102,204,.35)}.bb-bt::before{background:var(--bt)}
+.bb-sh{background:rgba(204,85,0,.1);border:1px solid rgba(204,85,0,.35)}.bb-sh::before{background:var(--orange-d)}
+.bbl{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.bbbadge{font-size:.85rem;font-weight:900;letter-spacing:2px;padding:6px 14px;color:#fff;white-space:nowrap}
+.bbt{background:var(--bt)}.bbs{background:var(--orange-d)}
+.bbt-h{font-size:1.2rem;font-weight:900;color:var(--white);margin-bottom:4px}
+.bbt-p{font-size:1rem;color:var(--gray)}
+.bbt-p .hi-bt{color:#4DA6FF;font-weight:700}.bbt-p .hi-sh{color:var(--orange);font-weight:700}
 
-  .hero-images { position:relative; z-index:2; height:540px; }
-  .hero-img-main {
-    position:absolute; top:0; left:30px; right:0; bottom:60px;
-    border-radius:4px; overflow:hidden;
-    border:1px solid rgba(0,200,255,.15);
-    box-shadow:0 0 40px rgba(0,200,255,.12);
-  }
-  .hero-img-main img { width:100%; height:100%; object-fit:cover; transition:transform .8s; }
-  .hero-img-main:hover img { transform:scale(1.04); }
-  .hero-img-main::after {
-    content:''; position:absolute; inset:0;
-    background:linear-gradient(135deg,rgba(0,200,255,.12),transparent 60%);
-  }
-  .hero-img-small {
-    position:absolute; bottom:0; left:0; width:155px; height:170px;
-    border-radius:4px; overflow:hidden; border:2px solid var(--green);
-    box-shadow:0 0 22px rgba(0,255,136,.25);
-  }
-  .hero-img-small img { width:100%; height:100%; object-fit:cover; }
-  .hero-stat-badge {
-    position:absolute; top:24px; left:0;
-    background:rgba(6,6,8,.88); border:1px solid rgba(255,229,0,.3);
-    backdrop-filter:blur(10px); padding:12px 18px; min-width:130px; text-align:center;
-  }
-  .hero-stat-badge .n { font-size:1.8rem; font-weight:900; color:var(--yellow); text-shadow:0 0 14px rgba(255,229,0,.5); display:block; }
-  .hero-stat-badge .l { font-size:.65rem; color:rgba(255,255,255,.4); letter-spacing:1px; }
+/* BRANDS */
+.bgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2px;margin-top:40px}
+.bcard{background:var(--dark2);padding:38px 26px;text-align:center;position:relative;overflow:hidden;cursor:pointer;transition:all .4s;border:1px solid rgba(255,255,255,.04)}
+.bcard::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .4s;mix-blend-mode:screen}
+.bcard::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;transform:scaleX(0);transition:transform .4s}
+.bcard:hover{transform:translateY(-4px)}.bcard:hover::before{opacity:1}.bcard:hover::after{transform:scaleX(1)}
+.bc-bt::before{background:radial-gradient(circle at 50% 50%,rgba(0,102,204,.15),transparent 70%)}.bc-bt::after{background:var(--bt)}
+.bc-sh::before{background:radial-gradient(circle at 50% 50%,rgba(229,91,0,.15),transparent 70%)}.bc-sh::after{background:var(--orange)}
+.bc-g::before{background:radial-gradient(circle at 50% 50%,rgba(0,255,136,.12),transparent 70%)}.bc-g::after{background:var(--green)}
+.bc-p::before{background:radial-gradient(circle at 50% 50%,rgba(255,63,164,.1),transparent 70%)}.bc-p::after{background:var(--pink)}
+.bicon{font-size:3rem;margin-bottom:14px;display:block;transition:transform .4s}.bcard:hover .bicon{transform:scale(1.15)}
+.bname{font-size:1.3rem;font-weight:900;margin-bottom:8px}
+.bn-bt{color:#4DA6FF;text-shadow:0 0 10px rgba(0,102,204,.4)}.bn-sh{color:var(--orange);text-shadow:0 0 10px rgba(229,91,0,.4)}
+.bn-g{color:var(--green);text-shadow:0 0 10px rgba(0,255,136,.3)}.bn-p{color:var(--pink);text-shadow:0 0 10px rgba(255,63,164,.3)}
+.bdesc{font-size:1rem;color:var(--gray);line-height:1.7}
+.btag{display:inline-block;margin-top:12px;font-size:.82rem;letter-spacing:2px;padding:4px 12px}
+.btag-bt{color:#4DA6FF;border:1px solid rgba(0,102,204,.35)}.btag-sh{color:var(--orange);border:1px solid rgba(229,91,0,.35)}
+.btag-g{color:var(--green);border:1px solid rgba(0,255,136,.3)}.btag-p{color:var(--pink);border:1px solid rgba(255,63,164,.3)}
+.bfeat{grid-column:1/-1;display:flex;align-items:center;gap:28px;flex-wrap:wrap;text-align:right;padding:32px 38px}
+.bfeat .bicon{font-size:3.5rem;flex-shrink:0}.bfeat .bname{font-size:1.8rem}.bfeat .bdesc{font-size:1.05rem}.bfeat-cta{flex-shrink:0}
 
-  @keyframes fadeDown{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:translateY(0)}}
+/* FULL PHOTO */
+.full{height:clamp(280px,50vw,480px);position:relative;overflow:hidden}
+.full img{width:100%;height:100%;object-fit:cover;object-position:center 35%;filter:saturate(.7) brightness(.65)}
+.full-ov{position:absolute;inset:0;background:linear-gradient(to left,rgba(6,6,10,.92) 0%,rgba(6,6,10,.35) 50%,transparent 100%),linear-gradient(to top,rgba(6,6,10,.7) 0%,transparent 50%);display:flex;align-items:center;padding:var(--pad)}
+.full-txt{max-width:520px}
 
-  /* BLUETENS TEASER BANNER */
-  .bt-banner {
-    margin:0 60px 0;
-    background:linear-gradient(135deg, rgba(0,102,204,.15) 0%, rgba(0,200,255,.08) 100%);
-    border:1px solid rgba(0,102,204,.4);
-    padding:28px 40px;
-    display:flex; align-items:center; justify-content:space-between; gap:30px;
-    position:relative; overflow:hidden;
-  }
-  .bt-banner::before {
-    content:''; position:absolute; top:0; right:0;
-    width:4px; height:100%; background:var(--bt-blue);
-  }
-  .bt-banner-left { display:flex; align-items:center; gap:20px; }
-  .bt-badge-5y {
-    background:var(--bt-blue); color:#fff;
-    font-size:.65rem; font-weight:900; letter-spacing:2px;
-    padding:6px 14px; white-space:nowrap;
-  }
-  .bt-banner-text h3 { font-size:1.1rem; font-weight:900; color:var(--white); margin-bottom:4px; }
-  .bt-banner-text p { font-size:.85rem; color:var(--gray); }
-  .bt-banner-text span { color:var(--bt-blue); font-weight:700; }
+/* WHY */
+.wlist{margin-top:28px}
+.wi{display:flex;gap:16px;align-items:flex-start;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.05);transition:padding-right .3s}
+.wi:last-child{border-bottom:none}.wi:hover{padding-right:8px}
+.wnum{font-size:.85rem;font-weight:900;letter-spacing:1px;width:26px;flex-shrink:0;margin-top:3px}
+.wh{font-size:1.1rem;font-weight:700;margin-bottom:4px;color:var(--white)}.wp{font-size:1rem;color:var(--gray);line-height:1.6}
 
-  /* TICKER */
-  .ticker-wrap {
-    overflow:hidden; padding:13px 0; margin-top:0;
-    border-top:1px solid rgba(0,200,255,.1);
-    border-bottom:1px solid rgba(0,200,255,.1);
-    background:rgba(0,200,255,.03);
-  }
-  .ticker-track { display:inline-block; animation:ticker 24s linear infinite; white-space:nowrap; }
-  .ticker-item { display:inline-block; padding:0 34px; font-size:.72rem; letter-spacing:3px; font-weight:700; }
-  .ticker-item.blue   { color:var(--blue); }
-  .ticker-item.green  { color:var(--green); }
-  .ticker-item.pink   { color:var(--pink); }
-  .ticker-item.yellow { color:var(--yellow); }
-  .ticker-item.btblue { color:#4DA6FF; }
-  .ticker-sep { color:rgba(255,255,255,.1); padding:0 8px; }
-  @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* CONTACT */
+.cgrid{display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(28px,5vw,70px);align-items:start}
+.ci{display:flex;gap:14px;align-items:flex-start;margin-bottom:18px}
+.ciico{width:42px;height:42px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1rem;border:1px solid}
+.cib{border-color:rgba(0,200,255,.3);background:rgba(0,200,255,.07)}
+.cig{border-color:rgba(0,255,136,.3);background:rgba(0,255,136,.07)}
+.cibt{border-color:rgba(0,102,204,.3);background:rgba(0,102,204,.07)}
+.ciy{border-color:rgba(255,229,0,.3);background:rgba(255,229,0,.07)}
+.cilb{font-size:.85rem;letter-spacing:2px;margin-bottom:3px;display:block}.civ{font-size:1.1rem;color:var(--white)}
+.fgd{display:flex;flex-direction:column;gap:12px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09);color:var(--white);font-family:'Heebo',sans-serif;font-size:1.05rem;padding:15px 18px;width:100%;transition:border-color .3s;direction:rtl}
+.field:focus{outline:none;border-color:rgba(0,200,255,.45);background:rgba(0,200,255,.03)}
+.field::placeholder{color:rgba(255,255,255,.22)}
+textarea.field{height:110px;resize:vertical}
 
-  /* STATS */
-  .stats-bar {
-    display:flex; justify-content:space-around; padding:26px 60px;
-    background:var(--dark); border-bottom:1px solid rgba(255,255,255,.04);
-  }
-  .stat-item { text-align:center; }
-  .stat-num { font-size:2.1rem; font-weight:900; line-height:1; letter-spacing:-1px; }
-  .stat-num.blue   { color:var(--blue);   text-shadow:0 0 18px rgba(0,200,255,.4); }
-  .stat-num.green  { color:var(--green);  text-shadow:0 0 18px rgba(0,255,136,.4); }
-  .stat-num.pink   { color:var(--pink);   text-shadow:0 0 18px rgba(255,63,164,.4); }
-  .stat-num.yellow { color:var(--yellow); text-shadow:0 0 18px rgba(255,229,0,.4); }
-  .stat-num.btblue { color:#4DA6FF;       text-shadow:0 0 18px rgba(0,102,204,.5); }
-  .stat-label { font-size:.72rem; color:var(--gray); letter-spacing:1px; margin-top:5px; }
+/* BRAND PAGE HERO */
+.bhero{padding:90px var(--pad) 60px;position:relative;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:40px;min-height:80vh}
+.bhero-bg-bt{position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 10% 50%,rgba(0,102,204,.12) 0%,transparent 65%),radial-gradient(ellipse 40% 60% at 90% 20%,rgba(0,200,255,.07) 0%,transparent 60%),var(--bg)}
+.bhero-bg-sh{position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 10% 50%,rgba(204,85,0,.12) 0%,transparent 65%),radial-gradient(ellipse 40% 60% at 90% 20%,rgba(255,122,42,.07) 0%,transparent 60%),var(--bg)}
+.bhgrid{position:absolute;inset:0;background-size:60px 60px;background-image:linear-gradient(rgba(0,102,204,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,102,204,.04) 1px,transparent 1px);mask-image:radial-gradient(ellipse 80% 90% at 30% 50%,black 20%,transparent 80%)}
+.bhgrid-sh{background-image:linear-gradient(rgba(204,85,0,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(204,85,0,.05) 1px,transparent 1px)!important}
+.bhc{position:relative;z-index:2}
+.bhp{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.bhex{font-size:.85rem;font-weight:900;letter-spacing:2px;padding:6px 14px;color:#fff}
+.bhsub{font-size:.85rem;color:var(--gray);letter-spacing:2px}
+.bhh1{font-size:clamp(2.8rem,6vw,5rem);font-weight:900;letter-spacing:-2px;line-height:.95;color:var(--white);margin-bottom:14px}
+.bhmodes{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+.bhmode{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);padding:10px 16px}
+.bhmode-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.bhmode h5{font-size:1rem;font-weight:700;color:var(--white);margin-bottom:2px}.bhmode p{font-size:.88rem;color:var(--gray)}
+.bhimg{position:relative;z-index:2;height:clamp(280px,45vw,420px);border-radius:4px;overflow:hidden}
+.bhimg img{width:100%;height:100%;object-fit:cover}
 
-  /* SECTION */
-  section { padding:90px 60px; }
-  .section-tag { display:block; font-size:.7rem; letter-spacing:4px; font-weight:700; margin-bottom:12px; }
-  .section-tag.blue   { color:var(--blue); }
-  .section-tag.green  { color:var(--green); }
-  .section-tag.pink   { color:var(--pink); }
-  .section-tag.yellow { color:var(--yellow); }
-  .section-tag.btblue { color:#4DA6FF; }
-  .section-title { font-size:clamp(1.8rem,3.5vw,3.2rem); font-weight:900; letter-spacing:-2px; line-height:1.05; margin-bottom:14px; }
+/* PRODUCTS */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:3px}
+.pcard{background:var(--dark2);overflow:hidden;border:1px solid rgba(255,255,255,.05);transition:all .4s;position:relative}
+.pcard:hover{transform:translateY(-6px)}
+.pimg{height:260px;overflow:hidden;position:relative;background:#0D0D14}
+.pimg img{width:100%;height:100%;object-fit:contain;padding:20px;transition:transform .7s;filter:saturate(.85)}
+.pcard:hover .pimg img{transform:scale(1.05);filter:saturate(1)}
+.pimg::after{content:'';position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to top,var(--dark2),transparent)}
+.pbadge{position:absolute;top:14px;right:14px;z-index:2;font-size:.85rem;font-weight:900;letter-spacing:2px;padding:4px 12px;color:#fff}
+.pinfo{padding:24px}
+.pname{font-size:1.3rem;font-weight:900;margin-bottom:6px}
+.ptag{font-size:1rem;color:var(--gray);margin-bottom:16px;line-height:1.6}
+.pfeats{list-style:none;margin-bottom:18px}
+.pfeats li{display:flex;gap:10px;align-items:flex-start;font-size:1rem;color:#9090C0;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.pfeats li:last-child{border-bottom:none}
+.pfeats li::before{content:'→';flex-shrink:0}
+.pcta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding-top:14px;border-top:1px solid rgba(255,255,255,.06)}
+.plink{font-size:.88rem;letter-spacing:1px;text-decoration:none}
 
-  /* PHOTO STRIP */
-  .photo-strip { display:grid; grid-template-columns:1.6fr 1fr 1fr; gap:3px; height:360px; }
-  .photo-strip-item { overflow:hidden; position:relative; cursor:pointer; }
-  .photo-strip-item img { width:100%; height:100%; object-fit:cover; transition:transform .7s; filter:saturate(.75); }
-  .photo-strip-item:hover img { transform:scale(1.06); filter:saturate(1.1); }
-  .photo-strip-item::before { content:''; position:absolute; inset:0; z-index:1; mix-blend-mode:screen; }
-  .tint-blue::before  { background:rgba(0,200,255,.2); }
-  .tint-green::before { background:rgba(0,255,136,.18); }
-  .tint-pink::before  { background:rgba(255,63,164,.18); }
-  .photo-strip-item::after {
-    content:''; position:absolute; inset:0; z-index:2;
-    background:linear-gradient(to top,rgba(6,6,8,.65) 0%,transparent 50%);
-  }
-  .strip-label {
-    position:absolute; bottom:18px; right:18px; z-index:3;
-    font-size:.65rem; letter-spacing:3px; font-weight:700; padding:4px 10px; border:1px solid;
-  }
-  .tint-blue  .strip-label { color:var(--blue);  border-color:rgba(0,200,255,.4); }
-  .tint-green .strip-label { color:var(--green); border-color:rgba(0,255,136,.4); }
-  .tint-pink  .strip-label { color:var(--pink);  border-color:rgba(255,63,164,.4); }
+/* 4-FEAT */
+.f4grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px}
+.f4card{background:var(--dark2);padding:30px 24px;border:1px solid rgba(255,255,255,.04);transition:all .4s;position:relative;overflow:hidden}
+.f4num{font-size:5rem;font-weight:900;position:absolute;top:12px;left:12px;line-height:1;opacity:.05}
+.f4card:hover{transform:translateY(-4px)}
+.f4card::after{content:'';position:absolute;top:0;right:0;width:0;height:3px;transition:width .4s}
+.f4card:hover::after{width:100%}
+.fc-bt::after{background:var(--bt)}.fc-sh::after{background:var(--orange)}
+.f4ico{font-size:1.8rem;margin-bottom:14px}
+.f4t{font-size:1.1rem;font-weight:700;margin-bottom:8px}.f4d{font-size:1rem;color:var(--gray);line-height:1.7}
 
-  /* ABOUT */
-  .about { display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center; }
-  .about-img {
-    position:relative; border-radius:4px; overflow:hidden;
-    border:1px solid rgba(0,255,136,.12); box-shadow:0 0 50px rgba(0,255,136,.1); height:460px;
-  }
-  .about-img img { width:100%; height:100%; object-fit:cover; filter:saturate(.85); }
-  .about-img::before {
-    content:''; position:absolute; inset:0; z-index:1;
-    background:linear-gradient(135deg,rgba(0,255,136,.1),rgba(0,200,255,.05)); mix-blend-mode:screen;
-  }
-  .about-img-badge {
-    position:absolute; bottom:22px; left:22px; z-index:2;
-    background:rgba(6,6,8,.9); border:1px solid rgba(0,200,255,.3);
-    backdrop-filter:blur(10px); padding:16px 22px;
-  }
-  .about-img-badge .bn { font-size:2.3rem; font-weight:900; color:var(--blue); text-shadow:0 0 18px rgba(0,200,255,.5); line-height:1; }
-  .about-img-badge .bl { font-size:.68rem; color:rgba(255,255,255,.4); letter-spacing:2px; margin-top:4px; }
-  .about-text p { color:#8888AA; line-height:1.9; font-size:1rem; margin-bottom:16px; }
-  .features-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:28px; }
-  .feature-box { padding:20px; border:1px solid rgba(255,255,255,.05); transition:all .4s; position:relative; overflow:hidden; }
-  .feature-box::before { content:''; position:absolute; top:0; right:0; width:3px; height:0; transition:height .4s; }
-  .feature-box:hover { background:rgba(255,255,255,.02); }
-  .feature-box:hover::before { height:100%; }
-  .fb-blue::before   { background:var(--blue); }
-  .fb-green::before  { background:var(--green); }
-  .fb-pink::before   { background:var(--pink); }
-  .fb-yellow::before { background:var(--yellow); }
-  .fb-btblue::before { background:var(--bt-blue); }
-  .feature-icon { font-size:1.4rem; margin-bottom:8px; }
-  .feature-title { font-size:.88rem; font-weight:700; margin-bottom:4px; }
-  .feature-desc  { font-size:.78rem; color:var(--gray); line-height:1.6; }
+/* FLOATING STATS */
+.bfs{position:absolute;z-index:3;background:rgba(6,6,10,.92);backdrop-filter:blur(12px);border:1px solid;padding:14px 20px;text-align:center}
+.bfs .fn{font-size:1.9rem;font-weight:900;line-height:1}.bfs .fl{font-size:.85rem;letter-spacing:2px;margin-top:3px;color:rgba(255,255,255,.4)}
+.bfs1{top:-16px;left:-16px}.bfs2{bottom:24px;left:-24px}
 
-  /* BRANDS GRID */
-  .brands-section { background:var(--dark); }
-  .brands-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:50px; }
-  .brand-card {
-    background:var(--dark2); padding:40px 32px; text-align:center;
-    position:relative; overflow:hidden; cursor:pointer; transition:all .4s;
-    border:1px solid rgba(255,255,255,.03);
-  }
-  .brand-card::before { content:''; position:absolute; inset:0; opacity:0; transition:opacity .4s; mix-blend-mode:screen; }
-  .bc-blue::before   { background:radial-gradient(circle at 50% 50%,rgba(0,200,255,.12),transparent 70%); }
-  .bc-green::before  { background:radial-gradient(circle at 50% 50%,rgba(0,255,136,.12),transparent 70%); }
-  .bc-pink::before   { background:radial-gradient(circle at 50% 50%,rgba(255,63,164,.1),transparent 70%); }
-  .bc-yellow::before { background:radial-gradient(circle at 50% 50%,rgba(255,229,0,.1),transparent 70%); }
-  .bc-btblue::before { background:radial-gradient(circle at 50% 50%,rgba(0,102,204,.15),transparent 70%); }
-  .brand-card::after {
-    content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
-    transform:scaleX(0); transition:transform .4s;
-  }
-  .bc-blue::after   { background:var(--blue); }
-  .bc-green::after  { background:var(--green); }
-  .bc-pink::after   { background:var(--pink); }
-  .bc-yellow::after { background:var(--yellow); }
-  .bc-btblue::after { background:var(--bt-blue); }
-  .brand-card:hover { transform:translateY(-4px); }
-  .brand-card:hover::before { opacity:1; }
-  .brand-card:hover::after  { transform:scaleX(1); }
-  .brand-icon { font-size:2.8rem; margin-bottom:16px; display:block; transition:transform .4s; }
-  .brand-card:hover .brand-icon { transform:scale(1.15); }
-  .brand-name { font-size:1.2rem; font-weight:900; margin-bottom:8px; }
-  .brand-name.blue   { color:var(--blue);   text-shadow:0 0 10px rgba(0,200,255,.3); }
-  .brand-name.green  { color:var(--green);  text-shadow:0 0 10px rgba(0,255,136,.3); }
-  .brand-name.pink   { color:var(--pink);   text-shadow:0 0 10px rgba(255,63,164,.3); }
-  .brand-name.yellow { color:var(--yellow); text-shadow:0 0 10px rgba(255,229,0,.3); }
-  .brand-name.btblue { color:#4DA6FF;       text-shadow:0 0 10px rgba(0,102,204,.4); }
-  .brand-desc { font-size:.8rem; color:var(--gray); line-height:1.7; }
-  .brand-tag { display:inline-block; margin-top:12px; font-size:.62rem; letter-spacing:2px; padding:3px 10px; }
-  .brand-tag.blue   { color:var(--blue);   border:1px solid rgba(0,200,255,.3); }
-  .brand-tag.green  { color:var(--green);  border:1px solid rgba(0,255,136,.3); }
-  .brand-tag.pink   { color:var(--pink);   border:1px solid rgba(255,63,164,.3); }
-  .brand-tag.yellow { color:var(--yellow); border:1px solid rgba(255,229,0,.3); }
-  .brand-tag.btblue { color:#4DA6FF;       border:1px solid rgba(0,102,204,.4); }
+/* CAT SEP */
+.catsep{display:inline-block;font-size:.88rem;letter-spacing:4px;font-weight:900;border-bottom:2px solid;padding-bottom:6px}
 
-  /* Bluetens featured card */
-  .brand-card.featured-bt {
-    grid-column:1/-1;
-    display:flex; align-items:center; gap:40px; text-align:right;
-    padding:40px 50px;
-    background:linear-gradient(135deg, rgba(0,102,204,.08) 0%, rgba(0,200,255,.04) 100%);
-    border:1px solid rgba(0,102,204,.25) !important;
-  }
-  .brand-card.featured-bt .brand-icon { font-size:4rem; flex-shrink:0; }
-  .brand-card.featured-bt .brand-info { flex:1; }
-  .brand-card.featured-bt .brand-name { font-size:1.8rem; }
-  .brand-card.featured-bt .brand-desc { font-size:.92rem; max-width:600px; }
-  .bt-5y-badge {
-    display:inline-block; background:var(--bt-blue);
-    color:#fff; font-size:.65rem; font-weight:900; letter-spacing:2px;
-    padding:5px 14px; margin-bottom:10px;
-  }
-  .brand-card.featured-bt .brand-cta {
-    flex-shrink:0;
-  }
+/* SH STRIP */
+.shstrip{display:grid;grid-template-columns:1fr 1fr;gap:3px;height:clamp(180px,28vw,300px)}
+.shsc{overflow:hidden;position:relative}
+.shsc img{width:100%;height:100%;object-fit:cover;filter:saturate(.8)}
+.shsc::before{content:'';position:absolute;inset:0;z-index:1;mix-blend-mode:screen}
+.shr::before{background:rgba(255,122,42,.15)}.shb::before{background:rgba(255,179,71,.12)}
+.shsc::after{content:'';position:absolute;inset:0;z-index:2;background:linear-gradient(to top,rgba(6,6,10,.7) 0%,transparent 55%)}
+.shlbl{position:absolute;bottom:16px;right:16px;z-index:3;font-size:.85rem;letter-spacing:3px;font-weight:700;padding:4px 10px;border:1px solid}
 
-  /* FULL PHOTO */
-  .full-photo { height:440px; position:relative; overflow:hidden; }
-  .full-photo img { width:100%; height:100%; object-fit:cover; object-position:center 30%; filter:saturate(.7) brightness(.65); }
-  .full-photo-overlay {
-    position:absolute; inset:0;
-    background:linear-gradient(to left,rgba(6,6,8,.9) 0%,rgba(6,6,8,.3) 50%,transparent 100%),
-               linear-gradient(to top,rgba(6,6,8,.7) 0%,transparent 50%);
-    display:flex; align-items:center; padding:80px 60px;
-  }
-  .full-photo-text { max-width:520px; }
-  .full-photo-text h2 { font-size:clamp(2.2rem,4.5vw,3.8rem); font-weight:900; letter-spacing:-2px; line-height:1; margin-bottom:18px; }
-  .full-photo-text p { color:#8888AA; font-size:1rem; line-height:1.8; margin-bottom:28px; }
+/* HERO */
+.hero{min-height:100svh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:110px var(--pad) 60px;position:relative;overflow:hidden;gap:40px}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 0% 60%,rgba(0,200,255,.09) 0%,transparent 65%),radial-gradient(ellipse 40% 55% at 100% 10%,rgba(0,255,136,.07) 0%,transparent 60%),radial-gradient(ellipse 30% 40% at 55% 85%,rgba(255,63,164,.05) 0%,transparent 55%),var(--bg)}
+.hgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,200,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,200,255,.04) 1px,transparent 1px);background-size:65px 65px;mask-image:radial-gradient(ellipse 80% 90% at 30% 50%,black 20%,transparent 80%)}
+.hcont{position:relative;z-index:2}
+.hbadge{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(0,200,255,.3);background:rgba(0,200,255,.07);padding:8px 18px;border-radius:2px;font-size:1rem;letter-spacing:2px;color:var(--blue);margin-bottom:22px}
+.ldot{width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
+.hctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px}
+.hwrap{position:relative;z-index:2;height:clamp(320px,50vw,560px)}
+.hmain{position:absolute;top:0;left:24px;right:0;bottom:56px;border-radius:4px;overflow:hidden;border:1px solid rgba(0,200,255,.15);box-shadow:0 0 40px rgba(0,200,255,.12)}
+.hmain img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.hmain::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,200,255,.12),transparent 60%)}
+.hsm{position:absolute;bottom:0;left:0;width:140px;height:160px;border-radius:4px;overflow:hidden;border:2px solid var(--green);box-shadow:0 0 22px rgba(0,255,136,.25)}
+.hsm img{width:100%;height:100%;object-fit:cover}
+.hstat{position:absolute;top:24px;left:0;background:rgba(6,6,10,.88);border:1px solid rgba(255,229,0,.3);backdrop-filter:blur(10px);padding:12px 18px;min-width:120px;text-align:center}
+.hstat .n{font-size:1.9rem;font-weight:900;color:var(--yellow);text-shadow:0 0 14px rgba(255,229,0,.5);display:block}
+.hstat .l{font-size:.88rem;color:rgba(255,255,255,.4);letter-spacing:1px}
 
-  /* WHY */
-  .why-section { background:var(--dark); }
-  .why-inner { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
-  .why-list { margin-top:36px; }
-  .why-item { display:flex; gap:18px; align-items:flex-start; padding:20px 0; border-bottom:1px solid rgba(255,255,255,.04); transition:padding-right .3s; }
-  .why-item:last-child { border-bottom:none; }
-  .why-item:hover { padding-right:8px; }
-  .why-num { font-size:.7rem; font-weight:900; letter-spacing:1px; width:26px; flex-shrink:0; margin-top:3px; }
-  .why-num.blue   { color:var(--blue); }
-  .why-num.green  { color:var(--green); }
-  .why-num.pink   { color:var(--pink); }
-  .why-num.yellow { color:var(--yellow); }
-  .why-num.btblue { color:#4DA6FF; }
-  .why-text h4 { font-size:.95rem; font-weight:700; margin-bottom:4px; }
-  .why-text p  { font-size:.82rem; color:var(--gray); line-height:1.6; }
-  .why-photo-col { position:relative; }
-  .why-photo { border-radius:4px; overflow:hidden; border:1px solid rgba(0,200,255,.12); box-shadow:0 0 60px rgba(0,200,255,.1); height:480px; position:relative; }
-  .why-photo img { width:100%; height:100%; object-fit:cover; filter:saturate(.8); }
-  .why-photo::before { content:''; position:absolute; inset:0; z-index:1; background:linear-gradient(135deg,rgba(0,200,255,.1),rgba(0,255,136,.06)); mix-blend-mode:screen; }
-  .why-floating-stat { position:absolute; z-index:3; background:rgba(6,6,8,.9); backdrop-filter:blur(12px); border:1px solid; padding:14px 20px; text-align:center; }
-  .why-floating-stat .fn { font-size:1.8rem; font-weight:900; line-height:1; }
-  .why-floating-stat .fl { font-size:.62rem; letter-spacing:2px; margin-top:3px; color:rgba(255,255,255,.4); }
-  .wfs-1 { top:-18px; left:-18px; border-color:rgba(0,200,255,.3); }
-  .wfs-1 .fn { color:var(--blue); text-shadow:0 0 14px rgba(0,200,255,.5); }
-  .wfs-2 { bottom:28px; left:-28px; border-color:rgba(0,102,204,.4); }
-  .wfs-2 .fn { color:#4DA6FF; text-shadow:0 0 14px rgba(0,102,204,.5); }
+/* FOOTER */
+footer{background:var(--dark2);padding:30px var(--pad);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;border-top:1px solid rgba(255,255,255,.05)}
+.flogo{font-size:1.3rem;font-weight:900;cursor:pointer;background:linear-gradient(90deg,var(--blue),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.flinks{display:flex;gap:18px;flex-wrap:wrap}
+.flinks a{color:rgba(255,255,255,.25);text-decoration:none;font-size:1rem;cursor:pointer;transition:color .3s}
+.flinks a:hover{color:var(--blue)}
+.fcopy{font-size:.88rem;color:rgba(255,255,255,.15);letter-spacing:1px}
 
-  /* CONTACT */
-  .contact-section { border-top:1px solid rgba(0,200,255,.08); }
-  .contact-inner { display:grid; grid-template-columns:1fr 1.3fr; gap:70px; align-items:start; }
-  .contact-photo { border-radius:4px; overflow:hidden; height:520px; border:1px solid rgba(0,255,136,.1); box-shadow:0 0 40px rgba(0,255,136,.08); position:relative; }
-  .contact-photo img { width:100%; height:100%; object-fit:cover; filter:saturate(.8); }
-  .contact-photo::after { content:''; position:absolute; inset:0; background:linear-gradient(to top,rgba(6,6,8,.7) 0%,transparent 50%); }
-  .contact-info { margin-bottom:36px; }
-  .contact-item { display:flex; gap:14px; align-items:flex-start; margin-bottom:20px; }
-  .contact-icon { width:40px; height:40px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:1rem; border:1px solid; }
-  .contact-icon.blue   { border-color:rgba(0,200,255,.3);  background:rgba(0,200,255,.07); }
-  .contact-icon.green  { border-color:rgba(0,255,136,.3);  background:rgba(0,255,136,.07); }
-  .contact-icon.pink   { border-color:rgba(255,63,164,.3); background:rgba(255,63,164,.07); }
-  .contact-icon.yellow { border-color:rgba(255,229,0,.3);  background:rgba(255,229,0,.07); }
-  .contact-item-text span { display:block; font-size:.65rem; letter-spacing:2px; margin-bottom:3px; }
-  .contact-item-text p { font-size:.92rem; color:var(--white); }
-  .contact-form { display:flex; flex-direction:column; gap:12px; }
-  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-  .form-input {
-    background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08);
-    color:var(--white); font-family:'Heebo',sans-serif;
-    font-size:.9rem; padding:14px 16px; width:100%;
-    transition:border-color .3s; direction:rtl;
-  }
-  .form-input:focus { outline:none; border-color:rgba(0,200,255,.4); background:rgba(0,200,255,.03); }
-  .form-input::placeholder { color:rgba(255,255,255,.2); }
-  textarea.form-input { height:100px; resize:vertical; }
-  .btn-grad {
-    background:linear-gradient(135deg,var(--blue) 0%,var(--green) 100%);
-    color:#000; padding:16px; width:100%;
-    font-size:.95rem; font-weight:900; letter-spacing:2px;
-    font-family:'Heebo',sans-serif;
-    border:none; cursor:pointer;
-    transition:all .3s; box-shadow:0 0 22px rgba(0,200,255,.2);
-  }
-  .btn-grad:hover { box-shadow:0 6px 38px rgba(0,200,255,.4); transform:translateY(-2px); }
-
-  /* ═══════════════════════════════════
-     PAGE BLUETENS
-  ═══════════════════════════════════ */
-  .bt-page { padding-top:90px; }
-
-  .bt-hero {
-    padding:80px 60px 60px;
-    background:
-      radial-gradient(ellipse 60% 80% at 20% 50%, rgba(0,102,204,.12) 0%, transparent 65%),
-      radial-gradient(ellipse 40% 60% at 80% 20%, rgba(0,200,255,.07) 0%, transparent 60%),
-      var(--black);
-    position:relative; overflow:hidden;
-  }
-  .bt-hero-grid {
-    position:absolute; inset:0;
-    background-image:linear-gradient(rgba(0,102,204,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,102,204,.05) 1px,transparent 1px);
-    background-size:60px 60px;
-    mask-image:radial-gradient(ellipse 80% 90% at 20% 50%, black 20%, transparent 80%);
-  }
-  .bt-hero-inner { position:relative; z-index:2; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
-
-  .bt-logo-area { display:flex; align-items:center; gap:16px; margin-bottom:24px; }
-  .bt-logo-badge {
-    background:var(--bt-blue); color:#fff;
-    font-size:.65rem; font-weight:900; letter-spacing:2px;
-    padding:5px 14px;
-  }
-  .bt-partner-text { font-size:.75rem; color:var(--gray); letter-spacing:2px; }
-
-  .bt-hero h1 { font-size:clamp(2.8rem,5vw,5rem); font-weight:900; letter-spacing:-2px; line-height:.95; margin-bottom:16px; }
-  .bt-hero h1 span { color:#4DA6FF; text-shadow:0 0 24px rgba(0,102,204,.5); }
-  .bt-hero-sub { font-size:.9rem; letter-spacing:3px; color:var(--gray); margin-bottom:14px; }
-  .bt-hero-desc { font-size:1rem; line-height:1.85; color:#8888AA; margin-bottom:32px; max-width:460px; }
-  .bt-hero-ctas { display:flex; gap:14px; flex-wrap:wrap; }
-
-  /* Modes badges */
-  .bt-modes { display:flex; gap:12px; flex-wrap:wrap; margin-top:24px; }
-  .bt-mode {
-    display:flex; align-items:center; gap:8px;
-    background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08);
-    padding:10px 16px; transition:all .3s; cursor:default;
-  }
-  .bt-mode:hover { border-color:rgba(0,102,204,.4); background:rgba(0,102,204,.06); }
-  .bt-mode-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
-  .bt-mode-cure  .bt-mode-dot { background:#FF4444; box-shadow:0 0 8px rgba(255,68,68,.6); }
-  .bt-mode-relax .bt-mode-dot { background:#4DA6FF; box-shadow:0 0 8px rgba(77,166,255,.6); }
-  .bt-mode-tone  .bt-mode-dot { background:var(--green); box-shadow:0 0 8px rgba(0,255,136,.6); }
-  .bt-mode-text h5 { font-size:.8rem; font-weight:700; margin-bottom:2px; }
-  .bt-mode-text p  { font-size:.7rem; color:var(--gray); }
-
-  /* BT Product image side */
-  .bt-hero-image { position:relative; display:flex; align-items:center; justify-content:center; min-height:400px; }
-  .bt-hero-image-main {
-    width:100%; height:380px; border-radius:4px; overflow:hidden;
-    border:1px solid rgba(0,102,204,.2); box-shadow:0 0 50px rgba(0,102,204,.2);
-    position:relative;
-  }
-  .bt-hero-image-main img { width:100%; height:100%; object-fit:cover; }
-  .bt-hero-image-main::after {
-    content:''; position:absolute; inset:0;
-    background:linear-gradient(135deg,rgba(0,102,204,.15),transparent 60%);
-  }
-
-  /* BT products */
-  .bt-products-section { padding:80px 60px; }
-  .bt-products-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:3px; margin-top:50px; }
-
-  .bt-product-card {
-    background:var(--dark2); overflow:hidden;
-    border:1px solid rgba(255,255,255,.04);
-    transition:all .4s; cursor:pointer; position:relative;
-  }
-  .bt-product-card:hover { border-color:rgba(0,102,204,.35); transform:translateY(-6px); }
-  .bt-product-card:hover .bt-product-img img { transform:scale(1.05); filter:saturate(1); }
-
-  .bt-product-img { height:260px; overflow:hidden; position:relative; }
-  .bt-product-img img { width:100%; height:100%; object-fit:cover; transition:transform .7s; filter:saturate(.8); }
-  .bt-product-img::after {
-    content:''; position:absolute; inset:0;
-    background:linear-gradient(to top,rgba(20,20,24,1) 0%,transparent 50%);
-  }
-
-  .bt-product-badge {
-    position:absolute; top:16px; right:16px; z-index:2;
-    font-size:.6rem; font-weight:900; letter-spacing:2px;
-    padding:4px 12px; background:var(--bt-blue); color:#fff;
-  }
-
-  .bt-product-info { padding:28px; }
-  .bt-product-name { font-size:1.2rem; font-weight:900; color:#4DA6FF; text-shadow:0 0 12px rgba(0,102,204,.3); margin-bottom:8px; }
-  .bt-product-tagline { font-size:.78rem; color:var(--gray); margin-bottom:16px; line-height:1.6; }
-
-  .bt-features-list { list-style:none; margin-bottom:20px; }
-  .bt-features-list li {
-    display:flex; gap:10px; align-items:flex-start;
-    font-size:.78rem; color:#9999BB; padding:5px 0;
-    border-bottom:1px solid rgba(255,255,255,.04);
-  }
-  .bt-features-list li:last-child { border-bottom:none; }
-  .bt-features-list li::before { content:'→'; color:#4DA6FF; flex-shrink:0; }
-
-  .bt-product-cta {
-    display:flex; align-items:center; justify-content:space-between;
-    padding-top:16px; border-top:1px solid rgba(0,102,204,.15);
-  }
-
-  /* BT Features */
-  .bt-features-section { background:var(--dark); padding:80px 60px; }
-  .bt-features-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; margin-top:50px; }
-  .bt-feat-card {
-    background:var(--dark2); padding:36px 28px;
-    border:1px solid rgba(255,255,255,.03); transition:all .4s; position:relative; overflow:hidden;
-  }
-  .bt-feat-card:hover { border-color:rgba(0,102,204,.3); transform:translateY(-4px); }
-  .bt-feat-card::after {
-    content:''; position:absolute; top:0; right:0; width:0; height:3px;
-    background:var(--bt-blue); transition:width .4s;
-  }
-  .bt-feat-card:hover::after { width:100%; }
-  .bt-feat-num { font-size:4.5rem; font-weight:900; color:rgba(0,102,204,.06); position:absolute; top:12px; left:12px; line-height:1; }
-  .bt-feat-icon { font-size:1.8rem; margin-bottom:14px; }
-  .bt-feat-title { font-size:.95rem; font-weight:700; color:#4DA6FF; margin-bottom:8px; }
-  .bt-feat-desc  { font-size:.8rem; color:var(--gray); line-height:1.7; }
-
-  /* BT About brand */
-  .bt-brand-section { padding:80px 60px; }
-  .bt-brand-inner { display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center; }
-  .bt-brand-text p { color:#8888AA; line-height:1.9; font-size:1rem; margin-bottom:16px; }
-  .bt-brand-stats { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:28px; }
-  .bt-brand-stat { padding:24px; border:1px solid rgba(0,102,204,.2); text-align:center; background:rgba(0,102,204,.04); }
-  .bt-brand-stat .n { font-size:2.2rem; font-weight:900; color:#4DA6FF; text-shadow:0 0 16px rgba(0,102,204,.4); display:block; margin-bottom:6px; }
-  .bt-brand-stat .l { font-size:.72rem; color:var(--gray); letter-spacing:1px; }
-  .bt-brand-image { height:420px; border-radius:4px; overflow:hidden; border:1px solid rgba(0,102,204,.15); box-shadow:0 0 40px rgba(0,102,204,.1); }
-  .bt-brand-image img { width:100%; height:100%; object-fit:cover; filter:saturate(.85); }
-
-  /* FOOTER */
-  footer {
-    background:var(--dark2); padding:34px 60px;
-    display:flex; justify-content:space-between; align-items:center;
-    border-top:1px solid rgba(255,255,255,.05);
-  }
-  .footer-logo { font-size:1.4rem; font-weight:900; background:linear-gradient(90deg,var(--blue),var(--green)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-  .footer-links { display:flex; gap:26px; }
-  .footer-links a { color:rgba(255,255,255,.25); text-decoration:none; font-size:.8rem; transition:color .3s; cursor:pointer; }
-  .footer-links a:hover { color:var(--blue); }
-  .footer-copy { font-size:.72rem; color:rgba(255,255,255,.15); letter-spacing:1px; }
-
-  /* REVEAL */
-  .reveal { opacity:0; transform:translateY(26px); transition:opacity .7s ease,transform .7s ease; }
-  .reveal.visible { opacity:1; transform:translateY(0); }
-  .rd1{transition-delay:.1s} .rd2{transition-delay:.2s} .rd3{transition-delay:.3s}
-
-  @media(max-width:900px){
-    nav{padding:14px 20px} .nav-links{display:none}
-    section,.bt-hero,.bt-products-section,.bt-features-section,.bt-brand-section{padding:60px 20px}
-    .hero{grid-template-columns:1fr;padding:90px 20px 40px}
-    .hero-images{height:240px;margin-top:24px}
-    .bt-banner{margin:0 20px;flex-direction:column;gap:16px}
-    .photo-strip{grid-template-columns:1fr 1fr;height:220px}
-    .photo-strip-item:last-child{display:none}
-    .about,.why-inner,.contact-inner,.bt-hero-inner,.bt-brand-inner{grid-template-columns:1fr;gap:36px}
-    .about-img,.why-photo,.contact-photo,.bt-brand-image,.bt-hero-image-main{height:260px}
-    .brands-grid,.bt-products-grid,.bt-features-grid{grid-template-columns:1fr 1fr}
-    .brand-card.featured-bt{flex-direction:column;text-align:center;gap:16px}
-    .stats-bar{padding:18px 20px;flex-wrap:wrap;gap:14px}
-    footer{flex-direction:column;gap:14px;text-align:center}
-    .full-photo{height:300px} .full-photo-overlay{padding:36px 20px}
-    .wfs-1,.wfs-2{display:none}
-    .form-row{grid-template-columns:1fr}
-  }
+/* MOBILE */
+@media(max-width:768px){
+  .nav-links{display:none}.ham{display:flex}
+  .two,.cgrid,.bhero{grid-template-columns:1fr;gap:30px}
+  .bhero{padding:80px var(--pad) 40px;min-height:auto}
+  .bhimg{height:240px}
+  .strip{grid-template-columns:1fr 1fr}.sc:last-child{display:none}
+  .bfeat{flex-direction:column;text-align:center}.bfeat-cta{width:100%;text-align:center}
+  .frow{grid-template-columns:1fr}
+  .bgrid{grid-template-columns:1fr 1fr}
+  .full-ov{padding:24px}
+  .bbl{flex-direction:column;align-items:flex-start}
+  footer{flex-direction:column;text-align:center}.flinks{justify-content:center}
+  .pgrid{grid-template-columns:1fr}
+  .f4grid{grid-template-columns:1fr 1fr}
+  .hero{grid-template-columns:1fr;padding:90px var(--pad) 40px;min-height:auto}
+  .hwrap{height:260px}
+  .bfs1,.bfs2{display:none}
+}
+@media(max-width:480px){
+  .bgrid{grid-template-columns:1fr}.fgrid{grid-template-columns:1fr}.f4grid{grid-template-columns:1fr}.stats{justify-content:center}
+}
 </style>
 </head>
 <body>
 
-<nav id="mainNav">
-  <div class="nav-logo" onclick="showPage('home')">
-    <div>
-      <span class="nav-logo-text">AMG Sport & Health</span>
-      <span class="nav-logo-sub">DRIVING PERFORMANCE</span>
-    </div>
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo" onclick="goHome()">
+    <span class="nav-logo-main">AMG Sport & Health</span>
+    <span class="nav-logo-sub">DRIVING PERFORMANCE</span>
   </div>
   <ul class="nav-links">
-    <li><a onclick="showPage('home');scrollTo('#about')">אודות</a></li>
-    <li><a onclick="showPage('home');scrollTo('#brands')">מותגים</a></li>
-    <li><a onclick="showPage('home');scrollTo('#services')">שירותים</a></li>
-    <li><a onclick="showPage('home');scrollTo('#contact')">צור קשר</a></li>
-    <li><a class="nav-bt-btn" onclick="showPage('bluetens')">⚡ Bluetens</a></li>
-    <li><a class="nav-bt-btn" style="background:#E55B00;box-shadow:0 0 16px rgba(229,91,0,.3)" onclick="showPage('shapeheart')">🧲 Shapeheart</a></li>
+    <li><a onclick="goHome();sTo('#about')">אודות</a></li>
+    <li><a onclick="goHome();sTo('#brands')">מותגים</a></li>
+    <li><a onclick="goHome();sTo('#why')">למה אנחנו</a></li>
+    <li><a onclick="goHome();sTo('#contact')">צור קשר</a></li>
+    <li><a class="npill npill-bt" onclick="sp('bt')">⚡ Bluetens</a></li>
+    <li><a class="npill npill-sh" onclick="sp('sh')">🧲 Shapeheart</a></li>
   </ul>
+  <button class="ham" id="ham" onclick="toggleM()"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- ════════════════════════════════════
-     PAGE: HOME
-════════════════════════════════════ -->
+<!-- MOBILE MENU -->
+<div class="mmenu" id="mm">
+  <a onclick="goHome();sTo('#about');closeM()">אודות</a>
+  <a onclick="goHome();sTo('#brands');closeM()">מותגים</a>
+  <a onclick="goHome();sTo('#why');closeM()">למה אנחנו</a>
+  <a onclick="goHome();sTo('#contact');closeM()">צור קשר</a>
+  <div class="mmenu-pills">
+    <a class="btn btn-bt" onclick="sp('bt');closeM()">⚡ Bluetens</a>
+    <a class="btn btn-sh" onclick="sp('sh');closeM()">🧲 Shapeheart</a>
+  </div>
+</div>
+
+<!-- ══════ HOME ══════ -->
 <div id="page-home" class="page active">
 
-  <!-- HERO -->
   <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-grid"></div>
-    <div class="hero-content">
-      <div class="hero-badge"><span class="dot"></span>יבואן ומפיץ מורשה | רעננה, ישראל</div>
-      <h1>הדלק<br>את <span class="c-blue">הביצועים</span><br><span class="c-green">שלך</span></h1>
-      <p class="hero-sub">AMG SPORT & HEALTH | DRIVING PERFORMANCE</p>
-      <p class="hero-desc">אנחנו יבואן ומפיץ בלעדי של מוצרי ספורט ובריאות פרימיום בישראל — מביצועים מקסימליים ועד שיקום מהיר, אנחנו כאן עם המוצרים הטובים בעולם.</p>
-      <div class="hero-ctas">
-        <a href="#brands" class="btn-blue" onclick="document.getElementById('brands').scrollIntoView({behavior:'smooth'})">המותגים שלנו</a>
-        <a class="btn-bt" onclick="showPage('bluetens')">⚡ Bluetens ישראל</a>
-        <a href="#contact" class="btn-outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">צור קשר</a>
+    <div class="hero-bg"></div><div class="hgrid"></div>
+    <div class="hcont">
+      <div class="hbadge"><span class="ldot"></span>יבואן ומפיץ מורשה | רעננה, ישראל</div>
+      <h1 class="h1">הדלק<br>את <span class="c-blue">הביצועים</span><br><span class="c-green">שלך</span></h1>
+      <p class="lead" style="margin-top:14px">AMG SPORT & HEALTH</p>
+      <p class="body" style="margin-top:12px;max-width:460px">יבואן ומפיץ בלעדי של מוצרי ספורט ובריאות פרימיום בישראל — Bluetens, Shapeheart ועוד.</p>
+      <div class="hctas">
+        <a class="btn btn-p" onclick="goHome();sTo('#brands')">המותגים שלנו</a>
+        <a class="btn btn-bt" onclick="sp('bt')">⚡ Bluetens</a>
+        <a class="btn btn-sh" onclick="sp('sh')">🧲 Shapeheart</a>
       </div>
     </div>
-    <div class="hero-images">
-      <div class="hero-stat-badge"><span class="n">5+</span><span class="l">שנות Bluetens</span></div>
-      <div class="hero-img-main">
-        <img src="https://images.unsplash.com/photo-1517963879433-6ad2171073fb?w=800&auto=format&fit=crop" alt="CrossFit athlete" loading="eager"
-             onerror="this.src='https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&auto=format&fit=crop'">
+    <div class="hwrap">
+      <div class="hstat"><span class="n">5+</span><span class="l">שנות Bluetens</span></div>
+      <div class="hmain">
+        <img src="https://images.unsplash.com/photo-1517963879433-6ad2171073fb?w=900&auto=format&fit=crop" alt="CrossFit"
+             onerror="this.src='https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=900&auto=format&fit=crop'">
       </div>
-      <div class="hero-img-small">
-        <img src="https://images.unsplash.com/photo-1461897104016-0b3b00cc81ee?w=300&auto=format&fit=crop" alt="energy drink" loading="eager"
-             onerror="this.src='https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=300&auto=format&fit=crop'">
+      <div class="hsm">
+        <img src="https://images.unsplash.com/photo-1461897104016-0b3b00cc81ee?w=300&auto=format&fit=crop" alt="energy drink"
+             onerror="this.src='https://images.unsplash.com/photo-1595152772835-219674b2a163?w=300&auto=format&fit=crop'">
       </div>
     </div>
   </section>
 
-  <!-- BLUETENS BANNER -->
-  <div class="bt-banner">
-    <div class="bt-banner-left">
-      <div class="bt-badge-5y">5+ שנים</div>
-      <div class="bt-banner-text">
-        <h3>מפיצים בלעדיים של Bluetens בישראל</h3>
-        <p>מאז 2019 — <span>מכשירי האלקטרוסטימולציה המובילים בעולם</span> זמינים לכם ישירות דרכנו</p>
-      </div>
+  <!-- BANNERS -->
+  <div class="bbanner bb-bt rv">
+    <div class="bbl">
+      <span class="bbbadge bbt">מפיצים בלעדיים מאז 2019</span>
+      <div><div class="bbt-h">Bluetens — אלקטרוסטימולציה מחוברת</div><p class="bbt-p">מכשירי TENS/EMS המובילים בעולם — <span class="hi-bt">5+ שנות הפצה בישראל</span></p></div>
     </div>
-    <button class="btn-bt" onclick="showPage('bluetens')">גלו את הגאמא ←</button>
+    <a class="btn btn-bt" onclick="sp('bt')">גלו את הגאמא ←</a>
+  </div>
+  <div class="bbanner bb-sh rv">
+    <div class="bbl">
+      <span class="bbbadge bbs">מפיצים בלעדיים בישראל</span>
+      <div><div class="bbt-h">Shapeheart — אביזרי טלפון מגנטיים לספורט</div><p class="bbt-p">לרצים ולרוכבים — <span class="hi-sh">פטנט צרפתי, מחזיק עד 8 ק"ג</span></p></div>
+    </div>
+    <a class="btn btn-sh" onclick="sp('sh')">גלו את הגאמא ←</a>
   </div>
 
   <!-- TICKER -->
-  <div class="ticker-wrap">
-    <div class="ticker-track">
-      <span class="ticker-item blue">מוצרי ספורט פרימיום</span><span class="ticker-sep">✦</span>
-      <span class="ticker-item btblue">Bluetens — מפיצים בלעדיים בישראל</span><span class="ticker-sep">✦</span>
-      <span class="ticker-item green">יבואן מורשה</span><span class="ticker-sep">✦</span>
-      <span class="ticker-item pink">הפצה ארצית מהירה</span><span class="ticker-sep">✦</span>
-      <span class="ticker-item yellow">כשר ומאושר</span><span class="ticker-sep">✦</span>
-      <span class="ticker-item blue">מוצרי ספורט פרימיום</span><span class="ticker-sep">✦</span>
-      <span class="ticker-item btblue">Bluetens — מפיצים בלעדיים בישראל</span><span class="ticker-sep">✦</span>
-      <span class="ticker-item green">יבואן מורשה</span><span class="ticker-sep">✦</span>
-      <span class="ticker-item pink">הפצה ארצית מהירה</span><span class="ticker-sep">✦</span>
-      <span class="ticker-item yellow">כשר ומאושר</span><span class="ticker-sep">✦</span>
+  <div class="ticker">
+    <div class="ticker-t">
+      <span class="ti ti-b">מוצרי ספורט פרימיום</span><span class="tsep">✦</span>
+      <span class="ti ti-bt">Bluetens — מפיצים בלעדיים</span><span class="tsep">✦</span>
+      <span class="ti ti-o">Shapeheart — מפיצים בלעדיים</span><span class="tsep">✦</span>
+      <span class="ti ti-g">יבואן מורשה בישראל</span><span class="tsep">✦</span>
+      <span class="ti ti-p">CrossFit & Energy Sport</span><span class="tsep">✦</span>
+      <span class="ti ti-y">הפצה ארצית — 48 שעות</span><span class="tsep">✦</span>
+      <span class="ti ti-b">מוצרי ספורט פרימיום</span><span class="tsep">✦</span>
+      <span class="ti ti-bt">Bluetens — מפיצים בלעדיים</span><span class="tsep">✦</span>
+      <span class="ti ti-o">Shapeheart — מפיצים בלעדיים</span><span class="tsep">✦</span>
+      <span class="ti ti-g">יבואן מורשה בישראל</span><span class="tsep">✦</span>
+      <span class="ti ti-p">CrossFit & Energy Sport</span><span class="tsep">✦</span>
+      <span class="ti ti-y">הפצה ארצית — 48 שעות</span><span class="tsep">✦</span>
     </div>
   </div>
 
   <!-- STATS -->
-  <div class="stats-bar" id="statsBar">
-    <div class="stat-item"><div class="stat-num blue" data-target="10" data-suffix="+">+10</div><div class="stat-label">שנות ניסיון</div></div>
-    <div class="stat-item"><div class="stat-num btblue" data-target="5" data-suffix="+">+5</div><div class="stat-label">שנות Bluetens</div></div>
-    <div class="stat-item"><div class="stat-num green" data-target="500" data-suffix="+">+500</div><div class="stat-label">לקוחות עסקיים</div></div>
-    <div class="stat-item"><div class="stat-num pink" data-target="5" data-suffix="">5</div><div class="stat-label">מותגים בלעדיים</div></div>
-    <div class="stat-item"><div class="stat-num yellow">48H</div><div class="stat-label">זמן אספקה</div></div>
+  <div class="stats" id="statsBar">
+    <div class="si"><div class="sn sn-b" data-t="10" data-s="+">+10</div><div class="sl">שנות ניסיון</div></div>
+    <div class="si"><div class="sn sn-bt" data-t="5" data-s="+">+5</div><div class="sl">שנות Bluetens</div></div>
+    <div class="si"><div class="sn sn-g" data-t="500" data-s="+">+500</div><div class="sl">לקוחות עסקיים</div></div>
+    <div class="si"><div class="sn sn-y">48H</div><div class="sl">זמן אספקה</div></div>
+    <div class="si"><div class="sn sn-p" data-t="2" data-s="">2</div><div class="sl">מותגים בלעדיים</div></div>
   </div>
 
   <!-- PHOTO STRIP -->
-  <div class="photo-strip">
-    <div class="photo-strip-item tint-blue">
-      <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&auto=format&fit=crop" alt="אימון עצים" loading="lazy">
-      <span class="strip-label">HIGH INTENSITY</span>
+  <div class="strip">
+    <div class="sc sc-b">
+      <img src="https://images.unsplash.com/photo-1517963879433-6ad2171073fb?w=800&auto=format&fit=crop" alt="CrossFit"
+           onerror="this.src='https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&auto=format&fit=crop'">
+      <span class="slabel">CROSSFIT</span>
     </div>
-    <div class="photo-strip-item tint-green">
-      <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=500&auto=format&fit=crop" alt="crossfit" loading="lazy">
-      <span class="strip-label">CROSSFIT</span>
+    <div class="sc sc-p">
+      <img src="https://images.unsplash.com/photo-1622543925917-763c34d1a86e?w=500&auto=format&fit=crop" alt="energy drink"
+           onerror="this.src='https://images.unsplash.com/photo-1595152772835-219674b2a163?w=500&auto=format&fit=crop'">
+      <span class="slabel">ENERGY DRINK</span>
     </div>
-    <div class="photo-strip-item tint-pink">
-      <img src="https://images.unsplash.com/photo-1595152772835-219674b2a163?w=500&auto=format&fit=crop" alt="energy drink" loading="lazy">
-      <span class="strip-label">ENERGY</span>
+    <div class="sc sc-g">
+      <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=500&auto=format&fit=crop" alt="gym"
+           onerror="this.src='https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=500&auto=format&fit=crop'">
+      <span class="slabel">PERFORMANCE</span>
     </div>
   </div>
 
   <!-- ABOUT -->
-  <section id="about">
-    <div class="about">
-      <div class="about-img reveal">
-        <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=700&auto=format&fit=crop" alt="crossfit box" loading="lazy">
-        <div class="about-img-badge"><div class="bn">10+</div><div class="bl">שנות מצוינות</div></div>
+  <section class="sec" id="about">
+    <div class="two rv">
+      <div class="pframe" style="border:1px solid rgba(0,255,136,.12);box-shadow:0 0 50px rgba(0,255,136,.1)">
+        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=700&auto=format&fit=crop" alt="sport"
+             onerror="this.src='https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=700&auto=format&fit=crop'">
+        <div class="pbadge" style="border-color:rgba(0,200,255,.3)"><span class="n c-bt">10+</span><span class="l">שנות מצוינות</span></div>
       </div>
-      <div class="about-text reveal rd1">
-        <span class="section-tag blue">מי אנחנו</span>
-        <h2 class="section-title">AMG Sport &amp; Health<br><span class="c-blue">Driving Performance</span></h2>
-        <p>חברת AMG Sport &amp; Health היא יבואן ומפיץ בלעדי ומורשה של מוצרי ספורט ובריאות פרימיום בישראל ובמזרח התיכון. אנחנו מאמינים באיכות — ומבצעים מחקרי שוק ובדיקות קפדניות לפני כל החלטה לשווק מותג בארץ.</p>
-        <p>מאז 2019 אנחנו המפיצים הבלעדיים של <strong style="color:#4DA6FF">Bluetens</strong> ו-<strong style="color:#E55B00">Shapeheart</strong> בישראל — שני מותגים צרפתיים חדשניים עם אלפי לקוחות מרוצים ברחבי הארץ.</p>
-        <div class="features-grid">
-          <div class="feature-box fb-btblue"><div class="feature-icon">⚡</div><div class="feature-title">מפיץ Bluetens</div><div class="feature-desc">מפיצים בלעדיים מאז 2019 — אלקטרוסטימולציה מובילה</div></div>
-          <div class="feature-box" style="--sh-c:#E55B00" ><div class="feature-icon">🧲</div><div class="feature-title" style="color:#E55B00">מפיץ Shapeheart</div><div class="feature-desc">אביזרי ספורט מגנטיים — לרצים ולרוכבים</div></div>
-          <div class="feature-box fb-green"><div class="feature-icon">🚚</div><div class="feature-title">הפצה מהירה</div><div class="feature-desc">אספקה ברחבי ישראל תוך 48 שעות</div></div>
-          <div class="feature-box fb-pink"><div class="feature-icon">💼</div><div class="feature-title">תמיכה עסקית</div><div class="feature-desc">מנהל לקוח ייעודי וחומרי שיווק לשותפים</div></div>
+      <div>
+        <span class="tag t-blue">מי אנחנו</span>
+        <h2 class="h2">AMG Sport &amp; Health<br><span class="c-blue">Driving Performance</span></h2>
+        <p class="body" style="margin-top:14px">חברת AMG היא יבואן ומפיץ בלעדי ומורשה של מוצרי ספורט ובריאות פרימיום בישראל. מאמינים באיכות — בדיקות קפדניות לפני כל מותג חדש.</p>
+        <p class="body" style="margin-top:10px">מאז 2019 — <strong style="color:#4DA6FF">Bluetens</strong> ו-<strong style="color:var(--orange)">Shapeheart</strong> — שני מותגים צרפתיים, אלפי לקוחות מרוצים.</p>
+        <div class="fgrid">
+          <div class="fbox fb-bt"><div class="fi">⚡</div><div class="ft">מפיץ Bluetens</div><div class="fd">בלעדיים מאז 2019</div></div>
+          <div class="fbox fb-o"><div class="fi">🧲</div><div class="ft">מפיץ Shapeheart</div><div class="fd">אביזרים מגנטיים לרצים ורוכבים</div></div>
+          <div class="fbox fb-g"><div class="fi">🚚</div><div class="ft">הפצה מהירה</div><div class="fd">48 שעות לכל רחבי ישראל</div></div>
+          <div class="fbox fb-p"><div class="fi">💼</div><div class="ft">תמיכה עסקית</div><div class="fd">מנהל לקוח ייעודי + שיווק</div></div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- BRANDS -->
-  <section id="brands" class="brands-section">
-    <div class="reveal">
-      <span class="section-tag green">הפורטפוליו שלנו</span>
-      <h2 class="section-title">המותגים ה<span class="c-green">בלעדיים</span> שלנו</h2>
-    </div>
-    <div class="brands-grid">
-      <!-- Bluetens — FEATURED -->
-      <div class="brand-card featured-bt bc-btblue reveal" onclick="showPage('bluetens')" style="cursor:pointer">
-        <span class="brand-icon">⚡</span>
-        <div class="brand-info">
-          <div class="bt-5y-badge">מפיצים בלעדיים מאז 2019</div>
-          <div class="brand-name btblue">Bluetens</div>
-          <div class="brand-desc">מכשירי האלקטרוסטימולציה המחוברים המובילים בעולם — TENS ו-EMS לספורטאים ולמטפלים. מפיצים בלעדיים בישראל עם יותר מ-5 שנות ניסיון והצלחה.</div>
-          <span class="brand-tag btblue" style="margin-top:10px">EXCLUSIVE DISTRIBUTOR ISRAEL</span>
+  <section class="sec sec-dark" id="brands">
+    <div class="rv"><span class="tag t-green">הפורטפוליו שלנו</span><h2 class="h2">המותגים ה<span class="c-green">בלעדיים</span> שלנו</h2></div>
+    <div class="bgrid">
+      <div class="bcard bfeat bc-bt rv" onclick="sp('bt')" style="background:linear-gradient(135deg,rgba(0,102,204,.08),rgba(0,200,255,.04));border-color:rgba(0,102,204,.25)!important">
+        <span class="bicon">⚡</span>
+        <div class="bname bn-bt" style="grid-column:auto">
+          <div class="bbbadge bbt" style="display:inline-block;margin-bottom:10px;font-size:.82rem">מפיצים בלעדיים מאז 2019</div><br>Bluetens
         </div>
-        <div class="brand-cta">
-          <button class="btn-bt">גלו את הגאמא ←</button>
-        </div>
+        <div class="bdesc">מכשירי האלקטרוסטימולציה המחוברים המובילים בעולם — TENS ו-EMS. 5+ שנות הצלחה בישראל.</div>
+        <span class="btag btag-bt">EXCLUSIVE DISTRIBUTOR ISRAEL</span>
+        <div class="bfeat-cta" style="margin-top:16px"><a class="btn btn-bt" onclick="sp('bt')">גלו את הגאמא ←</a></div>
       </div>
-      <!-- Shapeheart — FEATURED -->
-      <div class="brand-card featured-bt reveal" onclick="showPage('shapeheart')" style="cursor:pointer;background:linear-gradient(135deg,rgba(229,91,0,.08),rgba(255,107,0,.04));border-color:rgba(229,91,0,.25)!important;grid-column:1/-1">
-        <span class="brand-icon">🧲</span>
-        <div class="brand-info">
-          <div class="bt-5y-badge" style="background:#E55B00">מפיצים בלעדיים בישראל</div>
-          <div class="brand-name" style="color:#FF7A2A;text-shadow:0 0 12px rgba(229,91,0,.4)">Shapeheart</div>
-          <div class="brand-desc">ממציאי מערכת ההחזקה המגנטית לטלפון בספורט — לרצים, רוכבים ורוכבי אופנוע. מוצרי ייחוד צרפתיים עם פטנט בלעדי ופנייה לכלל ספורטאי השוק.</div>
-          <span class="brand-tag" style="color:#FF7A2A;border:1px solid rgba(229,91,0,.3);margin-top:10px">EXCLUSIVE DISTRIBUTOR ISRAEL</span>
+      <div class="bcard bfeat bc-sh rv" onclick="sp('sh')" style="background:linear-gradient(135deg,rgba(204,85,0,.08),rgba(255,122,42,.04));border-color:rgba(229,91,0,.25)!important">
+        <span class="bicon">🧲</span>
+        <div class="bname bn-sh">
+          <div class="bbbadge bbs" style="display:inline-block;margin-bottom:10px;font-size:.82rem">מפיצים בלעדיים בישראל</div><br>Shapeheart
         </div>
-        <div class="brand-cta">
-          <button class="btn-bt" style="background:#E55B00;box-shadow:0 0 20px rgba(229,91,0,.3)">גלו את הגאמא ←</button>
-        </div>
+        <div class="bdesc">ממציאי ההחזקה המגנטית לטלפון בספורט — לרצים ורוכבים. פטנט צרפתי, 8 ק"ג, עמיד גשם.</div>
+        <span class="btag btag-sh">EXCLUSIVE DISTRIBUTOR ISRAEL</span>
+        <div class="bfeat-cta" style="margin-top:16px"><a class="btn btn-sh" onclick="sp('sh')">גלו את הגאמא ←</a></div>
       </div>
-      <!-- Other brands -->
-      <div class="brand-card bc-green reveal"><span class="brand-icon">💧</span><div class="brand-name green">HYDRA SPORT</div><div class="brand-desc">משקאות הידרציה ותוספי ספורט לשיקום מהיר — עשיר במגנזיום ואלקטרוליטים</div><span class="brand-tag green">EXCLUSIVE IMPORT</span></div>
-      <div class="brand-card bc-pink reveal rd1"><span class="brand-icon">🔥</span><div class="brand-name pink">RECOVERY PRO</div><div class="brand-desc">מוצרי שיקום מתקדמים — פיסיותרפיה, פאשיה ומניעת פציעות לספורטאים</div><span class="brand-tag pink">EXCLUSIVE IMPORT</span></div>
-      <div class="brand-card bc-yellow reveal rd2"><span class="brand-icon">💪</span><div class="brand-name yellow">POWER FUEL</div><div class="brand-desc">תוספי תזונה ומשקאות אנרגיה לספורטאים — פורמולות מקצועיות בינלאומיות</div><span class="brand-tag yellow">COMING SOON</span></div>
+      <div class="bcard bc-g rv"><span class="bicon">💧</span><div class="bname bn-g">HYDRA SPORT</div><div class="bdesc">משקאות הידרציה לספורטאים — מגנזיום, אשלגן, אלקטרוליטים</div><span class="btag btag-g">IMPORT</span></div>
+      <div class="bcard bc-p rv d1"><span class="bicon">🔥</span><div class="bname bn-p">ENERGY FUEL</div><div class="bdesc">משקאות אנרגיה לספורטאי CrossFit — פורמולות מקצועיות</div><span class="btag btag-p">COMING SOON</span></div>
+      <div class="bcard bc-g rv d2"><span class="bicon">💪</span><div class="bname bn-g">RECOVERY PRO</div><div class="bdesc">מוצרי שיקום — פיסיותרפיה, פאשיה ומניעת פציעות</div><span class="btag btag-g">IMPORT</span></div>
     </div>
   </section>
 
   <!-- FULL PHOTO -->
-  <div class="full-photo">
-    <img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=1400&auto=format&fit=crop" alt="crossfit energy" loading="lazy">
-    <div class="full-photo-overlay">
-      <div class="full-photo-text reveal">
-        <span class="section-tag yellow">המשימה שלנו</span>
-        <h2>להניע<br><span class="c-yellow">כל ספורטאי</span><br>בישראל</h2>
-        <p>אנחנו מאמינים שכל ספורטאי — מקצועי או חובב — ראוי לגישה למוצרים הטובים בעולם, עם שירות ישראלי אמיתי ומחויבות אישית.</p>
-        <button class="btn-blue" onclick="showPage('bluetens')">גלו את Bluetens ⚡</button>
+  <div class="full">
+    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1400&auto=format&fit=crop" alt="crossfit energy"
+         onerror="this.src='https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=1400&auto=format&fit=crop'">
+    <div class="full-ov">
+      <div class="full-txt rv">
+        <span class="tag t-yellow">המשימה שלנו</span>
+        <h2 class="h2">להניע<br><span class="c-yellow">כל ספורטאי</span><br>בישראל</h2>
+        <p class="body" style="margin:14px 0 26px">מהאלקטרוסטימולציה ועד מחזיק הטלפון בריצה — המוצרים הטובים בעולם, שירות ישראלי אמיתי.</p>
+        <a class="btn btn-p" onclick="goHome();sTo('#contact')">הצטרפו אלינו</a>
       </div>
     </div>
   </div>
 
   <!-- WHY -->
-  <section id="services" class="why-section">
-    <div class="why-inner">
-      <div class="reveal">
-        <span class="section-tag blue">למה לבחור בנו</span>
-        <h2 class="section-title">הבחירה ה<span class="c-blue">חכמה</span><br>לעסק שלך</h2>
-        <div class="why-list">
-          <div class="why-item"><div class="why-num btblue">01</div><div class="why-text"><h4>5+ שנות Bluetens בישראל</h4><p>ניסיון מוכח ואמיתי בהפצה, שיווק ושירות מוצרי Bluetens בשוק הישראלי</p></div></div>
-          <div class="why-item"><div class="why-num blue">02</div><div class="why-text"><h4>יבואן בלעדי ומורשה</h4><p>ייצוג רשמי של המותגים שלנו — אחריות יצרן מלאה על כל המוצרים</p></div></div>
-          <div class="why-item"><div class="why-num green">03</div><div class="why-text"><h4>מלאי זמין תמיד</h4><p>מחסנים מאובזרים עם מלאי עצום — אספקה תוך 48 שעות לכל רחבי ישראל</p></div></div>
-          <div class="why-item"><div class="why-num pink">04</div><div class="why-text"><h4>מנהל לקוח ייעודי</h4><p>כל לקוח מקבל נציג אישי שמכיר אותו ואת הצרכים הספציפיים שלו</p></div></div>
-          <div class="why-item"><div class="why-num yellow">05</div><div class="why-text"><h4>תמיכה שיווקית מלאה</h4><p>חומרי תצוגה בעברית, הדרכות מוצר ותמיכה דיגיטלית לשותפים</p></div></div>
+  <section class="sec sec-dark" id="why">
+    <div class="two">
+      <div class="rv">
+        <span class="tag t-blue">למה לבחור בנו</span>
+        <h2 class="h2">הבחירה ה<span class="c-blue">חכמה</span><br>לעסק שלך</h2>
+        <div class="wlist">
+          <div class="wi"><div class="wnum" style="color:#4DA6FF">01</div><div><div class="wh">5+ שנות Bluetens בישראל</div><p class="wp">ניסיון מוכח — הפצה, שיווק ושירות מקומי מלא</p></div></div>
+          <div class="wi"><div class="wnum" style="color:var(--orange)">02</div><div><div class="wh">Shapeheart — מפיצים בלעדיים</div><p class="wp">הפתרון המגנטי הצרפתי לשוק הישראלי</p></div></div>
+          <div class="wi"><div class="wnum" style="color:var(--green)">03</div><div><div class="wh">מלאי זמין + 48H</div><p class="wp">מחסנים מאובזרים — אספקה מהירה לכל ישראל</p></div></div>
+          <div class="wi"><div class="wnum" style="color:var(--pink)">04</div><div><div class="wh">מנהל לקוח ייעודי</div><p class="wp">נציג אישי שמכיר את הצרכים שלך</p></div></div>
+          <div class="wi"><div class="wnum" style="color:var(--yellow)">05</div><div><div class="wh">תמיכה שיווקית מלאה</div><p class="wp">חומרי תצוגה בעברית, הדרכות ותמיכה דיגיטלית</p></div></div>
         </div>
       </div>
-      <div class="why-photo-col reveal rd2">
-        <div class="wfs-1 why-floating-stat"><div class="fn">10+</div><div class="fl">שנות ניסיון</div></div>
-        <div class="why-photo">
-          <img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=600&auto=format&fit=crop" alt="ספורטאי" loading="lazy">
+      <div class="rv d2" style="position:relative">
+        <div class="bfs bfs1" style="border-color:rgba(0,200,255,.3)"><div class="fn c-bt">10+</div><div class="fl">שנות ניסיון</div></div>
+        <div class="pframe" style="border:1px solid rgba(0,200,255,.12);box-shadow:0 0 60px rgba(0,200,255,.1)">
+          <img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=600&auto=format&fit=crop" alt="athlete"
+               onerror="this.src='https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&auto=format&fit=crop'">
         </div>
-        <div class="wfs-2 why-floating-stat"><div class="fn">⚡ BT</div><div class="fl">מפיצים בלעדיים</div></div>
+        <div class="bfs bfs2" style="border-color:rgba(0,102,204,.35)"><div class="fn" style="color:#4DA6FF;font-size:1.4rem">⚡🧲</div><div class="fl">בלעדיים</div></div>
       </div>
     </div>
   </section>
 
   <!-- CONTACT -->
-  <section id="contact" class="contact-section">
-    <div style="text-align:center;margin-bottom:55px" class="reveal">
-      <span class="section-tag green">בואו נתחיל</span>
-      <h2 class="section-title">צור <span class="c-green">קשר</span> עכשיו</h2>
-      <p style="color:var(--gray);max-width:460px;margin:0 auto;font-size:1rem;line-height:1.8;">השאירו פרטים ונחזור אליכם תוך 24 שעות</p>
+  <section class="sec" id="contact" style="border-top:1px solid rgba(0,200,255,.08)">
+    <div style="text-align:center;margin-bottom:52px" class="rv">
+      <span class="tag t-green">בואו נתחיל</span>
+      <h2 class="h2">צור <span class="c-green">קשר</span> עכשיו</h2>
+      <p class="body" style="max-width:440px;margin:12px auto 0">השאירו פרטים ונחזור אליכם תוך 24 שעות</p>
     </div>
-    <div class="contact-inner">
-      <div class="reveal">
-        <div class="contact-info">
-          <div class="contact-item"><div class="contact-icon blue">📍</div><div class="contact-item-text"><span style="color:var(--blue)">כתובת</span><p>רעננה, ישראל</p></div></div>
-          <div class="contact-item"><div class="contact-icon green">📞</div><div class="contact-item-text"><span style="color:var(--green)">טלפון</span><p>+972 54-918-2299</p></div></div>
-          <div class="contact-item"><div class="contact-icon btblue" style="border-color:rgba(0,102,204,.3);background:rgba(0,102,204,.07)">📧</div><div class="contact-item-text"><span style="color:#4DA6FF">אימייל</span><p>support@adzonemediagroup.com</p></div></div>
-          <div class="contact-item"><div class="contact-icon yellow">🕐</div><div class="contact-item-text"><span style="color:var(--yellow)">שעות פעילות</span><p>א–ה 09:00–18:00 | ו 09:00–13:00</p></div></div>
-        </div>
-        <div class="contact-form">
-          <div class="form-row">
-            <input class="form-input" type="text" placeholder="שם מלא">
-            <input class="form-input" type="text" placeholder="שם העסק">
-          </div>
-          <div class="form-row">
-            <input class="form-input" type="tel" placeholder="טלפון">
-            <input class="form-input" type="email" placeholder="אימייל">
-          </div>
-          <select class="form-input" style="direction:rtl;appearance:none;cursor:pointer;">
+    <div class="cgrid">
+      <div class="rv">
+        <div class="ci"><div class="ciico cib">📍</div><div><span class="cilb" style="color:var(--blue)">כתובת</span><p class="civ">רעננה, ישראל</p></div></div>
+        <div class="ci"><div class="ciico cig">📞</div><div><span class="cilb" style="color:var(--green)">טלפון</span><p class="civ">+972 54-918-2299</p></div></div>
+        <div class="ci"><div class="ciico cibt">📧</div><div><span class="cilb" style="color:#4DA6FF">אימייל</span><p class="civ">support@adzonemediagroup.com</p></div></div>
+        <div class="ci"><div class="ciico ciy">🕐</div><div><span class="cilb" style="color:var(--yellow)">שעות</span><p class="civ">א–ה 09:00–18:00 | ו 09:00–13:00</p></div></div>
+      </div>
+      <div class="rv d1">
+        <div class="fgd">
+          <div class="frow"><input class="field" type="text" placeholder="שם מלא"><input class="field" type="text" placeholder="שם העסק"></div>
+          <div class="frow"><input class="field" type="tel" placeholder="טלפון"><input class="field" type="email" placeholder="אימייל"></div>
+          <select class="field" style="appearance:none;cursor:pointer">
             <option value="" disabled selected>תחום עניין</option>
             <option>Bluetens — אלקטרוסטימולציה</option>
             <option>Shapeheart — אביזרי ספורט</option>
+            <option>שני המותגים</option>
             <option>הפצה / שותפות עסקית</option>
             <option>חדר כושר / מכון ספורט</option>
-            <option>בית מרקחת / קופת חולים</option>
+            <option>בית מרקחת</option>
             <option>אחר</option>
           </select>
-          <textarea class="form-input" placeholder="ספרו לנו על הצרכים שלכם..."></textarea>
-          <button class="btn-grad" onclick="alert('תודה! נחזור אליכם בהקדם ⚡')">שלח פנייה ⚡</button>
+          <textarea class="field" placeholder="ספרו לנו..."></textarea>
+          <button class="btn btn-gr" style="width:100%;font-size:1.1rem" onclick="alert('תודה! נחזור אליכם בהקדם ⚡')">שלח פנייה ⚡</button>
         </div>
-      </div>
-      <div class="contact-photo reveal rd1">
-        <img src="https://images.unsplash.com/photo-1517963879433-6ad2171073fb?w=600&auto=format&fit=crop" alt="crossfit" loading="lazy">
       </div>
     </div>
   </section>
+</div>
 
-</div><!-- end page-home -->
-
-
-<!-- ════════════════════════════════════
-     PAGE: BLUETENS
-════════════════════════════════════ -->
-<div id="page-bluetens" class="page bt-page">
-
-  <!-- BT HERO -->
-  <div class="bt-hero">
-    <div class="bt-hero-grid"></div>
-    <div class="bt-hero-inner">
-      <div>
-        <div class="bt-logo-area">
-          <div class="bt-logo-badge">מפיצים בלעדיים בישראל</div>
-          <span class="bt-partner-text">מאז 2019 | AMG Sport &amp; Health</span>
-        </div>
-        <h1 class="bt-hero"><span>Bluetens</span><br>ישראל</h1>
-        <p class="bt-hero-sub">ELECTROSTIMULATION | TENS & EMS</p>
-        <p class="bt-hero-desc">הדור החדש של האלקטרוסטימולציה המחוברת — מפחית כאבים, מזרז שיקום ומשפר ביצועים ספורטיביים. הסוד של ספורטאים מקצועיים, עכשיו לכולם.</p>
-        <div class="bt-hero-ctas">
-          <a href="#bt-products" class="btn-bt" onclick="document.getElementById('bt-products').scrollIntoView({behavior:'smooth'})">כל המוצרים ↓</a>
-          <button class="btn-outline" onclick="showPage('home');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),100)">צור קשר</button>
-        </div>
-        <div class="bt-modes">
-          <div class="bt-mode bt-mode-cure"><div class="bt-mode-dot"></div><div class="bt-mode-text"><h5>CURE — ריפוי</h5><p>הפחתת כאבים כרוניים ואקוטיים</p></div></div>
-          <div class="bt-mode bt-mode-relax"><div class="bt-mode-dot"></div><div class="bt-mode-text"><h5>RELAX — שיקום</h5><p>שחרור שרירים ומניעת כאבי שרירים</p></div></div>
-          <div class="bt-mode bt-mode-tone"><div class="bt-mode-dot"></div><div class="bt-mode-text"><h5>TONE — חיזוק</h5><p>חיזוק שרירים ושיפור ביצועים</p></div></div>
-        </div>
+<!-- ══════ BLUETENS PAGE ══════ -->
+<div id="page-bt" class="page" style="background:var(--bg)">
+  <div class="bhero">
+    <div class="bhero-bg-bt"></div><div class="bhgrid"></div>
+    <div class="bhc">
+      <div class="bhp"><span class="bhex" style="background:var(--bt)">מפיצים בלעדיים בישראל</span><span class="bhsub">מאז 2019 | AMG Sport &amp; Health</span></div>
+      <h1 class="bhh1"><span class="c-bt">Bluetens</span><br>ישראל</h1>
+      <p class="lead" style="margin-bottom:14px">ELECTROSTIMULATION | TENS & EMS</p>
+      <p class="body" style="max-width:460px;margin-bottom:26px">הדור החדש של האלקטרוסטימולציה המחוברת — מפחית כאבים, מזרז שיקום ומשפר ביצועים. פותח עם פיסיותרפיסטים ורופאים.</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap">
+        <a class="btn btn-bt" onclick="document.getElementById('bt-products').scrollIntoView({behavior:'smooth'})">כל המוצרים ↓</a>
+        <a class="btn btn-ghost" onclick="goHome();sTo('#contact')">צור קשר</a>
       </div>
-      <div class="bt-hero-image">
-        <div class="bt-hero-image-main">
-          <img src="https://www.bluetens.com/img/cms/Product page - CL2/Bluetens-Classic-2-Bas-du-ventre2.jpg" alt="Bluetens Classic 2" loading="eager"
-               onerror="this.src='https://www.bluetens.com/152-large_default/bluetens2.jpg'">
-        </div>
+      <div class="bhmodes" style="margin-top:20px">
+        <div class="bhmode" style="border-color:rgba(0,102,204,.2)"><div class="bhmode-dot" style="background:#FF4444;box-shadow:0 0 8px rgba(255,68,68,.6)"></div><div><h5>CURE — ריפוי</h5><p>כאבים כרוניים ואקוטיים</p></div></div>
+        <div class="bhmode" style="border-color:rgba(0,102,204,.2)"><div class="bhmode-dot" style="background:#4DA6FF;box-shadow:0 0 8px rgba(77,166,255,.6)"></div><div><h5>RELAX — שיקום</h5><p>שחרור שרירים ומסאז'</p></div></div>
+        <div class="bhmode" style="border-color:rgba(0,102,204,.2)"><div class="bhmode-dot" style="background:var(--green);box-shadow:0 0 8px rgba(0,255,136,.6)"></div><div><h5>TONE — חיזוק</h5><p>חיזוק שרירים וביצועים</p></div></div>
+      </div>
+    </div>
+    <div class="bhimg" style="border:1px solid rgba(0,102,204,.2);box-shadow:0 0 50px rgba(0,102,204,.2)">
+      <img src="https://www.bluetens.com/img/cms/Product page - CL2/Bluetens-Classic-2-Bas-du-ventre2.jpg" alt="Bluetens Classic 2"
+           onerror="this.src='https://www.bluetens.com/152-large_default/bluetens2.jpg'">
+    </div>
+  </div>
+
+  <div class="sec-sm sec-dark" id="bt-products" style="padding-bottom:0">
+    <div style="padding:0 var(--pad)" class="rv"><span class="tag t-bt">הגאמא</span><h2 class="h2">מוצרי <span class="c-bt">Bluetens</span></h2><p class="body" style="margin-top:8px">כשרות | אחריות יצרן מלאה</p></div>
+  </div>
+  <div class="pgrid" style="padding:20px var(--pad) 60px;background:var(--dark)">
+    <div class="pcard rv">
+      <div class="pimg"><img src="https://www.bluetens.com/152-large_default/bluetens2.jpg" alt="Bluetens Classic 2" onerror="this.src='https://www.bluetens.com/img/cms/Product page - CL2/CL2-transparent.png'"><span class="pbadge" style="background:var(--bt)">חדש 2025</span></div>
+      <div class="pinfo">
+        <div class="pname" style="color:#4DA6FF">Bluetens Classic 2</div>
+        <div class="ptag">מכשיר האלקטרוסטימולציה לכאב ולביצועים — 50% יותר סוללה</div>
+        <ul class="pfeats"><li>TENS ו-EMS משולבים</li><li>+100 תוכניות | 15 אזורי גוף</li><li>אלחוטי — חיבור מגנטי</li><li>אפליקציה iOS ו-Android</li><li>סוללה עד 15 שעות</li></ul>
+        <div class="pcta"><a class="plink" style="color:#4DA6FF" href="https://www.bluetens.com/en/accueil/35-bluetens2.html" target="_blank">← באתר Bluetens</a><a class="btn btn-bt" style="padding:10px 22px;font-size:1rem" onclick="goHome();sTo('#contact')">פנה אלינו</a></div>
+      </div>
+    </div>
+    <div class="pcard rv d1">
+      <div class="pimg"><img src="https://www.bluetens.com/177-large_default/duosport2.jpg" alt="Duo Sport 2" onerror="this.src='https://www.bluetens.com/img/cms/Product page-DS2/DS2-7.jpg'"><span class="pbadge" style="background:var(--bt)">לספורטאים</span></div>
+      <div class="pinfo">
+        <div class="pname" style="color:#4DA6FF">Bluetens Duo Sport 2</div>
+        <div class="ptag">שני מודולים עצמאיים — שתי קבוצות שרירים בו-זמנית</div>
+        <ul class="pfeats"><li>2 מודולים עצמאיים</li><li>תוכניות ייעודיות לאתלטים</li><li>שיקום מהיר אחרי אימון</li><li>הכנה לפני תחרות</li><li>מגיע עם מזוודת הובלה</li></ul>
+        <div class="pcta"><a class="plink" style="color:#4DA6FF" href="https://www.bluetens.com/en/shop/2-duosport2.html" target="_blank">← באתר Bluetens</a><a class="btn btn-bt" style="padding:10px 22px;font-size:1rem" onclick="goHome();sTo('#contact')">פנה אלינו</a></div>
+      </div>
+    </div>
+    <div class="pcard rv d2">
+      <div class="pimg"><img src="https://www.bluetens.com/img/cms/Product page - CL2/CL2-whats-in-the-box2.jpg" alt="Bluetens accessories" onerror="this.src='https://www.bluetens.com/img/cms/Product page-DS2/box-reveal-ds2.jpg'"><span class="pbadge" style="background:var(--bt)">אביזרים</span></div>
+      <div class="pinfo">
+        <div class="pname" style="color:#4DA6FF">אביזרים ואלקטרודות</div>
+        <div class="ptag">כל האביזרים הרשמיים של Bluetens — במלאי בישראל</div>
+        <ul class="pfeats"><li>אלקטרודות מגנטיות M ו-S</li><li>אלקטרודת בטן (פרפר)</li><li>אלקטרודות Surf לגב</li><li>כבלי חיבור ומטענים USB-C</li><li>קליפ חגורה | שקית הובלה</li></ul>
+        <div class="pcta"><a class="plink" style="color:#4DA6FF" href="https://www.bluetens.com/en/6-accessories" target="_blank">← באתר Bluetens</a><a class="btn btn-bt" style="padding:10px 22px;font-size:1rem" onclick="goHome();sTo('#contact')">פנה אלינו</a></div>
       </div>
     </div>
   </div>
 
-  <!-- BT PRODUCTS -->
-  <div class="bt-products-section" id="bt-products">
-    <div class="reveal">
-      <span class="section-tag btblue">הגאמא המלאה</span>
-      <h2 class="section-title">מוצרי <span style="color:#4DA6FF">Bluetens</span> בישראל</h2>
-      <p style="color:var(--gray);margin-top:10px;font-size:1rem">כל המוצרים זמינים במלאי — אחריות יצרן מלאה | כשרות ואישורי משרד הבריאות</p>
-    </div>
-    <div class="bt-products-grid">
-
-      <!-- Product 1: Classic 2 -->
-      <div class="bt-product-card reveal">
-        <div class="bt-product-img">
-          <img src="https://www.bluetens.com/152-large_default/bluetens2.jpg" alt="Bluetens Classic 2" loading="lazy"
-               onerror="this.src='https://www.bluetens.com/img/cms/Product page - CL2/Bluetens-Classic-2-poignet2.jpg'">
-          <span class="bt-product-badge">חדש 2025</span>
-        </div>
-        <div class="bt-product-info">
-          <div class="bt-product-name">Bluetens Classic 2</div>
-          <div class="bt-product-tagline">האלקטרוסטימולטור המתקדם לכאב וביצועים — 50% יותר סוללה, 20% יותר עוצמה</div>
-          <ul class="bt-features-list">
-            <li>טכנולוגיית TENS ו-EMS משולבת</li>
-            <li>+100 תוכניות | 15 אזורי גוף</li>
-            <li>אלחוטי — קישור מגנטי לאלקטרודות</li>
-            <li>אפליקציה ל-iOS ו-Android</li>
-            <li>סוללה עד 15 שעות</li>
-          </ul>
-          <div class="bt-product-cta">
-            <span style="font-size:.72rem;color:var(--gray);letter-spacing:1px">למידע ומחיר</span>
-            <button class="btn-bt" style="padding:8px 20px;font-size:.82rem" onclick="showPage('home');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),100)">פנה אלינו</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Product 2: Duo Sport 2 -->
-      <div class="bt-product-card reveal rd1">
-        <div class="bt-product-img">
-          <img src="https://www.bluetens.com/177-large_default/duosport2.jpg" alt="Bluetens Duo Sport 2" loading="lazy"
-               onerror="this.src='https://www.bluetens.com/img/cms/Product page-DS2/DS2-7.jpg'">
-          <span class="bt-product-badge">לספורטאים</span>
-        </div>
-        <div class="bt-product-info">
-          <div class="bt-product-name">Bluetens Duo Sport 2</div>
-          <div class="bt-product-tagline">שני מודולים עצמאיים — לעבוד על שתי קבוצות שרירים במקביל</div>
-          <ul class="bt-features-list">
-            <li>2 מודולים עצמאיים בו-זמנית</li>
-            <li>תוכניות ייעודיות לאתלטים</li>
-            <li>שיקום מהיר אחרי אימון</li>
-            <li>הכנה לפני תחרות</li>
-            <li>מגיע עם מזוודת הובלה</li>
-          </ul>
-          <div class="bt-product-cta">
-            <span style="font-size:.72rem;color:var(--gray);letter-spacing:1px">למידע ומחיר</span>
-            <button class="btn-bt" style="padding:8px 20px;font-size:.82rem" onclick="showPage('home');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),100)">פנה אלינו</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Product 3: Accessories -->
-      <div class="bt-product-card reveal rd2">
-        <div class="bt-product-img">
-          <img src="https://www.bluetens.com/img/cms/Product page - CL2/CL2-whats-in-the-box2.jpg" alt="Bluetens אביזרים" loading="lazy"
-               onerror="this.src='https://www.bluetens.com/img/cms/Product page-DS2/box-reveal-ds2.jpg'">
-          <span class="bt-product-badge">אביזרים</span>
-        </div>
-        <div class="bt-product-info">
-          <div class="bt-product-name">אביזרים ואלקטרודות</div>
-          <div class="bt-product-tagline">כל האביזרים הרשמיים של Bluetens — זמינים במלאי בישראל</div>
-          <ul class="bt-features-list">
-            <li>אלקטרודות מלבניות M ו-S</li>
-            <li>אלקטרודת בטן (פרפר)</li>
-            <li>אלקטרודות Surf לגב</li>
-            <li>כבלי חיבור ומטענים</li>
-            <li>קליפ חגורה | שקית הובלה</li>
-          </ul>
-          <div class="bt-product-cta">
-            <span style="font-size:.72rem;color:var(--gray);letter-spacing:1px">למידע ומחיר</span>
-            <button class="btn-bt" style="padding:8px 20px;font-size:.82rem" onclick="showPage('home');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),100)">פנה אלינו</button>
-          </div>
-        </div>
-      </div>
-
+  <div class="sec-sm" style="background:var(--bg)">
+    <div style="padding:0 var(--pad) 20px" class="rv"><span class="tag t-bt">למה Bluetens?</span><h2 class="h2">טכנולוגיה <span class="c-bt">צרפתית</span> מובילה</h2></div>
+    <div class="f4grid" style="padding:0 var(--pad) 60px">
+      <div class="f4card fc-bt rv"><div class="f4num" style="color:rgba(0,102,204,.06)">01</div><div class="f4ico">📱</div><div class="f4t" style="color:#4DA6FF">אפליקציה חכמה</div><div class="f4d">+100 תוכניות מהסמארטפון — iOS ו-Android. פשוט ומדויק.</div></div>
+      <div class="f4card fc-bt rv d1"><div class="f4num" style="color:rgba(0,102,204,.06)">02</div><div class="f4ico">🏥</div><div class="f4t" style="color:#4DA6FF">פיתוח מקצועי</div><div class="f4d">פיסיותרפיסטים, רופאים וספורטאי עלית — ציוד רפואי מאושר.</div></div>
+      <div class="f4card fc-bt rv d2"><div class="f4num" style="color:rgba(0,102,204,.06)">03</div><div class="f4ico">🔋</div><div class="f4t" style="color:#4DA6FF">אלחוטי לחלוטין</div><div class="f4d">קומפקטי ומגנטי — קל לשימוש בכל מקום ובכל שעה.</div></div>
+      <div class="f4card fc-bt rv d3"><div class="f4num" style="color:rgba(0,102,204,.06)">04</div><div class="f4ico">🇮🇱</div><div class="f4t" style="color:#4DA6FF">שירות ישראלי</div><div class="f4d">תמיכה בעברית, מלאי בישראל, אחריות מלאה.</div></div>
     </div>
   </div>
 
-  <!-- BT FEATURES -->
-  <div class="bt-features-section">
-    <div class="reveal" style="text-align:center;margin-bottom:0">
-      <span class="section-tag btblue">למה Bluetens?</span>
-      <h2 class="section-title">טכנולוגיה <span style="color:#4DA6FF">צרפתית</span> מובילה</h2>
-    </div>
-    <div class="bt-features-grid">
-      <div class="bt-feat-card reveal"><div class="bt-feat-num">01</div><div class="bt-feat-icon">📱</div><div class="bt-feat-title">אפליקציה חכמה</div><div class="bt-feat-desc">+100 תוכניות מנוהלות ישירות מהסמארטפון — iOS ו-Android. פשוט, מהיר, ומדויק.</div></div>
-      <div class="bt-feat-card reveal rd1"><div class="bt-feat-num">02</div><div class="bt-feat-icon">🏥</div><div class="bt-feat-title">פיתוח מקצועי</div><div class="bt-feat-desc">פותח בשיתוף פיסיותרפיסטים, רופאים וספורטאים עלית — ציוד רפואי מאושר.</div></div>
-      <div class="bt-feat-card reveal rd2"><div class="bt-feat-num">03</div><div class="bt-feat-icon">🔋</div><div class="bt-feat-title">אלחוטי לחלוטין</div><div class="bt-feat-desc">עיצוב קומפקטי וחסר חוטים — מגנטי, קל לשימוש, ניתן לשימוש בכל מקום.</div></div>
-      <div class="bt-feat-card reveal rd3"><div class="bt-feat-num">04</div><div class="bt-feat-icon">🇮🇱</div><div class="bt-feat-title">שירות מקומי</div><div class="bt-feat-desc">תמיכה בעברית, מלאי זמין בישראל, ואחריות יצרן מלאה. AMG — הסמכות המקומית.</div></div>
-    </div>
-  </div>
-
-  <!-- BT BRAND STORY -->
-  <div class="bt-brand-section">
-    <div class="bt-brand-inner">
-      <div class="bt-brand-image reveal">
-        <img src="https://www.bluetens.com/img/cms/Product page - CL2/Bluetens-Classic-2-poignet2.jpg" alt="Bluetens sport" loading="lazy"
-             onerror="this.src='https://www.bluetens.com/img/cms/Product page-DS2/DS2 ENG/(Anglais) (3).jpg'">
+  <div class="sec sec-dark">
+    <div class="two">
+      <div class="pframe" style="border:1px solid rgba(0,102,204,.15);box-shadow:0 0 40px rgba(0,102,204,.1)">
+        <img src="https://www.bluetens.com/img/cms/Product page - CL2/Bluetens-Classic-2-poignet2.jpg" alt="Bluetens lifestyle"
+             onerror="this.src='https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600&auto=format&fit=crop'">
       </div>
-      <div class="bt-brand-text reveal rd1">
-        <span class="section-tag btblue">הסיפור שלנו עם Bluetens</span>
-        <h2 class="section-title">5 שנות <span style="color:#4DA6FF">שותפות</span> מוצלחת</h2>
-        <p>מאז 2019, AMG Sport &amp; Health היא המפיצה הבלעדית הרשמית של Bluetens בישראל. בחרנו ב-Bluetens לאחר מחקר שוק מעמיק — ואנחנו גאים להביא את הטכנולוגיה הצרפתית הזאת לספורטאים ולמטופלים בישראל.</p>
-        <p>בשנים האחרונות בנינו רשת הפצה רחבה — מחדרי כושר ומרפאות פיזיותרפיה ועד בתי מרקחת ומאמנים אישיים. אלפי לקוחות ישראליים נהנים היום מהיתרונות של אלקטרוסטימולציה חכמה.</p>
-        <div class="bt-brand-stats">
-          <div class="bt-brand-stat"><span class="n">5+</span><span class="l">שנות שותפות</span></div>
-          <div class="bt-brand-stat"><span class="n">+100</span><span class="l">תוכניות באפליקציה</span></div>
-          <div class="bt-brand-stat"><span class="n">15</span><span class="l">אזורי גוף</span></div>
-          <div class="bt-brand-stat"><span class="n">🇮🇱</span><span class="l">שירות בעברית</span></div>
+      <div class="rv d1">
+        <span class="tag t-bt">5 שנות שותפות</span>
+        <h2 class="h2">מפיצים <span class="c-bt">בלעדיים</span> מאז 2019</h2>
+        <p class="body" style="margin-top:14px">מאז 2019, AMG היא המפיצה הבלעדית של Bluetens בישראל. בחרנו ב-Bluetens לאחר מחקר שוק מעמיק — וגאים להביא את הטכנולוגיה הצרפתית לאלפי לקוחות ישראליים.</p>
+        <div class="fgrid" style="margin-top:22px">
+          <div class="fbox fb-bt"><div class="fi">🏆</div><div class="ft">5+ שנות הצלחה</div><div class="fd">מפיצים בלעדיים — אמון ארוך טווח</div></div>
+          <div class="fbox fb-bt"><div class="fi">📱</div><div class="ft">+100 תוכניות</div><div class="fd">15 אזורי גוף — כאב, שיקום, חיזוק</div></div>
         </div>
-        <div style="margin-top:28px;display:flex;gap:14px;flex-wrap:wrap">
-          <button class="btn-bt" onclick="document.getElementById('bt-products').scrollIntoView({behavior:'smooth'})">כל המוצרים ⚡</button>
-          <button class="btn-outline" onclick="showPage('home');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),100)">צור קשר</button>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:26px">
+          <a class="btn btn-bt" onclick="document.getElementById('bt-products').scrollIntoView({behavior:'smooth'})">כל המוצרים ⚡</a>
+          <a class="btn btn-ghost" onclick="goHome();sTo('#contact')">צור קשר</a>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-</div><!-- end page-bluetens -->
+<!-- ══════ SHAPEHEART PAGE ══════ -->
+<div id="page-sh" class="page" style="background:var(--bg)">
+  <div class="bhero">
+    <div class="bhero-bg-sh"></div><div class="bhgrid bhgrid-sh"></div>
+    <div class="bhc">
+      <div class="bhp"><span class="bhex" style="background:var(--orange-d)">מפיצים בלעדיים בישראל</span><span class="bhsub">AMG Sport &amp; Health</span></div>
+      <h1 class="bhh1"><span class="c-orange">Shapeheart</span><br>ישראל</h1>
+      <p class="lead" style="margin-bottom:14px">MAGNETIC PHONE HOLDER | RUNNING & CYCLING</p>
+      <p class="body" style="max-width:460px;margin-bottom:26px">ממציאי מערכת ההחזקה המגנטית לטלפון בספורט — לרצים ולרוכבים. מגנט 8 ק"ג, פוצ'ה נשלפת, גישה בשנייה.</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap">
+        <a class="btn btn-sh" onclick="document.getElementById('sh-products').scrollIntoView({behavior:'smooth'})">כל המוצרים ↓</a>
+        <a class="btn btn-ghost-sh" onclick="goHome();sTo('#contact')">צור קשר</a>
+      </div>
+      <div class="bhmodes" style="margin-top:20px">
+        <div class="bhmode" style="border-color:rgba(229,91,0,.2)"><div class="bhmode-dot" style="background:var(--orange);box-shadow:0 0 8px rgba(255,122,42,.6)"></div><div><h5>RUNNING 🏃</h5><p>בראסרד + חגורה מגנטית</p></div></div>
+        <div class="bhmode" style="border-color:rgba(229,91,0,.2)"><div class="bhmode-dot" style="background:#FFB347;box-shadow:0 0 8px rgba(255,179,71,.6)"></div><div><h5>CYCLING 🚴</h5><p>מחזיק כידון + פנסים</p></div></div>
+      </div>
+    </div>
+    <div class="bhimg sh-style" style="border:1px solid rgba(229,91,0,.2);box-shadow:0 0 50px rgba(229,91,0,.2)">
+      <img src="https://shapeheart.com/cdn/shop/files/brassard-sport-magnetique-running-shapeheart.jpg?width=600" alt="Shapeheart armband"
+           onerror="this.src='https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=700&auto=format&fit=crop'">
+    </div>
+  </div>
 
+  <!-- RUNNING -->
+  <div id="sh-products" style="padding:50px var(--pad) 0;background:var(--dark)" class="rv">
+    <span class="tag t-orange">המוצרים</span><h2 class="h2">מוצרי <span class="c-orange">Shapeheart</span></h2>
+  </div>
+  <div style="padding:16px var(--pad) 4px;background:var(--dark)">
+    <span class="catsep" style="color:var(--orange);border-color:var(--orange-d)">🏃 RUNNING — לרצים</span>
+  </div>
+  <div class="pgrid" style="padding:12px var(--pad) 40px;background:var(--dark)">
+    <div class="pcard rv" style="border-color:rgba(229,91,0,.08)">
+      <div class="pimg"><img src="https://shapeheart.com/cdn/shop/files/brassard-sport-magnetique-running-shapeheart.jpg?width=600" alt="Sports Armband" onerror="this.src='https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=500&auto=format&fit=crop'"><span class="pbadge" style="background:var(--orange-d)">בראסרד ריצה</span></div>
+      <div class="pinfo">
+        <div class="pname" style="color:var(--orange)">Sports Armband</div>
+        <div class="ptag">הבראסרד המגנטי הראשון בעולם — גישה בתנועה אחת</div>
+        <ul class="pfeats"><li>פוצ'ה מגנטית נשלפת — "קלאפ" ו"סנאפ"</li><li>לא מחליק | לא לוחץ | מחזיק שנים</li><li>עמיד גשם | מסך מגע פעיל</li><li>מתאים לזרועות 20–40 ס"מ</li><li>3 מידות: M / XL / 2XL</li></ul>
+        <div class="pcta" style="border-color:rgba(229,91,0,.15)"><a class="plink" style="color:var(--orange)" href="https://en.shapeheart.com/products/magnetic-armband" target="_blank">← באתר Shapeheart</a><a class="btn btn-sh" style="padding:10px 22px;font-size:1rem" onclick="goHome();sTo('#contact')">הזמן מאיתנו</a></div>
+      </div>
+    </div>
+    <div class="pcard rv d1" style="border-color:rgba(229,91,0,.08)">
+      <div class="pimg"><img src="https://shapeheart.com/cdn/shop/files/ceinture-sport-magnetique-running-shapeheart.jpg?width=600" alt="Sports Belt" onerror="this.src='https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&auto=format&fit=crop'"><span class="pbadge" style="background:var(--orange-d)">חגורת ריצה</span></div>
+      <div class="pinfo">
+        <div class="pname" style="color:var(--orange)">Sports Belt</div>
+        <div class="ptag">חגורת הריצה היחידה עם פוצ'ה מגנטית — 3 כיסים + תא לבקבוק</div>
+        <ul class="pfeats"><li>פוצ'ה מגנטית לטלפון — גישה מיידית</li><li>3 כיסים: כרטיסים, מפתחות, ג'לים</li><li>אנטי-קפיצה | אנטי-עיבוי</li><li>יוניסקס — XXS עד XL</li><li>תואם לבקבוק Shapeheart</li></ul>
+        <div class="pcta" style="border-color:rgba(229,91,0,.15)"><a class="plink" style="color:var(--orange)" href="https://en.shapeheart.com/products/magnetic-sports-belt" target="_blank">← באתר Shapeheart</a><a class="btn btn-sh" style="padding:10px 22px;font-size:1rem" onclick="goHome();sTo('#contact')">הזמן מאיתנו</a></div>
+      </div>
+    </div>
+    <div class="pcard rv d2" style="border-color:rgba(229,91,0,.08)">
+      <div class="pimg"><img src="https://shapeheart.com/cdn/shop/files/pochette-magnetique-detachable-shapeheart.jpg?width=600" alt="Sleeve and Plate" onerror="this.src='https://images.unsplash.com/photo-1595152772835-219674b2a163?w=500&auto=format&fit=crop'"><span class="pbadge" style="background:var(--orange-d)">פוצ'ה + פלטה</span></div>
+      <div class="pinfo">
+        <div class="pname" style="color:var(--orange)">Sleeve & Steel Plate</div>
+        <div class="ptag">הפוצ'ה המגנטית ופלטת הפלדה — תואמות לכל מוצרי Shapeheart</div>
+        <ul class="pfeats"><li>פוצ'ה: תואמת בראסרד, חגורה ומחזיקי כידון</li><li>פלטת פלדה: ישירות על הנייד, בלי פוצ'ה</li><li>3 מידות: M / XL / 2XL</li><li>עמידת גשם | מסך מגע</li><li>ניתן לרכוש בנפרד כחלף</li></ul>
+        <div class="pcta" style="border-color:rgba(229,91,0,.15)"><a class="plink" style="color:var(--orange)" href="https://en.shapeheart.com/products/sleeve-for-armband-and-belt" target="_blank">← באתר Shapeheart</a><a class="btn btn-sh" style="padding:10px 22px;font-size:1rem" onclick="goHome();sTo('#contact')">הזמן מאיתנו</a></div>
+      </div>
+    </div>
+  </div>
 
-<!-- FOOTER (shared) -->
+  <!-- CYCLING -->
+  <div style="padding:16px var(--pad) 4px;background:var(--dark2)">
+    <span class="catsep" style="color:#FFB347;border-color:#CC8800">🚴 CYCLING — לרוכבים</span>
+  </div>
+  <div class="pgrid" style="padding:12px var(--pad) 40px;background:var(--dark2)">
+    <div class="pcard rv" style="border-color:rgba(255,179,71,.08)">
+      <div class="pimg"><img src="https://shapeheart.com/cdn/shop/files/support-velo-guidon-shapeheart.jpg?width=600" alt="Bike Handlebar Mount" onerror="this.src='https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=500&auto=format&fit=crop'"><span class="pbadge" style="background:#CC8800">מחזיק כידון</span></div>
+      <div class="pinfo">
+        <div class="pname" style="color:#FFB347">Bike Handlebar Mount</div>
+        <div class="ptag">GPS תמיד מול העיניים — חיבור מגנטי מיידי, ניתוק בשנייה</div>
+        <ul class="pfeats"><li>מגנט עד 8 ק"ג — לא זז על אבנים</li><li>360° סיבוב | התקנה תוך שניות</li><li>תואם כל קטרי כידון</li><li>עמיד גשם | מסך מגע פעיל</li><li>פוצ'ה מגנטית נשלפת כלולה</li></ul>
+        <div class="pcta" style="border-color:rgba(255,179,71,.15)"><a class="plink" style="color:#FFB347" href="https://en.shapeheart.com/products/bike-phone-mount" target="_blank">← באתר Shapeheart</a><a class="btn btn-sh" style="padding:10px 22px;font-size:1rem;background:#CC8800" onclick="goHome();sTo('#contact')">הזמן מאיתנו</a></div>
+      </div>
+    </div>
+    <div class="pcard rv d1" style="border-color:rgba(255,179,71,.08)">
+      <div class="pimg"><img src="https://shapeheart.com/cdn/shop/files/lumieres-magnetiques-velo-shapeheart.jpg?width=600" alt="Magnetic Bike Lights" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&auto=format&fit=crop'"><span class="pbadge" style="background:#CC8800">פנסים מגנטיים</span></div>
+      <div class="pinfo">
+        <div class="pname" style="color:#FFB347">Magnetic Bike Lights</div>
+        <div class="ptag">פנסים מגנטיים קדמי + אחורי — התקנה בשנייה, אנטי-גנבה</div>
+        <ul class="pfeats"><li>300° תאורה פנורמית LED</li><li>מגנטי — מנתקים לטעינה ולאבטחה</li><li>קדמי + אחורי | עמיד מזג אוויר</li><li>מתאים לכל האופניים</li><li>מטעין USB-C | קל ואולטרה-קומפקטי</li></ul>
+        <div class="pcta" style="border-color:rgba(255,179,71,.15)"><a class="plink" style="color:#FFB347" href="https://en.shapeheart.com/products/magnetic-lights-bike" target="_blank">← באתר Shapeheart</a><a class="btn btn-sh" style="padding:10px 22px;font-size:1rem;background:#CC8800" onclick="goHome();sTo('#contact')">הזמן מאיתנו</a></div>
+      </div>
+    </div>
+    <div class="pcard rv d2" style="border-color:rgba(255,179,71,.08);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 28px;background:rgba(255,179,71,.03)">
+      <div style="font-size:3rem;margin-bottom:16px">🧲</div>
+      <div style="font-size:1.2rem;font-weight:700;color:#FFB347;margin-bottom:10px">מערכת מגנטית אחת</div>
+      <p class="body" style="font-size:1rem">הפוצ'ה עובדת עם כל מוצרי Shapeheart — בראסרד, חגורה, כידון. מוצר אחד, שימושים אינסופיים.</p>
+      <div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+        <span style="font-size:.88rem;letter-spacing:2px;color:#FFB347;border:1px solid rgba(255,179,71,.3);padding:4px 12px">PATENTED</span>
+        <span style="font-size:.88rem;letter-spacing:2px;color:#FFB347;border:1px solid rgba(255,179,71,.3);padding:4px 12px">FRENCH DESIGN</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SH FEATURES -->
+  <div class="sec-sm" style="background:var(--bg)">
+    <div style="padding:0 var(--pad) 20px;text-align:center" class="rv"><span class="tag t-orange">למה Shapeheart?</span><h2 class="h2">הפטנט ה<span class="c-orange">צרפתי</span></h2></div>
+    <div class="f4grid" style="padding:0 var(--pad) 50px">
+      <div class="f4card fc-sh rv"><div class="f4num" style="color:rgba(229,91,0,.06)">01</div><div class="f4ico">🧲</div><div class="f4t" style="color:var(--orange)">מגנט פטנט</div><div class="f4d">הראשון בעולם — עמיד 8 ק"ג, לא זז. לא משפיע על הטלפון.</div></div>
+      <div class="f4card fc-sh rv d1"><div class="f4num" style="color:rgba(229,91,0,.06)">02</div><div class="f4ico">📱</div><div class="f4t" style="color:var(--orange)">אוניברסלי</div><div class="f4d">פוצ'ה אחת לכל הסמארטפונים — עם כיסוי מגן. שלושה גדלים.</div></div>
+      <div class="f4card fc-sh rv d2"><div class="f4num" style="color:rgba(229,91,0,.06)">03</div><div class="f4ico">💧</div><div class="f4t" style="color:var(--orange)">עמיד גשם</div><div class="f4d">מסך מגע פעיל בגשם — ריצה ורכיבה בכל מזג אוויר.</div></div>
+      <div class="f4card fc-sh rv d3"><div class="f4num" style="color:rgba(229,91,0,.06)">04</div><div class="f4ico">🇮🇱</div><div class="f4t" style="color:var(--orange)">שירות ישראלי</div><div class="f4d">תמיכה בעברית, מלאי בישראל, אחריות מלאה. AMG — הסמכות.</div></div>
+    </div>
+  </div>
+
+  <!-- SH STRIP + CTA -->
+  <div class="shstrip">
+    <div class="shsc shr">
+      <img src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&auto=format&fit=crop" alt="running"
+           onerror="this.src='https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&auto=format&fit=crop'">
+      <span class="shlbl" style="color:var(--orange);border-color:rgba(229,91,0,.4)">RUNNING</span>
+    </div>
+    <div class="shsc shb">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&auto=format&fit=crop" alt="cycling"
+           onerror="this.src='https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800&auto=format&fit=crop'">
+      <span class="shlbl" style="color:#FFB347;border-color:rgba(255,179,71,.4)">CYCLING</span>
+    </div>
+  </div>
+
+  <div class="sec-sm sec-dark" style="text-align:center">
+    <div class="rv">
+      <span class="tag t-orange" style="display:block;margin-bottom:14px">מעוניינים בהפצה?</span>
+      <h2 class="h2" style="margin-bottom:14px">הצטרפו לרשת <span class="c-orange">Shapeheart</span> בישראל</h2>
+      <p class="body" style="max-width:440px;margin:0 auto 26px">חנויות אופניים, מרכזי ריצה, חנויות ספורט — פנו אלינו לתנאים מיוחדים</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+        <a class="btn btn-sh" onclick="goHome();sTo('#contact')">צור קשר עכשיו 🧲</a>
+        <a class="btn btn-ghost-sh" onclick="goHome()">חזרה לעמוד הבית</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
 <footer>
-  <div class="footer-logo" onclick="showPage('home')" style="cursor:pointer">AMG Sport &amp; Health ⚡</div>
-  <div class="footer-links">
-    <a onclick="showPage('home');scrollTo('#about')">אודות</a>
-    <a onclick="showPage('home');scrollTo('#brands')">מותגים</a>
-    <a onclick="showPage('bluetens')">Bluetens</a>
-    <a onclick="showPage('home');scrollTo('#contact')">צור קשר</a>
+  <div class="flogo" onclick="goHome()">AMG Sport &amp; Health ⚡</div>
+  <div class="flinks">
+    <a onclick="goHome();sTo('#about')">אודות</a>
+    <a onclick="goHome();sTo('#brands')">מותגים</a>
+    <a onclick="sp('bt')">Bluetens</a>
+    <a onclick="sp('sh')">Shapeheart</a>
+    <a onclick="goHome();sTo('#contact')">צור קשר</a>
   </div>
-  <div class="footer-copy">© 2025 AMG Sport &amp; Health | adzonemediagroup.com</div>
+  <div class="fcopy">© 2025 AMG Sport &amp; Health | adzonemediagroup.com</div>
 </footer>
 
 <script>
-  // Page system
-  function showPage(name) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-' + name).classList.add('active');
-    window.scrollTo({top:0, behavior:'smooth'});
-    // re-trigger reveal for new page
-    setTimeout(triggerReveal, 100);
-  }
-
-  function scrollTo(id) {
-    setTimeout(() => {
-      const el = document.querySelector(id);
-      if (el) el.scrollIntoView({behavior:'smooth'});
-    }, 50);
-  }
-
-  // Nav scroll
-  const nav = document.getElementById('mainNav');
-  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); });
-
-  // Reveal on scroll
-  function triggerReveal() {
-    const els = document.querySelectorAll('.page.active .reveal');
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }});
-    }, {threshold:.08});
-    els.forEach(el => { el.classList.remove('visible'); io.observe(el); });
-  }
-  triggerReveal();
-
-  // Counter animation
-  function animateNum(el) {
-    const target = parseInt(el.dataset.target);
-    const suffix = el.dataset.suffix || '';
-    if (!target) return;
-    let cur = 0; const step = target / 60;
-    const t = setInterval(() => {
-      cur = Math.min(cur + step, target);
-      el.textContent = (suffix === '+' ? '+' : '') + Math.floor(cur) + (suffix !== '+' ? suffix : '');
-      if (cur >= target) clearInterval(t);
-    }, 16);
-  }
-  const so = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) { document.querySelectorAll('.stat-num[data-target]').forEach(animateNum); so.disconnect(); }
-  });
-  const sb = document.getElementById('statsBar');
-  if (sb) so.observe(sb);
+function sp(n){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+n).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});setTimeout(initRv,80)}
+function goHome(){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-home').classList.add('active');window.scrollTo({top:0,behavior:'smooth'});setTimeout(initRv,80)}
+function sTo(id){setTimeout(()=>{const el=document.querySelector(id);if(el)el.scrollIntoView({behavior:'smooth'})},60)}
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>50));
+function toggleM(){document.getElementById('ham').classList.toggle('open');document.getElementById('mm').classList.toggle('open');document.body.style.overflow=document.getElementById('mm').classList.contains('open')?'hidden':''}
+function closeM(){document.getElementById('ham').classList.remove('open');document.getElementById('mm').classList.remove('open');document.body.style.overflow=''}
+function initRv(){const els=document.querySelectorAll('.page.active .rv');const io=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08});els.forEach(el=>{el.classList.remove('in');io.observe(el)})}
+initRv();
+function animC(el){const t=parseInt(el.dataset.t),s=el.dataset.s||'';if(!t)return;let c=0;const st=t/55;const iv=setInterval(()=>{c=Math.min(c+st,t);el.textContent=(s==='+'?'+':'')+Math.floor(c)+(s==='+'?'':s);if(c>=t)clearInterval(iv)},16)}
+const so=new IntersectionObserver((en)=>{if(en[0].isIntersecting){document.querySelectorAll('.sn[data-t]').forEach(animC);so.disconnect()}});
+const sb=document.getElementById('statsBar');if(sb)so.observe(sb);
 </script>
-
-<!-- ════════════════════════════════════
-     PAGE: SHAPEHEART
-════════════════════════════════════ -->
-<div id="page-shapeheart" class="page bt-page" style="background:var(--black)">
-
-  <div class="bt-hero" style="background:radial-gradient(ellipse 60% 80% at 20% 50%,rgba(229,91,0,.12) 0%,transparent 65%),radial-gradient(ellipse 40% 60% at 80% 20%,rgba(255,107,0,.07) 0%,transparent 60%),#060608">
-    <div class="bt-hero-grid" style="background-image:linear-gradient(rgba(229,91,0,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(229,91,0,.05) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 90% at 30% 50%,black 20%,transparent 80%)"></div>
-    <div class="bt-hero-inner">
-      <div>
-        <div class="bt-logo-area">
-          <div class="bt-logo-badge" style="background:#E55B00">מפיצים בלעדיים בישראל</div>
-          <span class="bt-partner-text">AMG Sport &amp; Health</span>
-        </div>
-        <h1 style="font-size:clamp(2.8rem,5vw,5rem);font-weight:900;letter-spacing:-2px;line-height:.95;margin-bottom:16px;color:#F0F4FF">
-          <span style="color:#FF7A2A;text-shadow:0 0 24px rgba(229,91,0,.5)">Shapeheart</span><br>ישראל
-        </h1>
-        <p class="bt-hero-sub">MAGNETIC PHONE HOLDER | RUNNING & CYCLING</p>
-        <p class="bt-hero-desc">ממציאי מערכת ההחזקה המגנטית לטלפון בספורט — הפתרון הצרפתי החכם לרצים ורוכבים. פוצ'ה מגנטית נשלפת, מחזיק חזק, גישה לטלפון בשנייה.</p>
-        <div class="bt-hero-ctas">
-          <a href="#sh-products" class="btn-bt" style="background:#E55B00;box-shadow:0 0 20px rgba(229,91,0,.3);font-family:Heebo,sans-serif" onclick="document.getElementById('sh-products').scrollIntoView({behavior:'smooth'})">כל המוצרים ↓</a>
-          <button class="btn-outline" style="border-color:rgba(229,91,0,.4);color:#FF7A2A;font-family:Heebo,sans-serif" onclick="showPage('home');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),100)">צור קשר</button>
-        </div>
-        <div class="bt-modes" style="margin-top:24px">
-          <div class="bt-mode" style="border-color:rgba(229,91,0,.2)">
-            <div class="bt-mode-dot" style="background:#FF7A2A;box-shadow:0 0 8px rgba(255,122,42,.6)"></div>
-            <div class="bt-mode-text"><h5 style="color:#F0F4FF">RUNNING 🏃</h5><p>בראסרד + חגורה — לרצים</p></div>
-          </div>
-          <div class="bt-mode" style="border-color:rgba(229,91,0,.2)">
-            <div class="bt-mode-dot" style="background:#FFB347;box-shadow:0 0 8px rgba(255,179,71,.6)"></div>
-            <div class="bt-mode-text"><h5 style="color:#F0F4FF">CYCLING 🚴</h5><p>מחזיק לכידון — לרוכבים</p></div>
-          </div>
-        </div>
-      </div>
-      <div class="bt-hero-image">
-        <div class="bt-hero-image-main" style="border-color:rgba(229,91,0,.25);box-shadow:0 0 50px rgba(229,91,0,.2)">
-          <img src="https://en.shapeheart.com/cdn/shop/files/shapeheart-brassard-running-magnetic-1.jpg"
-               alt="Shapeheart Sports Armband running"
-               loading="eager"
-               onerror="this.src='https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=700&auto=format&fit=crop'">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SH PRODUCTS -->
-  <div class="bt-products-section" id="sh-products" style="background:#060608">
-    <div class="reveal">
-      <span class="section-tag" style="color:#FF7A2A">המוצרים שלנו</span>
-      <h2 class="section-title" style="color:#F0F4FF">מוצרי <span style="color:#FF7A2A">Shapeheart</span> בישראל</h2>
-      <p style="color:var(--gray);margin-top:10px;font-size:1rem">Running & Cycling — שתי קטגוריות, מערכת מגנטית אחת</p>
-    </div>
-
-    <!-- RUNNING CATEGORY -->
-    <div style="margin-top:50px;margin-bottom:16px">
-      <span style="display:inline-block;font-size:.7rem;letter-spacing:4px;font-weight:900;color:#FF7A2A;border-bottom:2px solid #E55B00;padding-bottom:6px">🏃 RUNNING — לרצים</span>
-    </div>
-    <div class="bt-products-grid">
-
-      <!-- Running Armband -->
-      <div class="bt-product-card reveal" style="border-color:rgba(229,91,0,.08)">
-        <div class="bt-product-img" style="background:#0e0e12">
-          <img src="https://shapeheart.fr/cdn/shop/files/Brassard-Sport-Magnetique-Running-Shapeheart.jpg?v=1738756804&width=600"
-               alt="Shapeheart Brassard Sport"
-               loading="lazy"
-               onerror="this.src='https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=500&auto=format&fit=crop'">
-          <span class="bt-product-badge" style="background:#E55B00">בראסרד ריצה</span>
-        </div>
-        <div class="bt-product-info">
-          <div class="bt-product-name" style="color:#FF7A2A">Sports Armband</div>
-          <div class="bt-product-tagline">הבראסרד המגנטי הראשון בעולם — גישה לטלפון בתנועה אחת, בלי לעצור</div>
-          <ul class="bt-features-list">
-            <li>פוצ'ה מגנטית נשלפת — "קלאפ" ו"סנאפ"</li>
-            <li>לא מחליק | לא לוחץ | מחזיק שנים</li>
-            <li>עמיד גשם | מסך מגע פעיל</li>
-            <li>מתאים לזרועות 20–40 ס"מ</li>
-            <li>3 מידות: M / XL / 2XL</li>
-          </ul>
-          <div class="bt-product-cta" style="border-color:rgba(229,91,0,.15)">
-            <a href="https://en.shapeheart.com/products/magnetic-armband" target="_blank" style="font-size:.72rem;color:#FF7A2A;letter-spacing:1px;text-decoration:none">← ראו באתר Shapeheart</a>
-            <button class="btn-bt" style="background:#E55B00;padding:8px 20px;font-size:.82rem;font-family:Heebo,sans-serif" onclick="showPage('home');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),100)">הזמן מאיתנו</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Running Belt -->
-      <div class="bt-product-card reveal rd1" style="border-color:rgba(229,91,0,.08)">
-        <div class="bt-product-img" style="background:#0e0e12">
-          <img src="https://shapeheart.fr/cdn/shop/files/Ceinture-Sport-Magnetique-Running-Shapeheart.jpg?v=1738756804&width=600"
-               alt="Shapeheart Sports Belt"
-               loading="lazy"
-               onerror="this.src='https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&auto=format&fit=crop'">
-          <span class="bt-product-badge" style="background:#E55B00">חגורת ריצה</span>
-        </div>
-        <div class="bt-product-info">
-          <div class="bt-product-name" style="color:#FF7A2A">Sports Belt</div>
-          <div class="bt-product-tagline">חגורת הריצה היחידה עם פוצ'ה מגנטית — 3 כיסים + תא לבקבוק</div>
-          <ul class="bt-features-list">
-            <li>פוצ'ה מגנטית לטלפון בגישה מיידית</li>
-            <li>3 כיסים: כרטיסים, מפתחות, ג'לים</li>
-            <li>אנטי-קפיצה | אנטי-עיבוי</li>
-            <li>יוניסקס — כל המידות XXS–XL</li>
-            <li>תואם גם לבקבוק Shapeheart</li>
-          </ul>
-          <div class="bt-product-cta" style="border-color:rgba(229,91,0,.15)">
-            <a href="https://en.shapeheart.com/products/magnetic-sports-belt" target="_blank" style="font-size:.72rem;color:#FF7A2A;letter-spacing:1px;text-decoration:none">← ראו באתר Shapeheart</a>
-            <button class="btn-bt" style="background:#E55B00;padding:8px 20px;font-size:.82rem;font-family:Heebo,sans-serif" onclick="showPage('home');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),100)">הזמן מאיתנו</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Dummy 3rd for grid balance -->
-      <div class="bt-product-card reveal rd2" style="border-color:rgba(229,91,0,.08);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px;text-align:center;background:rgba(229,91,0,.03)">
-        <div style="font-size:3rem;margin-bottom:20px">🧲</div>
-        <div style="font-size:1rem;font-weight:700;color:#FF7A2A;margin-bottom:10px">מערכת מגנטית אחת</div>
-        <p style="font-size:.85rem;color:var(--gray);line-height:1.7">הפוצ'ה המגנטית עובדת עם הבראסרד, החגורה ועם כל מחזיקי Shapeheart — מוצר אחד, שימושים אינסופיים</p>
-        <div style="margin-top:24px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center">
-          <span style="font-size:.7rem;letter-spacing:2px;color:#FF7A2A;border:1px solid rgba(229,91,0,.3);padding:4px 12px">PATENTED</span>
-          <span style="font-size:.7rem;letter-spacing:2px;color:#FF7A2A;border:1px solid rgba(229,91,0,.3);padding:4px 12px">FRENCH DESIGN</span>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- CYCLING CATEGORY -->
-    <div style="margin-top:50px;margin-bottom:16px">
-      <span style="display:inline-block;font-size:.7rem;letter-spacing:4px;font-weight:900;color:#FFB347;border-bottom:2px solid #FFB347;padding-bottom:6px">🚴 CYCLING — לרוכבים</span>
-    </div>
-    <div class="bt-products-grid">
-
-      <!-- Bike Handlebar Mount -->
-      <div class="bt-product-card reveal" style="border-color:rgba(255,179,71,.08)">
-        <div class="bt-product-img" style="background:#0e0e12">
-          <img src="https://shapeheart.fr/cdn/shop/files/Support-Velo-Guidon-Shapeheart.jpg?v=1702021932&width=600"
-               alt="Shapeheart Bike Phone Mount"
-               loading="lazy"
-               onerror="this.src='https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=500&auto=format&fit=crop'">
-          <span class="bt-product-badge" style="background:#CC8800">מחזיק לכידון</span>
-        </div>
-        <div class="bt-product-info">
-          <div class="bt-product-name" style="color:#FFB347">Bike Phone Mount</div>
-          <div class="bt-product-tagline">מחזיק טלפון לכידון האופניים — חיבור מגנטי, ניתוק בשנייה, GPS תמיד מול העיניים</div>
-          <ul class="bt-features-list">
-            <li>מגנט עד 8 ק"ג — לא זז על אבנים ומדרכות</li>
-            <li>360° סיבוב | התקנה תוך שניות</li>
-            <li>תואם לכל קטרי הכידון</li>
-            <li>עמיד גשם | מסך מגע פעיל</li>
-            <li>פוצ'ה מגנטית נשלפת — כלולה</li>
-          </ul>
-          <div class="bt-product-cta" style="border-color:rgba(255,179,71,.15)">
-            <a href="https://en.shapeheart.com/products/bike-phone-mount" target="_blank" style="font-size:.72rem;color:#FFB347;letter-spacing:1px;text-decoration:none">← ראו באתר Shapeheart</a>
-            <button class="btn-bt" style="background:#CC8800;padding:8px 20px;font-size:.82rem;font-family:Heebo,sans-serif" onclick="showPage('home');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),100)">הזמן מאיתנו</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Bike Stem Mount -->
-      <div class="bt-product-card reveal rd1" style="border-color:rgba(255,179,71,.08)">
-        <div class="bt-product-img" style="background:#0e0e12">
-          <img src="https://shapeheart.fr/cdn/shop/files/Support-Velo-Potence-Shapeheart.jpg?v=1702021932&width=600"
-               alt="Shapeheart Bike Stem Mount"
-               loading="lazy"
-               onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&auto=format&fit=crop'">
-          <span class="bt-product-badge" style="background:#CC8800">מחזיק לפוטנס</span>
-        </div>
-        <div class="bt-product-info">
-          <div class="bt-product-name" style="color:#FFB347">Stem Phone Mount</div>
-          <div class="bt-product-tagline">מחזיק טלפון לפוטנס האופניים — מיקום נמוך ומרכזי, אחיזה מגנטית חזקה</div>
-          <ul class="bt-features-list">
-            <li>מיקום אופטימלי — מול הרוכב ישירות</li>
-            <li>בורג קבוע — יציבות מקסימלית</li>
-            <li>תואם לפוטנסים 20–50 מ"מ</li>
-            <li>עמיד גשם | מסך מגע פעיל</li>
-            <li>פוצ'ה מגנטית נשלפת — כלולה</li>
-          </ul>
-          <div class="bt-product-cta" style="border-color:rgba(255,179,71,.15)">
-            <a href="https://en.shapeheart.com/products/bike-phone-mount" target="_blank" style="font-size:.72rem;color:#FFB347;letter-spacing:1px;text-decoration:none">← ראו באתר Shapeheart</a>
-            <button class="btn-bt" style="background:#CC8800;padding:8px 20px;font-size:.82rem;font-family:Heebo,sans-serif" onclick="showPage('home');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),100)">הזמן מאיתנו</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Sleeve / Accessory -->
-      <div class="bt-product-card reveal rd2" style="border-color:rgba(255,179,71,.08)">
-        <div class="bt-product-img" style="background:#0e0e12">
-          <img src="https://shapeheart.fr/cdn/shop/files/Pochette-magnetique-Shapeheart.jpg?v=1698755505&width=600"
-               alt="Shapeheart Magnetic Sleeve"
-               loading="lazy"
-               onerror="this.src='https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=500&auto=format&fit=crop'">
-          <span class="bt-product-badge" style="background:#CC8800">פוצ'ה מגנטית</span>
-        </div>
-        <div class="bt-product-info">
-          <div class="bt-product-name" style="color:#FFB347">Replacement Sleeve</div>
-          <div class="bt-product-tagline">הפוצ'ה המגנטית — תואמת לכל מוצרי Shapeheart: בראסרד, חגורה ומחזיקי כידון</div>
-          <ul class="bt-features-list">
-            <li>תואמת לכל מוצרי Shapeheart</li>
-            <li>3 מידות: M / XL / 2XL</li>
-            <li>עמידת גשם | מסך מגע</li>
-            <li>אוניברסלית — כל הסמארטפונים</li>
-            <li>ניתן לרכוש בנפרד כחלף</li>
-          </ul>
-          <div class="bt-product-cta" style="border-color:rgba(255,179,71,.15)">
-            <a href="https://en.shapeheart.com/products/sleeve-for-armband-and-belt" target="_blank" style="font-size:.72rem;color:#FFB347;letter-spacing:1px;text-decoration:none">← ראו באתר Shapeheart</a>
-            <button class="btn-bt" style="background:#CC8800;padding:8px 20px;font-size:.82rem;font-family:Heebo,sans-serif" onclick="showPage('home');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),100)">הזמן מאיתנו</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- SH WHY -->
-  <div class="bt-features-section" style="background:var(--dark)">
-    <div class="reveal" style="text-align:center">
-      <span class="section-tag" style="color:#FF7A2A">למה Shapeheart?</span>
-      <h2 class="section-title" style="color:#F0F4FF">הפטנט ה<span style="color:#FF7A2A">צרפתי</span> שמשנה את הכללים</h2>
-    </div>
-    <div class="bt-features-grid">
-      <div class="bt-feat-card reveal">
-        <div class="bt-feat-num" style="color:rgba(229,91,0,.06)">01</div>
-        <div class="bt-feat-icon">🧲</div>
-        <div class="bt-feat-title" style="color:#FF7A2A">מגנט בלעדי</div>
-        <div class="bt-feat-desc" style="color:var(--gray)">הראשון בעולם — עמיד ל-8 ק"ג. מוגן עם שתי פלטות ברזל שלא משפיעות על הטלפון.</div>
-      </div>
-      <div class="bt-feat-card reveal rd1">
-        <div class="bt-feat-num" style="color:rgba(229,91,0,.06)">02</div>
-        <div class="bt-feat-icon">📱</div>
-        <div class="bt-feat-title" style="color:#FF7A2A">אוניברסלי</div>
-        <div class="bt-feat-desc" style="color:var(--gray)">פוצ'ה אחת = כל הסמארטפונים, כל הדגמים — עם כיסוי מגן או בלי.</div>
-      </div>
-      <div class="bt-feat-card reveal rd2">
-        <div class="bt-feat-num" style="color:rgba(229,91,0,.06)">03</div>
-        <div class="bt-feat-icon">💧</div>
-        <div class="bt-feat-title" style="color:#FF7A2A">עמיד גשם</div>
-        <div class="bt-feat-desc" style="color:var(--gray)">מסך מגע פעיל גם בגשם — ריצה ורכיבה בכל מזג אוויר בלי דאגה.</div>
-      </div>
-      <div class="bt-feat-card reveal rd3">
-        <div class="bt-feat-num" style="color:rgba(229,91,0,.06)">04</div>
-        <div class="bt-feat-icon">🇮🇱</div>
-        <div class="bt-feat-title" style="color:#FF7A2A">שירות ישראלי</div>
-        <div class="bt-feat-desc" style="color:var(--gray)">תמיכה בעברית, מלאי בישראל, אחריות מלאה. AMG — הסמכות הרשמית.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SH BRAND STRIP — running + cycling photos -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;height:320px;background:#060608">
-    <div style="overflow:hidden;position:relative">
-      <img src="https://shapeheart.fr/cdn/shop/files/Brassard-Sport-Magnetique-Running-Shapeheart-Lifestyle.jpg?v=1738756804&width=800"
-           alt="Shapeheart running lifestyle"
-           style="width:100%;height:100%;object-fit:cover;filter:saturate(.8)"
-           onerror="this.src='https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&auto=format&fit=crop'">
-      <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(229,91,0,.15),transparent 60%);mix-blend-mode:screen"></div>
-      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(6,6,8,.7) 0%,transparent 50%)"></div>
-      <span style="position:absolute;bottom:20px;right:20px;font-size:.65rem;letter-spacing:3px;font-weight:700;color:#FF7A2A;border:1px solid rgba(229,91,0,.4);padding:4px 10px">RUNNING</span>
-    </div>
-    <div style="overflow:hidden;position:relative">
-      <img src="https://shapeheart.fr/cdn/shop/files/Support-Velo-Guidon-Shapeheart-Lifestyle.jpg?v=1702021932&width=800"
-           alt="Shapeheart cycling lifestyle"
-           style="width:100%;height:100%;object-fit:cover;filter:saturate(.8)"
-           onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&auto=format&fit=crop'">
-      <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,179,71,.12),transparent 60%);mix-blend-mode:screen"></div>
-      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(6,6,8,.7) 0%,transparent 50%)"></div>
-      <span style="position:absolute;bottom:20px;right:20px;font-size:.65rem;letter-spacing:3px;font-weight:700;color:#FFB347;border:1px solid rgba(255,179,71,.4);padding:4px 10px">CYCLING</span>
-    </div>
-  </div>
-
-  <!-- CTA FOOTER -->
-  <div style="padding:60px;background:#060608;text-align:center" class="reveal">
-    <span class="section-tag btblue" style="color:#FF7A2A;display:block;margin-bottom:16px">מעוניינים בהפצה?</span>
-    <h2 style="font-size:2rem;font-weight:900;letter-spacing:-1px;margin-bottom:16px;color:#F0F4FF">
-      הצטרפו לרשת המפיצים של <span style="color:#FF7A2A">Shapeheart</span> בישראל
-    </h2>
-    <p style="color:var(--gray);margin-bottom:32px;font-size:1rem">חנויות אופניים, מרכזי ריצה, חנויות ספורט — פנו אלינו לתנאים מיוחדים</p>
-    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
-      <button class="btn-bt" style="background:#E55B00;box-shadow:0 0 20px rgba(229,91,0,.3);font-family:Heebo,sans-serif" onclick="showPage('home');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),100)">צור קשר עכשיו</button>
-      <button class="btn-outline" style="border-color:rgba(229,91,0,.4);color:#FF7A2A;font-family:Heebo,sans-serif" onclick="showPage('home')">חזרה לעמוד הבית</button>
-    </div>
-  </div>
-
-</div><!-- end page-shapeheart -->
-
 </body>
 </html>
